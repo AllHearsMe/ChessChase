@@ -8,11 +8,12 @@ public class Field implements IRenderable
 	private double x, y;
 	private double width, height;
 
-	private List<Entity> entities;
+	private List<Enemy<?>> enemies;
+	private Player player;
 	
 	public Field()
 	{
-		entities = new ArrayList<>();
+		enemies = new ArrayList<>();
 		this.x = this.y = 0;
 		//TODO initialize width and height
 	}
@@ -36,9 +37,9 @@ public class Field implements IRenderable
 		
 	}
 	
-	public void addEntity(Entity e)
+	public void addEnemy(Enemy<?> e)
 	{
-		entities.add(e);
+		enemies.add(e);
 	}
 	
 	public double getWidth()
@@ -49,5 +50,15 @@ public class Field implements IRenderable
 	public double getHeight()
 	{
 		return height;
+	}
+
+	public List<Enemy<?>> getEnemies()
+	{
+		return enemies;
+	}
+
+	public Player getPlayer()
+	{
+		return player;
 	}
 }

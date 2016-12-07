@@ -2,12 +2,16 @@ package model;
 
 public abstract class Enemy<D extends IDirection> extends Entity
 {
-	protected D direction, nextDirection;
+	protected IDirection direction, nextDirection;
+	protected int directionChangeDelay, directionChangeDelayCounter;
+	
+	protected static boolean isPaused = false;
 
-	public Enemy(Field field, double x, double y, int speed, int spriteDelay)
+	public Enemy(Field field, double x, double y, int speed, int spriteDelay, int directionChangeDelay)
 	{
 		super(field, x, y, speed, spriteDelay);
 		this.direction = this.nextDirection = direction;
+		this.directionChangeDelay = this.directionChangeDelayCounter = directionChangeDelay;
 	}
 	
 	@Override
@@ -34,7 +38,7 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	@Override
 	public void update()
 	{
-		if(isDestroyed) return;
+		if(isDestroyed || isPaused) return;
 		if(move())
 		{
 			//Maybe do something?
@@ -44,8 +48,25 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	@Override
 	protected void calculateNextState()
 	{
-		// TODO Auto-generated method stub
+		nextX = x + direction.getDx();
+		nextY = y + direction.getDy();
 		
+		if (directionChangeDelayCounter <= 0)
+		{
+			directionChangeDelayCounter = directionChangeDelay;
+			
+			double minDistance = calculateNewDistance(direction);
+			for(IDirection dir : direction.getClass().getEnumConstants())
+			{
+				double temp = calculateNewDistance(dir); 
+				if(temp < minDistance)
+				{
+					nextDirection = dir;
+					minDistance = temp;
+				}
+			}
+		}
+		directionChangeDelayCounter--;
 	}
 
 	@Override
@@ -55,4 +76,8 @@ public abstract class Enemy<D extends IDirection> extends Entity
 		
 	}
 	
+	private double calculateNewDistance(IDirection dir)
+	{
+		return Math.abs(this.x + dir.getDx() * this.speed * this.directionChangeDelay - field.getPlayer().getX()) + Math.abs(this.y + dir.getDy() * this.speed * this.directionChangeDelay - field.getPlayer().getY());
+	}
 }
