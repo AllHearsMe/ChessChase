@@ -9,7 +9,7 @@ public class RenderableHolder
 	private static RenderableHolder instance = new RenderableHolder();
 	
 	private List<IRenderable> renderables;
-	private static Comparator<IRenderable> comparator = (IRenderable o1, IRenderable o2) -> o1.getZ() > o2.getZ() ? 1 : -1;
+	private static Comparator<IRenderable> comparator = (IRenderable o1, IRenderable o2) -> (o1.getZ() == o2.getZ()) ? 0 : o1.getZ() > o2.getZ() ? 1 : -1;
 	
 	private RenderableHolder()
 	{
