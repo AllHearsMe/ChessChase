@@ -2,6 +2,7 @@ package model;
 
 public enum KnightDirection implements IDirection
 {
+	//To be divided by 3.0 in constructor
 	EAST_CCW(2, -1),
 	EAST_CW(2, 1),
 	NORTH_CCW(-1, -2),
@@ -15,8 +16,8 @@ public enum KnightDirection implements IDirection
 
 	private KnightDirection(double dx, double dy)
 	{
-		this.dx = dx;
-		this.dy = dy;
+		this.dx = dx / 3.0;
+		this.dy = dy / 3.0;
 	}
 
 	public double getDx()
