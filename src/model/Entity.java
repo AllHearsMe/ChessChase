@@ -7,15 +7,17 @@ public abstract class Entity implements IRenderable
 	protected int z;
 	protected int speed;
 	protected boolean isDestroyed, isDestroyedInNextState;
+	protected int spriteDelay, spriteDelayCounter;
 	protected Field field;
 	
-	public Entity(Field field, double x, double y, int speed)
+	public Entity(Field field, double x, double y, int speed, int spriteDelay)
 	{
 		this.field = field;
 		this.field.addEntity(this);
 		
 		this.x = this.nextX = x;
 		this.y = this.nextY = y;
+		this.spriteDelay = this.spriteDelayCounter = spriteDelay;
 		this.speed = speed;
 		this.isDestroyed = this.isDestroyedInNextState = false;
 		
@@ -26,10 +28,19 @@ public abstract class Entity implements IRenderable
 	
 	abstract protected void calculateNextState();
 	
+	abstract protected void changeSprite();
+	
 	protected boolean move()
 	{
 		if(isDestroyed)
 			return false;
+		if (spriteDelayCounter > 0)
+			spriteDelayCounter--;
+		else
+		{
+			spriteDelayCounter = spriteDelay;
+			changeSprite();
+		}
 		x = nextX;
 		y = nextY;
 		isDestroyed = isDestroyedInNextState;

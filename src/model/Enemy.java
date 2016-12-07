@@ -1,12 +1,12 @@
 package model;
 
-public class Enemy<D extends IDirection> extends Entity
+public abstract class Enemy<D extends IDirection> extends Entity
 {
 	protected D direction, nextDirection;
 
-	public Enemy(Field field, double x, double y, int speed)
+	public Enemy(Field field, double x, double y, int speed, int spriteDelay)
 	{
-		super(field, x, y, speed);
+		super(field, x, y, speed, spriteDelay);
 		this.direction = this.nextDirection = direction;
 	}
 	
@@ -34,12 +34,22 @@ public class Enemy<D extends IDirection> extends Entity
 	@Override
 	public void update()
 	{
+		if(isDestroyed) return;
+		if(move())
+		{
+			//Maybe do something?
+		}
+	}
+
+	@Override
+	protected void calculateNextState()
+	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	protected void calculateNextState()
+	protected void changeSprite()
 	{
 		// TODO Auto-generated method stub
 		

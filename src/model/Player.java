@@ -3,9 +3,9 @@ package model;
 public class Player extends Entity
 {
 	
-	public Player(Field field, double x, double y, int speed)
+	public Player(Field field, double x, double y, int speed, int spriteDelay)
 	{
-		super(field, x, y, speed);
+		super(field, x, y, speed, spriteDelay);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -25,12 +25,22 @@ public class Player extends Entity
 	@Override
 	public void update()
 	{
-		// TODO Auto-generated method stub
-		
+		if(isDestroyed) return;
+		if(move())
+		{
+			//Maybe do something?
+		}
 	}
 	
 	@Override
 	protected void calculateNextState()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void changeSprite()
 	{
 		// TODO Auto-generated method stub
 		
