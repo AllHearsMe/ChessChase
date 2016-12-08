@@ -6,9 +6,9 @@ public class Player extends Entity
 {
 	protected int dx, dy;
 	
-	public Player(Field field, double x, double y, int speed, int spriteDelay)
+	public Player(Field field, double x, double y, int speed)
 	{
-		super(field, x, y, speed, spriteDelay, Config.PLAYER_HITBOX_X, Config.PLAYER_HITBOX_Y, Config.PLAYER_HITBOX_W, Config.PLAYER_HITBOX_H);
+		super(field, x, y, speed, 2, Config.PLAYER_HITBOX_X, Config.PLAYER_HITBOX_Y, Config.PLAYER_HITBOX_W, Config.PLAYER_HITBOX_H);
 		this.dx = this.dy = 0;
 		this.state = EntityState.IDLE;
 	}
@@ -43,13 +43,6 @@ public class Player extends Entity
 		
 	}
 
-	@Override
-	protected void updateSprite()
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
 	public int getDx()
 	{
 		return dx;
@@ -68,6 +61,13 @@ public class Player extends Entity
 	public void setDy(int dy)
 	{
 		this.dy = (dy > 1) ? 1 : (dy < -1) ? -1 : dy;
+	}
+
+	@Override
+	protected void updateSprite()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

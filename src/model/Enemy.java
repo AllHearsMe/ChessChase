@@ -1,5 +1,7 @@
 package model;
 
+import util.Config;
+
 public abstract class Enemy<D extends IDirection> extends Entity
 {
 	protected IDirection direction, nextDirection;
@@ -8,10 +10,10 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	
 	protected static boolean isPaused = false;
 
-	public Enemy(Field field, double x, double y, int speed, int spriteDelay, double drawX, double drawY, double hitH, double hitW, int directionChangeDelay, int lifeSpan)
+	public Enemy(Field field, double x, double y, int speed, double drawX, double drawY, double hitH, double hitW, int directionChangeDelay, int lifeSpan)
 	{
-		super(field, x, y, speed, spriteDelay, drawX, drawY, hitH, hitW);
-		this.direction = this.nextDirection = direction;
+		super(field, x, y, speed, 2, drawX, drawY, hitH, hitW);
+		this.direction = this.nextDirection = getClosestDirection();
 		this.directionChangeDelay = this.directionChangeDelayCounter = directionChangeDelay;
 		this.lifeSpan = lifeSpan;
 		this.age = 0;
@@ -44,29 +46,61 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	@Override
 	protected void calculateNextState()
 	{
-		double phase = (double) directionChangeDelayCounter / (double) directionChangeDelay;
-		nextX = x + direction.getDx(phase) * speed;
-		nextY = y + direction.getDy(phase) * speed;
-		
-		if (directionChangeDelayCounter <= 0)
+		switch(state)
 		{
-			directionChangeDelayCounter = directionChangeDelay;
-			
-			double minDistance = calculateNewDistance(direction);
-			
-			//get all directions, find one that brings this closest to player
-			for(IDirection dir : direction.getClass().getEnumConstants())
-			{
-				double temp = calculateNewDistance(dir); 
-				if(temp < minDistance)
+			case RUNNING:
+				spriteCounter++;
+				if(spriteCounter == getTotalSprites())
 				{
-					nextDirection = dir;
-					minDistance = temp;
+					spriteCounter = 0;
 				}
-			}
+				double phase = (double) directionChangeDelayCounter / (double) directionChangeDelay;
+				nextX = x + direction.getDx(phase) * speed;
+				nextY = y + direction.getDy(phase) * speed;
+				
+				if (directionChangeDelayCounter <= 0)
+				{
+					directionChangeDelayCounter = directionChangeDelay;
+					nextDirection = getClosestDirection();
+				}
+				directionChangeDelayCounter--;
+				break;
+			case IDLE:
+				if(Math.abs(this.x - field.getPlayer().x) <= Config.AWAKEN_RANGE_WIDTH && Math.abs(this.y - field.getPlayer().y) <= Config.AWAKEN_RANGE_HEIGHT)
+					state = EntityState.AWAKENING;
+				break;
+			case SPAWNING:
+				spriteCounter++;
+				if(spriteCounter == getTotalSprites())
+				{
+					spriteCounter = 0;
+					state = EntityState.IDLE;
+				}
+				break;
+			case AWAKENING:
+				spriteCounter++;
+				if(spriteCounter == getTotalSprites())
+				{
+					spriteCounter = 0;
+					state = EntityState.RUNNING;
+				}
+				break;
+			case DYING:
+				spriteCounter++;
+				if(spriteCounter == Config.DYING_DURATION)
+				{
+					spriteCounter = 0;
+					state = EntityState.DEAD;
+				}
+				break;
+			default:
+				break;
 		}
-		directionChangeDelayCounter--;
+		
+		
 	}
+	
+	abstract protected int getTotalSprites();
 
 	@Override
 	protected void updateSprite()
@@ -79,5 +113,20 @@ public abstract class Enemy<D extends IDirection> extends Entity
 		return Math.abs(this.x + dir.getDx(1) * this.speed * this.directionChangeDelay - field.getPlayer().getX()) + Math.abs(this.y + dir.getDy(1) * this.speed * this.directionChangeDelay - field.getPlayer().getY());
 	}
 	
-	
+	//get all directions, find one that brings this closest to player
+	private IDirection getClosestDirection()
+	{
+		double minDistance = Double.MAX_VALUE;
+		IDirection minDir = direction.getClass().getEnumConstants()[0];
+		for(IDirection dir : direction.getClass().getEnumConstants())
+		{
+			double temp = calculateNewDistance(dir); 
+			if(temp < minDistance)
+			{
+				minDir = dir;
+				minDistance = temp;
+			}
+		}
+		return minDir;
+	}
 }

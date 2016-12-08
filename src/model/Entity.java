@@ -48,7 +48,7 @@ public abstract class Entity implements IRenderable
 		if (spriteDelayCounter <= 0)
 		{
 			spriteDelayCounter = spriteDelay;
-			updateSprite();
+			spriteCounter++;
 		}
 		spriteDelayCounter--;
 		x = nextX;

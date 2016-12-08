@@ -42,4 +42,7 @@ public class Config
 	public static final double
 		AWAKEN_RANGE_WIDTH = 100,
 		AWAKEN_RANGE_HEIGHT = 100;
+	
+	public static final int
+		DYING_DURATION = 15;
 }
