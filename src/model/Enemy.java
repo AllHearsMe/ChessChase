@@ -8,9 +8,9 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	
 	protected static boolean isPaused = false;
 
-	public Enemy(Field field, double x, double y, int speed, int spriteDelay, int directionChangeDelay, int lifeSpan)
+	public Enemy(Field field, double x, double y, int speed, int spriteDelay, double drawX, double drawY, double hitH, double hitW, int directionChangeDelay, int lifeSpan)
 	{
-		super(field, x, y, speed, spriteDelay);
+		super(field, x, y, speed, spriteDelay, drawX, drawY, hitH, hitW);
 		this.direction = this.nextDirection = direction;
 		this.directionChangeDelay = this.directionChangeDelayCounter = directionChangeDelay;
 		this.lifeSpan = lifeSpan;
@@ -32,16 +32,9 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	}
 
 	@Override
-	public void draw()
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void update()
 	{
-		if(isDestroyed) return;
+		if(isDestroyed || isPaused) return;
 		if(move())
 		{
 			//Maybe do something?
@@ -51,7 +44,6 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	@Override
 	protected void calculateNextState()
 	{
-		if(isPaused) return;
 		double phase = (double) directionChangeDelayCounter / (double) directionChangeDelay;
 		nextX = x + direction.getDx(phase) * speed;
 		nextY = y + direction.getDy(phase) * speed;
@@ -61,6 +53,8 @@ public abstract class Enemy<D extends IDirection> extends Entity
 			directionChangeDelayCounter = directionChangeDelay;
 			
 			double minDistance = calculateNewDistance(direction);
+			
+			//get all directions, find one that brings this closest to player
 			for(IDirection dir : direction.getClass().getEnumConstants())
 			{
 				double temp = calculateNewDistance(dir); 
@@ -77,12 +71,13 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	@Override
 	protected void updateSprite()
 	{
-		// TODO Auto-generated method stub
-		
+		//TODO
 	}
 	
 	private double calculateNewDistance(IDirection dir)
 	{
 		return Math.abs(this.x + dir.getDx(1) * this.speed * this.directionChangeDelay - field.getPlayer().getX()) + Math.abs(this.y + dir.getDy(1) * this.speed * this.directionChangeDelay - field.getPlayer().getY());
 	}
+	
+	
 }

@@ -7,19 +7,30 @@ public abstract class Entity implements IRenderable
 	protected int z;
 	protected double speed;
 	protected boolean isDestroyed, isDestroyedInNextState;
-	protected int spriteDelay, spriteDelayCounter;
 	protected Field field;
+
+	protected int spriteDelay, spriteDelayCounter;
+	protected int spriteCounter;
+	protected EntityState state;
+	protected double drawX, drawY, hitW, hitH;
 	
-	public Entity(Field field, double x, double y, double speed, int spriteDelay)
+	public Entity(Field field, double x, double y, double speed, int spriteDelay, double drawX, double drawY, double hitH, double hitW)
 	{
 		this.field = field;
 		RenderableHolder.getInstance().add(this);
 		
 		this.x = this.nextX = x;
 		this.y = this.nextY = y;
-		this.spriteDelay = this.spriteDelayCounter = spriteDelay;
 		this.speed = speed;
 		this.isDestroyed = this.isDestroyedInNextState = false;
+
+		this.spriteDelay = this.spriteDelayCounter = spriteDelay;
+		this.spriteCounter = 0;
+		this.state = EntityState.SPAWNING;
+		this.drawX = drawX;
+		this.drawY = drawY;
+		this.hitH = hitH;
+		this.hitW = hitW;
 		
 		calculateNextState();
 	}

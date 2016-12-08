@@ -1,13 +1,16 @@
 package model;
 
+import util.Config;
+
 public class Player extends Entity
 {
 	protected int dx, dy;
 	
 	public Player(Field field, double x, double y, int speed, int spriteDelay)
 	{
-		super(field, x, y, speed, spriteDelay);
+		super(field, x, y, speed, spriteDelay, Config.PLAYER_HITBOX_X, Config.PLAYER_HITBOX_Y, Config.PLAYER_HITBOX_W, Config.PLAYER_HITBOX_H);
 		this.dx = this.dy = 0;
+		this.state = EntityState.IDLE;
 	}
 
 	@Override
