@@ -2,6 +2,7 @@ package model;
 
 public interface IDirection
 {
-	public double getDx();
-	public double getDy();
+	//phase -> [0, 1); phase = 1 is complete displacement
+	public double getDx(double phase);
+	public double getDy(double phase);
 }

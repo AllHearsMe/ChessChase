@@ -2,11 +2,12 @@ package model;
 
 public class Player extends Entity
 {
+	protected int dx, dy;
 	
 	public Player(Field field, double x, double y, int speed, int spriteDelay)
 	{
 		super(field, x, y, speed, spriteDelay);
-		// TODO Auto-generated constructor stub
+		this.dx = this.dy = 0;
 	}
 
 	@Override
@@ -16,7 +17,7 @@ public class Player extends Entity
 	}
 	
 	@Override
-	public void render()
+	public void draw()
 	{
 		// TODO Auto-generated method stub
 		
@@ -40,10 +41,30 @@ public class Player extends Entity
 	}
 
 	@Override
-	protected void changeSprite()
+	protected void updateSprite()
 	{
 		// TODO Auto-generated method stub
 		
+	}
+
+	public int getDx()
+	{
+		return dx;
+	}
+
+	public void setDx(int dx)
+	{
+		this.dx = (dx > 1) ? 1 : (dx < -1) ? -1 : dx;
+	}
+
+	public int getDy()
+	{
+		return dy;
+	}
+
+	public void setDy(int dy)
+	{
+		this.dy = (dy > 1) ? 1 : (dy < -1) ? -1 : dy;
 	}
 	
 }

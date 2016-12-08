@@ -3,18 +3,10 @@ package model;
 public class KnightEnemy extends Enemy<KnightDirection>
 {
 
-	public KnightEnemy(Field field, double x, double y, int speed, int spriteDelay, int directionChangeDelay)
+	public KnightEnemy(Field field, double x, double y)
 	{
-		super(field, x, y, speed, spriteDelay, directionChangeDelay);
+		//TODO add speed, spriteDelay, directionChangeDelay, and lifeSpan
+		super(field, x, y, 0, 0, 0, 0);
 		// TODO Auto-generated constructor stub
-	}
-	
-	@Override
-	protected void calculateNextState()
-	{
-		super.calculateNextState();
-		//TODO change x and y according to moving "phase"
-		nextX = x + direction.getDx();
-		nextY = y + direction.getDy();
 	}
 }

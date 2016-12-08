@@ -15,12 +15,12 @@ public enum RookDirection implements IDirection
 		this.dy = dy;
 	}
 
-	public double getDx()
+	public double getDx(double phase)
 	{
 		return dx;
 	}
 
-	public double getDy()
+	public double getDy(double phase)
 	{
 		return dy;
 	}

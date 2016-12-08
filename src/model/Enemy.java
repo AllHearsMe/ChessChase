@@ -4,14 +4,17 @@ public abstract class Enemy<D extends IDirection> extends Entity
 {
 	protected IDirection direction, nextDirection;
 	protected int directionChangeDelay, directionChangeDelayCounter;
+	protected int age, lifeSpan;
 	
 	protected static boolean isPaused = false;
 
-	public Enemy(Field field, double x, double y, int speed, int spriteDelay, int directionChangeDelay)
+	public Enemy(Field field, double x, double y, int speed, int spriteDelay, int directionChangeDelay, int lifeSpan)
 	{
 		super(field, x, y, speed, spriteDelay);
 		this.direction = this.nextDirection = direction;
 		this.directionChangeDelay = this.directionChangeDelayCounter = directionChangeDelay;
+		this.lifeSpan = lifeSpan;
+		this.age = 0;
 	}
 	
 	@Override
@@ -29,7 +32,7 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	}
 
 	@Override
-	public void render()
+	public void draw()
 	{
 		// TODO Auto-generated method stub
 		
@@ -38,7 +41,7 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	@Override
 	public void update()
 	{
-		if(isDestroyed || isPaused) return;
+		if(isDestroyed) return;
 		if(move())
 		{
 			//Maybe do something?
@@ -48,8 +51,10 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	@Override
 	protected void calculateNextState()
 	{
-		nextX = x + direction.getDx();
-		nextY = y + direction.getDy();
+		if(isPaused) return;
+		double phase = (double) directionChangeDelayCounter / (double) directionChangeDelay;
+		nextX = x + direction.getDx(phase) * speed;
+		nextY = y + direction.getDy(phase) * speed;
 		
 		if (directionChangeDelayCounter <= 0)
 		{
@@ -70,7 +75,7 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	}
 
 	@Override
-	protected void changeSprite()
+	protected void updateSprite()
 	{
 		// TODO Auto-generated method stub
 		
@@ -78,6 +83,6 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	
 	private double calculateNewDistance(IDirection dir)
 	{
-		return Math.abs(this.x + dir.getDx() * this.speed * this.directionChangeDelay - field.getPlayer().getX()) + Math.abs(this.y + dir.getDy() * this.speed * this.directionChangeDelay - field.getPlayer().getY());
+		return Math.abs(this.x + dir.getDx(1) * this.speed * this.directionChangeDelay - field.getPlayer().getX()) + Math.abs(this.y + dir.getDy(1) * this.speed * this.directionChangeDelay - field.getPlayer().getY());
 	}
 }

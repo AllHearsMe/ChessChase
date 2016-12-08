@@ -20,13 +20,17 @@ public enum KnightDirection implements IDirection
 		this.dy = dy / 3.0;
 	}
 
-	public double getDx()
+	public double getDx(double phase)
 	{
-		return dx;
+		if(phase < (2.0 / 3.0)) return (Math.abs(dx) > Math.abs(dy)) ? dx : 0;
+		else if(phase < 1) return (Math.abs(dx) > Math.abs(dy)) ? 0 : dx;
+		else return dx;
 	}
 
-	public double getDy()
+	public double getDy(double phase)
 	{
-		return dy;
+		if(phase < (2.0 / 3.0)) return (Math.abs(dy) > Math.abs(dx)) ? dy : 0;
+		else if(phase < 1) return (Math.abs(dy) > Math.abs(dx)) ? 0 : dy;
+		else return dy;
 	}
 }

@@ -13,6 +13,7 @@ public abstract class Entity implements IRenderable
 	public Entity(Field field, double x, double y, double speed, int spriteDelay)
 	{
 		this.field = field;
+		RenderableHolder.getInstance().add(this);
 		
 		this.x = this.nextX = x;
 		this.y = this.nextY = y;
@@ -27,7 +28,7 @@ public abstract class Entity implements IRenderable
 	
 	abstract protected void calculateNextState();
 	
-	abstract protected void changeSprite();
+	abstract protected void updateSprite();
 	
 	protected boolean move()
 	{
@@ -36,7 +37,7 @@ public abstract class Entity implements IRenderable
 		if (spriteDelayCounter <= 0)
 		{
 			spriteDelayCounter = spriteDelay;
-			changeSprite();
+			updateSprite();
 		}
 		spriteDelayCounter--;
 		x = nextX;
@@ -91,6 +92,9 @@ public abstract class Entity implements IRenderable
 	{
 		return speed;
 	}
-	
-	
+
+	public void setSpeed(double speed)
+	{
+		this.speed = speed;
+	}
 }

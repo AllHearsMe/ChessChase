@@ -11,11 +11,12 @@ public class Field implements IRenderable
 	private List<Enemy<?>> enemies;
 	private Player player;
 	
-	public Field()
+	public Field(double width, double height)
 	{
 		enemies = new ArrayList<>();
 		this.x = this.y = 0;
-		//TODO initialize width and height
+		this.width = width;
+		this.height = height;
 	}
 
 	@Override
@@ -31,7 +32,7 @@ public class Field implements IRenderable
 	}
 	
 	@Override
-	public void render()
+	public void draw()
 	{
 		// TODO Auto-generated method stub
 		
@@ -42,6 +43,26 @@ public class Field implements IRenderable
 		enemies.add(e);
 	}
 	
+	public double getX()
+	{
+		return x;
+	}
+
+	public void setX(double x)
+	{
+		this.x = x;
+	}
+
+	public double getY()
+	{
+		return y;
+	}
+
+	public void setY(double y)
+	{
+		this.y = y;
+	}
+
 	public double getWidth()
 	{
 		return width;
