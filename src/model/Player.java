@@ -11,6 +11,7 @@ public class Player extends Entity
 		super(field, x, y, speed, 2, Config.PLAYER_HITBOX_X, Config.PLAYER_HITBOX_Y, Config.PLAYER_HITBOX_W, Config.PLAYER_HITBOX_H);
 		this.dx = this.dy = 0;
 		this.state = EntityState.IDLE;
+		this.nextState = EntityState.IDLE;
 	}
 
 	@Override
@@ -64,10 +65,10 @@ public class Player extends Entity
 	}
 
 	@Override
-	protected void updateSprite()
+	protected int getTotalSprites()
 	{
 		// TODO Auto-generated method stub
-		
+		return 0;
 	}
 	
 }

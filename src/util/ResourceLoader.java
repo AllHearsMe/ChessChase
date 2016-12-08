@@ -69,4 +69,39 @@ public class ResourceLoader
 	{
 		return kingSprites.get(state.getIndex()).get(frame);
 	}
+	
+	public int getPlayerTotalSprites(EntityState state)
+	{
+		return playerSprites.get(state.getIndex()).size();
+	}
+	
+	public int getPawnTotalSprites(EntityState state)
+	{
+		return pawnSprites.get(state.getIndex()).size();
+	}
+	
+	public int getRookTotalSprites(EntityState state)
+	{
+		return rookSprites.get(state.getIndex()).size();
+	}
+	
+	public int getKnightTotalSprites(EntityState state)
+	{
+		return knightSprites.get(state.getIndex()).size();
+	}
+	
+	public int getBishopTotalSprites(EntityState state)
+	{
+		return bishopSprites.get(state.getIndex()).size();
+	}
+	
+	public int getQueenTotalSprites(EntityState state)
+	{
+		return queenSprites.get(state.getIndex()).size();
+	}
+	
+	public int getKingTotalSprites(EntityState state)
+	{
+		return kingSprites.get(state.getIndex()).size();
+	}
 }

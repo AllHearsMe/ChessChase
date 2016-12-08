@@ -6,8 +6,7 @@ public enum EntityState
 	IDLE(1),
 	AWAKENING(2),
 	RUNNING(3),
-	DYING(4),
-	DEAD(5);
+	DYING(4);
 	
 	private int index;
 	

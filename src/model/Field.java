@@ -82,4 +82,9 @@ public class Field implements IRenderable
 	{
 		return player;
 	}
+
+	public void setPlayer(Player player)
+	{
+		this.player = player;
+	}
 }

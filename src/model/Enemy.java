@@ -10,9 +10,10 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	
 	protected static boolean isPaused = false;
 
-	public Enemy(Field field, double x, double y, int speed, double drawX, double drawY, double hitH, double hitW, int directionChangeDelay, int lifeSpan)
+	public Enemy(Field field, double x, double y, int speed, double drawX, double drawY, double hitH, double hitW, IDirection direction, int directionChangeDelay, int lifeSpan)
 	{
 		super(field, x, y, speed, 2, drawX, drawY, hitH, hitW);
+		this.direction = direction;
 		this.direction = this.nextDirection = getClosestDirection();
 		this.directionChangeDelay = this.directionChangeDelayCounter = directionChangeDelay;
 		this.lifeSpan = lifeSpan;
@@ -39,22 +40,54 @@ public abstract class Enemy<D extends IDirection> extends Entity
 		if(isDestroyed || isPaused) return;
 		if(move())
 		{
-			//Maybe do something?
+			if (spriteDelayCounter <= 0)
+			{
+				spriteDelayCounter = spriteDelay;
+				spriteCounter++;
+				if(spriteCounter >= getTotalSprites()) spriteCounter = 0;
+			}
+			spriteDelayCounter--;
+			
+			switch(state)
+			{
+				case SPAWNING:
+					
+					break;
+				case IDLE:
+					
+					break;
+				case AWAKENING:
+					
+					break;
+				case RUNNING:
+					
+					break;
+				case DYING:
+					
+					break;
+			}
 		}
 	}
 
 	@Override
 	protected void calculateNextState()
 	{
+//		TODO something with this snippet
+//		
+//		if (spriteDelayCounter <= 0)
+//		{
+//			spriteDelayCounter = spriteDelay;
+//			spriteCounter++;
+//			if(spriteCounter >= getTotalSprites()) spriteCounter = 0;
+//		}
+//		spriteDelayCounter--;
+		
 		switch(state)
 		{
 			case RUNNING:
-				spriteCounter++;
-				if(spriteCounter == getTotalSprites())
-				{
-					spriteCounter = 0;
-				}
-				double phase = (double) directionChangeDelayCounter / (double) directionChangeDelay;
+				if(age >= lifeSpan) nextState = EntityState.DYING;
+				age++;
+				double phase = 1.0 - (double) directionChangeDelayCounter / (double) directionChangeDelay;
 				nextX = x + direction.getDx(phase) * speed;
 				nextY = y + direction.getDy(phase) * speed;
 				
@@ -67,45 +100,23 @@ public abstract class Enemy<D extends IDirection> extends Entity
 				break;
 			case IDLE:
 				if(Math.abs(this.x - field.getPlayer().x) <= Config.AWAKEN_RANGE_WIDTH && Math.abs(this.y - field.getPlayer().y) <= Config.AWAKEN_RANGE_HEIGHT)
-					state = EntityState.AWAKENING;
+					nextState = EntityState.AWAKENING;
 				break;
 			case SPAWNING:
-				spriteCounter++;
-				if(spriteCounter == getTotalSprites())
-				{
-					spriteCounter = 0;
-					state = EntityState.IDLE;
-				}
+				if(spriteCounter == 0)
+					nextState = EntityState.IDLE;
 				break;
 			case AWAKENING:
-				spriteCounter++;
-				if(spriteCounter == getTotalSprites())
-				{
-					spriteCounter = 0;
-					state = EntityState.RUNNING;
-				}
+				if(spriteCounter == 0)
+					nextState = EntityState.RUNNING;
 				break;
 			case DYING:
-				spriteCounter++;
-				if(spriteCounter == Config.DYING_DURATION)
-				{
-					spriteCounter = 0;
-					state = EntityState.DEAD;
-				}
-				break;
-			default:
+				if(spriteCounter == 0)
+					isDestroyedInNextState = true;
 				break;
 		}
 		
 		
-	}
-	
-	abstract protected int getTotalSprites();
-
-	@Override
-	protected void updateSprite()
-	{
-		//TODO
 	}
 	
 	private double calculateNewDistance(IDirection dir)

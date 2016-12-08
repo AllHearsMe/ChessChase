@@ -22,15 +22,15 @@ public enum KnightDirection implements IDirection
 
 	public double getDx(double phase)
 	{
-		if(phase < (2.0 / 3.0)) return (Math.abs(dx) > Math.abs(dy)) ? dx : 0;
-		else if(phase < 1) return (Math.abs(dx) > Math.abs(dy)) ? 0 : dx;
+		if(phase < (2.0 / 3.0)) return (Math.abs(dx) > Math.abs(dy)) ? Math.signum(dx) : 0;
+		else if(phase < 1) return (Math.abs(dx) > Math.abs(dy)) ? 0 : Math.signum(dx);
 		else return dx;
 	}
 
 	public double getDy(double phase)
 	{
-		if(phase < (2.0 / 3.0)) return (Math.abs(dy) > Math.abs(dx)) ? dy : 0;
-		else if(phase < 1) return (Math.abs(dy) > Math.abs(dx)) ? 0 : dy;
+		if(phase < (2.0 / 3.0)) return (Math.abs(dy) > Math.abs(dx)) ? Math.signum(dy) : 0;
+		else if(phase < 1) return (Math.abs(dy) > Math.abs(dx)) ? 0 : Math.signum(dy);
 		else return dy;
 	}
 }

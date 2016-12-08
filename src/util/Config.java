@@ -40,8 +40,8 @@ public class Config
 		KING_HITBOX_H = 0;
 
 	public static final double
-		AWAKEN_RANGE_WIDTH = 100,
-		AWAKEN_RANGE_HEIGHT = 100;
+		AWAKEN_RANGE_WIDTH = 500,
+		AWAKEN_RANGE_HEIGHT = 500;
 	
 	public static final int
 		DYING_DURATION = 15;
