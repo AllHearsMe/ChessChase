@@ -22,23 +22,23 @@ public abstract class Entity implements IRenderable
 		this.x = this.nextX = x;
 		this.y = this.nextY = y;
 		this.speed = speed;
-		this.isDestroyed = this.isDestroyedInNextState = false;
+		this.isDestroyed = /*this.isDestroyedInNextState =*/ false;
 
-		this.spriteDelay = this.spriteDelayCounter = spriteDelay;
+		this.spriteDelay = spriteDelay;
+		this.spriteDelayCounter = 0;
 		this.spriteCounter = 0;
-		this.state = EntityState.SPAWNING;
-		this.nextState = EntityState.SPAWNING;
+		this.state = this.nextState = EntityState.CREATED;
 		this.drawX = drawX;
 		this.drawY = drawY;
 		this.hitH = hitH;
 		this.hitW = hitW;
 		
-		calculateNextState();
+		calculateNextPosition();
 	}
 
 	abstract public void update();
 	
-	abstract protected void calculateNextState();
+	abstract protected void calculateNextPosition();
 	
 	protected boolean move()
 	{
@@ -46,9 +46,8 @@ public abstract class Entity implements IRenderable
 			return false;
 		x = nextX;
 		y = nextY;
-		isDestroyed = isDestroyedInNextState;
-		state = nextState;
-		calculateNextState();
+//		isDestroyed = isDestroyedInNextState;
+		calculateNextPosition();
 		return true;
 	}
 	
