@@ -34,13 +34,6 @@ public abstract class Enemy<D extends IDirection> extends Entity
 		if(isDestroyed || isPaused) return;
 		if(move())
 		{
-			directionChangeDelayCounter++;
-			if (directionChangeDelayCounter >= directionChangeDelay)
-			{
-				directionChangeDelayCounter = 0;
-				direction = getClosestDirection();
-			}
-			
 			spriteDelayCounter++;
 			if (spriteDelayCounter >= spriteDelay)
 			{
@@ -69,9 +62,20 @@ public abstract class Enemy<D extends IDirection> extends Entity
 					break;
 				case AWAKENING:
 					if(spriteDelayCounter <= 0 && spriteCounter >= getTotalSprites())
+					{
 						state = EntityState.RUNNING;
+						directionChangeDelayCounter = 1;
+						direction = getClosestDirection();
+						calculateNextPosition();
+					}
 					break;
 				case RUNNING:
+					directionChangeDelayCounter++;
+					if (directionChangeDelayCounter >= directionChangeDelay)
+					{
+						directionChangeDelayCounter = 0;
+						direction = getClosestDirection();
+					}
 					age++;
 					if(age >= lifespan)
 					{
@@ -91,9 +95,9 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	}
 
 	@Override
-	protected void calculateNextState()
+	protected void calculateNextPosition()
 	{
-		if(state == EntityState.RUNNING || state == EntityState.AWAKENING)
+		if(state == EntityState.RUNNING)
 		{
 			double phase = (double) directionChangeDelayCounter / (double) directionChangeDelay;
 			nextX = x + direction.getDx(phase) * speed;

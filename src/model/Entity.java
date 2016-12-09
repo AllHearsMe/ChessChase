@@ -33,12 +33,12 @@ public abstract class Entity implements IRenderable
 		this.hitH = hitH;
 		this.hitW = hitW;
 		
-		calculateNextState();
+		calculateNextPosition();
 	}
 
 	abstract public void update();
 	
-	abstract protected void calculateNextState();
+	abstract protected void calculateNextPosition();
 	
 	protected boolean move()
 	{
@@ -47,7 +47,7 @@ public abstract class Entity implements IRenderable
 		x = nextX;
 		y = nextY;
 //		isDestroyed = isDestroyedInNextState;
-		calculateNextState();
+		calculateNextPosition();
 		return true;
 	}
 	

@@ -9,10 +9,10 @@ public class Config
 		PLAYER_HITBOX_W = 0,
 		PLAYER_HITBOX_H = 0,
 		
-		PAWN_HITBOX_X = 0,
-		PAWN_HITBOX_Y = 0,
-		PAWN_HITBOX_W = 0,
-		PAWN_HITBOX_H = 0,
+		PAWN_HITBOX_X = 50,
+		PAWN_HITBOX_Y = 30,
+		PAWN_HITBOX_W = 90,
+		PAWN_HITBOX_H = 165,
 				
 		ROOK_HITBOX_X = 0,
 		ROOK_HITBOX_Y = 0,

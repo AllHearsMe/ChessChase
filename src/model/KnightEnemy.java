@@ -9,7 +9,7 @@ public class KnightEnemy extends Enemy<KnightDirection>
 	public KnightEnemy(Field field, double x, double y)
 	{
 		//TODO add speed, directionChangeDelay, and lifeSpan
-		super(field, x, y, 10, 0, 0, 0, 0, KnightDirection.values()[0], 6, 20);
+		super(field, x, y, 10, 0, 0, 0, 0, KnightDirection.values()[0], 6, 50);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -38,7 +38,7 @@ public class Player extends Entity
 	}
 	
 	@Override
-	protected void calculateNextState()
+	protected void calculateNextPosition()
 	{
 		// TODO Auto-generated method stub
 		
