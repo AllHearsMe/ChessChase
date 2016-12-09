@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Field implements IRenderable
@@ -36,6 +37,23 @@ public class Field implements IRenderable
 	{
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void updateFieldState()
+	{
+		player.update();
+		for(Enemy<?> e : enemies)
+			e.update();
+		
+		for(Iterator<Enemy<?>> i = enemies.iterator(); i.hasNext();)
+		{
+			if(i.next().isDestroyed())
+				i.remove();
+		}
+		if(player.isDestroyed())
+		{
+			//TODO game ends
+		}
 	}
 	
 	public void addEnemy(Enemy<?> e)
