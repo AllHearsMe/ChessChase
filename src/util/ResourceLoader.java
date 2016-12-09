@@ -20,7 +20,7 @@ public class ResourceLoader
 		queenSprites = new ArrayList<>();
 		kingSprites = new ArrayList<>();
 		
-		loadResources();
+//		loadResources();
 	}
 
 	public static ResourceLoader getInstance()
@@ -30,7 +30,7 @@ public class ResourceLoader
 	
 	private List<List<Image>> playerSprites, pawnSprites, rookSprites, knightSprites, bishopSprites, queenSprites, kingSprites;
 	
-	private void loadResources()
+	public void loadResources()
 	{
 		
 	}

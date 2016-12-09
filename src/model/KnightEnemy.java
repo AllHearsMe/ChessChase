@@ -32,7 +32,7 @@ public class KnightEnemy extends Enemy<KnightDirection>
 	{
 		Field field = new Field(1000, 1000);
 		
-		Player player = new Player(field, 100, 100, 0);
+		Player player = new Player(field, 100, 100);
 		field.setPlayer(player);
 		
 		KnightEnemy knight = new KnightEnemy(field, 500, 500);
