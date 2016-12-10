@@ -4,19 +4,19 @@ import javafx.scene.canvas.GraphicsContext;
 import util.Config;
 import util.DrawingUtility;
 
-public class KnightEnemy extends Enemy<KnightDirection>
+public class RookEnemy extends Enemy<RookDirection>
 {
 	
-	public KnightEnemy(Field field, double x, double y)
+	public RookEnemy(Field field, double x, double y)
 	{
-		super(field, x, y, Config.KNIGHT_SPEED, Config.KNIGHT_HITBOX_X, Config.KNIGHT_HITBOX_Y, Config.KNIGHT_HITBOX_H, Config.KNIGHT_HITBOX_W,
-				KnightDirection.values()[0], Config.KNIGHT_DIRECTION_CHANGE_DELAY, Config.KNIGHT_LIFESPAN);
+		super(field, x, y, Config.ROOK_SPEED, Config.ROOK_HITBOX_X, Config.ROOK_HITBOX_Y, Config.ROOK_HITBOX_H, Config.ROOK_HITBOX_W,
+				RookDirection.values()[0], Config.ROOK_DIRECTION_CHANGE_DELAY, Config.ROOK_LIFESPAN);
 	}
 	
 	@Override
 	public void draw(GraphicsContext gc)
 	{
-		DrawingUtility.drawKnight(gc, this, field);
+		DrawingUtility.drawRook(gc, this, field);
 	}
 	
 	@Override

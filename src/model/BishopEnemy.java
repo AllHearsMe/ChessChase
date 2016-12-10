@@ -4,19 +4,18 @@ import javafx.scene.canvas.GraphicsContext;
 import util.Config;
 import util.DrawingUtility;
 
-public class KnightEnemy extends Enemy<KnightDirection>
+public class BishopEnemy extends Enemy<BishopDirection>
 {
-	
-	public KnightEnemy(Field field, double x, double y)
+	public BishopEnemy(Field field, double x, double y)
 	{
-		super(field, x, y, Config.KNIGHT_SPEED, Config.KNIGHT_HITBOX_X, Config.KNIGHT_HITBOX_Y, Config.KNIGHT_HITBOX_H, Config.KNIGHT_HITBOX_W,
-				KnightDirection.values()[0], Config.KNIGHT_DIRECTION_CHANGE_DELAY, Config.KNIGHT_LIFESPAN);
+		super(field, x, y, Config.BISHOP_SPEED, Config.BISHOP_HITBOX_X, Config.BISHOP_HITBOX_Y, Config.BISHOP_HITBOX_H, Config.BISHOP_HITBOX_W,
+				BishopDirection.values()[0], Config.BISHOP_DIRECTION_CHANGE_DELAY, Config.BISHOP_LIFESPAN);
 	}
 	
 	@Override
 	public void draw(GraphicsContext gc)
 	{
-		DrawingUtility.drawKnight(gc, this, field);
+		DrawingUtility.drawBishop(gc, this, field);
 	}
 	
 	@Override

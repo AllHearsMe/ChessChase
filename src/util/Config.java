@@ -1,5 +1,7 @@
 package util;
 
+import model.EntityState;
+
 public class Config
 {
 	//X, Y in relation to sprite
@@ -40,13 +42,91 @@ public class Config
 		KING_HITBOX_H = 809;
 
 	public static final double
+		PLAYER_SPEED = 10,
+		PAWN_SPEED = 10,
+		ROOK_SPEED = 10,
+		KNIGHT_SPEED = 10,
+		BISHOP_SPEED = 10,
+		QUEEN_SPEED = 10,
+		KING_SPEED = 10;
+
+	public static final int
+		PAWN_DIRECTION_CHANGE_DELAY = 30,
+		ROOK_DIRECTION_CHANGE_DELAY = 30,
+		KNIGHT_DIRECTION_CHANGE_DELAY = 30,
+		BISHOP_DIRECTION_CHANGE_DELAY = 30,
+		QUEEN_DIRECTION_CHANGE_DELAY = 30,
+		KING_DIRECTION_CHANGE_DELAY = 30;
+
+	public static final int
+		PAWN_LIFESPAN = 100,
+		ROOK_LIFESPAN = 100,
+		KNIGHT_LIFESPAN = 100,
+		BISHOP_LIFESPAN = 100,
+		QUEEN_LIFESPAN = 100,
+		KING_LIFESPAN = 100;
+
+	public static final double
 		AWAKEN_RANGE_WIDTH = 500,
 		AWAKEN_RANGE_HEIGHT = 500;
 	
 	public static final int
-		DYING_DURATION = 15;
+		SPAWNING_FRAMES = 15,
+		AWAKENING_FRAMES = 15,
+		RUNNING_FRAMES = 15,
+		DYING_FRAMES = 15;
+	
+	public static final int
+		FRAME_DELAY = 2,
+		NORMAL_TICK_PER_SECOND = 60,
+		NORMAL_FRAME_PER_SECOND = NORMAL_TICK_PER_SECOND / FRAME_DELAY;
 	
 	public static final int
 		SCREEN_WIDTH = 1024,
 		SCREEN_HEIGHT = 768;
+	
+	public static final String
+		PLAYER_PATH = "pic/pawn/",
+		PAWN_PATH = "pic/enemypawn/",
+		ROOK_PATH = "pic/rook/",
+		KNIGHT_PATH = "pic/knight/",
+		BISHOP_PATH = "pic/bishop/",
+		QUEEN_PATH = "pic/queen/",
+		KING_PATH = "pic/king/";
+	
+	public static String getSpriteFileName(EntityState state)
+	{
+		switch(state)
+		{
+			case SPAWNING:
+				return "spawnsprite.png";
+			case IDLE:
+				return "idle.png";
+			case AWAKENING:
+				return "awakesprite.png";
+			case RUNNING:
+				return "walksprite.png";
+			case DYING:
+				return "dead.png";
+			default:
+				return "";
+		}
+	}
+	
+	public static int getFrameCount(EntityState state)
+	{
+		switch(state)
+		{
+			case SPAWNING:
+				return SPAWNING_FRAMES;
+			case AWAKENING:
+				return AWAKENING_FRAMES;
+			case RUNNING:
+				return RUNNING_FRAMES;
+			case DYING:
+				return DYING_FRAMES;
+			default:
+				return 1;
+		}
+	}
 }

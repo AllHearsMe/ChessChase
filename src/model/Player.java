@@ -1,6 +1,8 @@
 package model;
 
+import javafx.scene.canvas.GraphicsContext;
 import util.Config;
+import util.DrawingUtility;
 
 public class Player extends Entity
 {
@@ -8,7 +10,7 @@ public class Player extends Entity
 	
 	public Player(Field field, double x, double y)
 	{
-		super(field, x, y, 10, 2, Config.PLAYER_HITBOX_X, Config.PLAYER_HITBOX_Y, Config.PLAYER_HITBOX_W, Config.PLAYER_HITBOX_H);
+		super(field, x, y, Config.PLAYER_SPEED, Config.FRAME_DELAY, Config.PLAYER_HITBOX_X, Config.PLAYER_HITBOX_Y, Config.PLAYER_HITBOX_W, Config.PLAYER_HITBOX_H);
 		this.dx = this.dy = 0;
 		this.state = EntityState.IDLE;
 	}
@@ -20,10 +22,9 @@ public class Player extends Entity
 	}
 	
 	@Override
-	public void draw()
+	public void draw(GraphicsContext gc)
 	{
-		// TODO Auto-generated method stub
-		System.out.println("State: " + state.getName() + ", Sprite: " + spriteCounter + ", Pos: (" + this.x + ", " + this.y + ")");
+		DrawingUtility.drawPlayer(gc, this, field);
 	}
 	
 	@Override
@@ -107,35 +108,14 @@ public class Player extends Entity
 	@Override
 	protected int getTotalSprites()
 	{
-		return 5;
-//		return (state == EntityState.DYING) ? Config.DYING_DURATION : ResourceLoader.getInstance().getPlayerTotalSprites(state);
-	}
-	
-	public static void main(String[] args)
-	{
-		Field field = new Field(1000, 1000);
-		
-		Player player = new Player(field, 100, 100);
-		field.setPlayer(player);
-		
-		while(true)
+		switch(state)
 		{
-			double r = Math.random();
-			player.setDx(r < 0.2 ? 1 : r >= 0.8 ? -1 : 0);
-			r = Math.random();
-			player.setDy(r < 0.2 ? 1 : r >= 0.8 ? -1 : 0);
-			field.updateFieldState();
-			player.draw();
-			try
-			{
-				Thread.sleep(100);
-			}
-			catch (InterruptedException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			case RUNNING:
+				return Config.RUNNING_FRAMES;
+			case DYING:
+				return Config.DYING_FRAMES;
+			default:
+				return 1;
 		}
 	}
-	
 }
