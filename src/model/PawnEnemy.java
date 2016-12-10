@@ -4,19 +4,20 @@ import javafx.scene.canvas.GraphicsContext;
 import util.Config;
 import util.DrawingUtility;
 
-public class KnightEnemy extends Enemy<KnightDirection>
+public class PawnEnemy extends Enemy<NormalDirection>
 {
 	
-	public KnightEnemy(Field field, double x, double y)
+	public PawnEnemy(Field field, double x, double y)
 	{
-		super(field, x, y, Config.KNIGHT_SPEED, Config.KNIGHT_HITBOX_X, Config.KNIGHT_HITBOX_Y, Config.KNIGHT_HITBOX_H, Config.KNIGHT_HITBOX_W,
-				KnightDirection.values()[0], Config.KNIGHT_DIRECTION_CHANGE_DELAY, Config.KNIGHT_LIFESPAN);
+		super(field, x, y, Config.PAWN_SPEED, Config.PAWN_HITBOX_X, Config.PAWN_HITBOX_Y, Config.PAWN_HITBOX_H, Config.PAWN_HITBOX_W,
+				NormalDirection.values()[0], Config.PAWN_DIRECTION_CHANGE_DELAY, Config.PAWN_LIFESPAN);
+		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
 	public void draw(GraphicsContext gc)
 	{
-		DrawingUtility.drawKnight(gc, this, field);
+		DrawingUtility.drawPawn(gc, this, field);
 	}
 	
 	@Override

@@ -37,71 +37,85 @@ public class ResourceLoader
 	
 	public Image getPlayerSprite(EntityState state, int frame)
 	{
-		return playerSprites.get(state.getIndex()).get(frame);
+		switch(state)
+		{
+			case DYING:
+			case IDLE:
+				return playerSprites.get(state.getIndex()).get(0);
+			default:
+				return playerSprites.get(state.getIndex()).get(frame);
+		}
 	}
 	
 	public Image getPawnSprite(EntityState state, int frame)
 	{
-		return pawnSprites.get(state.getIndex()).get(frame);
+		switch(state)
+		{
+			case DYING:
+			case IDLE:
+				return pawnSprites.get(state.getIndex()).get(0);
+			default:
+				return pawnSprites.get(state.getIndex()).get(frame);
+		}
 	}
 	
 	public Image getRookSprite(EntityState state, int frame)
 	{
-		return rookSprites.get(state.getIndex()).get(frame);
+		switch(state)
+		{
+			case DYING:
+			case IDLE:
+				return rookSprites.get(state.getIndex()).get(0);
+			default:
+				return rookSprites.get(state.getIndex()).get(frame);
+		}
 	}
 	
 	public Image getKnightSprite(EntityState state, int frame)
 	{
-		return knightSprites.get(state.getIndex()).get(frame);
+		switch(state)
+		{
+			case DYING:
+			case IDLE:
+				return knightSprites.get(state.getIndex()).get(0);
+			default:
+				return knightSprites.get(state.getIndex()).get(frame);
+		}
 	}
 	
 	public Image getBishopSprite(EntityState state, int frame)
 	{
-		return bishopSprites.get(state.getIndex()).get(frame);
+		switch(state)
+		{
+			case DYING:
+			case IDLE:
+				return bishopSprites.get(state.getIndex()).get(0);
+			default:
+				return bishopSprites.get(state.getIndex()).get(frame);
+		}
 	}
 	
 	public Image getQueenSprite(EntityState state, int frame)
 	{
-		return queenSprites.get(state.getIndex()).get(frame);
+		switch(state)
+		{
+			case DYING:
+			case IDLE:
+				return queenSprites.get(state.getIndex()).get(0);
+			default:
+				return queenSprites.get(state.getIndex()).get(frame);
+		}
 	}
 	
 	public Image getKingSprite(EntityState state, int frame)
 	{
-		return kingSprites.get(state.getIndex()).get(frame);
-	}
-	
-	public int getPlayerTotalSprites(EntityState state)
-	{
-		return playerSprites.get(state.getIndex()).size();
-	}
-	
-	public int getPawnTotalSprites(EntityState state)
-	{
-		return pawnSprites.get(state.getIndex()).size();
-	}
-	
-	public int getRookTotalSprites(EntityState state)
-	{
-		return rookSprites.get(state.getIndex()).size();
-	}
-	
-	public int getKnightTotalSprites(EntityState state)
-	{
-		return knightSprites.get(state.getIndex()).size();
-	}
-	
-	public int getBishopTotalSprites(EntityState state)
-	{
-		return bishopSprites.get(state.getIndex()).size();
-	}
-	
-	public int getQueenTotalSprites(EntityState state)
-	{
-		return queenSprites.get(state.getIndex()).size();
-	}
-	
-	public int getKingTotalSprites(EntityState state)
-	{
-		return kingSprites.get(state.getIndex()).size();
+		switch(state)
+		{
+			case DYING:
+			case IDLE:
+				return kingSprites.get(state.getIndex()).get(0);
+			default:
+				return kingSprites.get(state.getIndex()).get(frame);
+		}
 	}
 }

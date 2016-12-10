@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javafx.scene.canvas.GraphicsContext;
+
 public class Field implements IRenderable
 {
 	private double x, y;
@@ -33,7 +35,7 @@ public class Field implements IRenderable
 	}
 	
 	@Override
-	public void draw()
+	public void draw(GraphicsContext gc)
 	{
 		// TODO Auto-generated method stub
 		
@@ -108,7 +110,21 @@ public class Field implements IRenderable
 	
 	public boolean checkLoseCondition()
 	{
-		//TODO check collision of all enemies against player
+		for(Enemy<?> e : enemies)
+		{
+			if(Entity.checkCollision(player, e))
+				return true;
+		}
 		return false;
+	}
+	
+	public double boundX(double x)
+	{
+		return x < 0 ? 0 : x > width ? width : x;
+	}
+	
+	public double boundY(double y)
+	{
+		return y < 0 ? 0 : y > height ? height : y;
 	}
 }

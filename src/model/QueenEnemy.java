@@ -4,19 +4,19 @@ import javafx.scene.canvas.GraphicsContext;
 import util.Config;
 import util.DrawingUtility;
 
-public class KnightEnemy extends Enemy<KnightDirection>
+public class QueenEnemy extends Enemy<NormalDirection>
 {
 	
-	public KnightEnemy(Field field, double x, double y)
+	public QueenEnemy(Field field, double x, double y)
 	{
-		super(field, x, y, Config.KNIGHT_SPEED, Config.KNIGHT_HITBOX_X, Config.KNIGHT_HITBOX_Y, Config.KNIGHT_HITBOX_H, Config.KNIGHT_HITBOX_W,
-				KnightDirection.values()[0], Config.KNIGHT_DIRECTION_CHANGE_DELAY, Config.KNIGHT_LIFESPAN);
+		super(field, x, y, Config.QUEEN_SPEED, Config.QUEEN_HITBOX_X, Config.QUEEN_HITBOX_Y, Config.QUEEN_HITBOX_H, Config.QUEEN_HITBOX_W,
+				NormalDirection.values()[0], Config.QUEEN_DIRECTION_CHANGE_DELAY, Config.QUEEN_LIFESPAN);
 	}
 	
 	@Override
 	public void draw(GraphicsContext gc)
 	{
-		DrawingUtility.drawKnight(gc, this, field);
+		DrawingUtility.drawQueen(gc, this, field);
 	}
 	
 	@Override
