@@ -1,5 +1,7 @@
 package util;
 
+import model.EntityState;
+
 public class Config
 {
 	//X, Y in relation to sprite
@@ -82,4 +84,49 @@ public class Config
 	public static final int
 		SCREEN_WIDTH = 1024,
 		SCREEN_HEIGHT = 768;
+	
+	public static final String
+		PLAYER_PATH = "pic/pawn/",
+		PAWN_PATH = "pic/enemypawn/",
+		ROOK_PATH = "pic/rook/",
+		KNIGHT_PATH = "pic/knight/",
+		BISHOP_PATH = "pic/bishop/",
+		QUEEN_PATH = "pic/queen/",
+		KING_PATH = "pic/king/";
+	
+	public static String getSpriteFileName(EntityState state)
+	{
+		switch(state)
+		{
+			case SPAWNING:
+				return "spawnsprite.png";
+			case IDLE:
+				return "idle.png";
+			case AWAKENING:
+				return "awakesprite.png";
+			case RUNNING:
+				return "walksprite.png";
+			case DYING:
+				return "dead.png";
+			default:
+				return "";
+		}
+	}
+	
+	public static int getFrameCount(EntityState state)
+	{
+		switch(state)
+		{
+			case SPAWNING:
+				return SPAWNING_FRAMES;
+			case AWAKENING:
+				return AWAKENING_FRAMES;
+			case RUNNING:
+				return RUNNING_FRAMES;
+			case DYING:
+				return DYING_FRAMES;
+			default:
+				return 1;
+		}
+	}
 }
