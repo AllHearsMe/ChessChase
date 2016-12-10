@@ -105,4 +105,10 @@ public class Field implements IRenderable
 	{
 		this.player = player;
 	}
+	
+	public boolean checkLoseCondition()
+	{
+		//TODO check collision of all enemies against player
+		return false;
+	}
 }

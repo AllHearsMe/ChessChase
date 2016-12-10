@@ -11,7 +11,7 @@ public abstract class Entity implements IRenderable
 
 	protected int spriteDelay, spriteDelayCounter;
 	protected int spriteCounter;
-	protected EntityState state, nextState;
+	protected EntityState state/*, nextState*/;
 	protected double drawX, drawY, hitW, hitH;
 	
 	public Entity(Field field, double x, double y, double speed, int spriteDelay, double drawX, double drawY, double hitH, double hitW)
@@ -27,7 +27,7 @@ public abstract class Entity implements IRenderable
 		this.spriteDelay = spriteDelay;
 		this.spriteDelayCounter = 0;
 		this.spriteCounter = 0;
-		this.state = this.nextState = EntityState.CREATED;
+		this.state = /*this.nextState =*/ EntityState.CREATED;
 		this.drawX = drawX;
 		this.drawY = drawY;
 		this.hitH = hitH;
@@ -80,6 +80,26 @@ public abstract class Entity implements IRenderable
 	public double getY()
 	{
 		return y;
+	}
+
+	public double getDrawX()
+	{
+		return drawX;
+	}
+
+	public double getDrawY()
+	{
+		return drawY;
+	}
+
+	public double getHitW()
+	{
+		return hitW;
+	}
+
+	public double getHitH()
+	{
+		return hitH;
 	}
 
 	public double getNextX()
