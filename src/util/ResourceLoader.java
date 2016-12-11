@@ -1,5 +1,6 @@
 package util;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,11 +14,10 @@ public class ResourceLoader
 	
 	private ResourceLoader()
 	{
-		
-//		Should be called at program's start
-//		loadResources();
+		// Should be called at program's start instead
+		// loadResources();
 	}
-
+	
 	public static ResourceLoader getInstance()
 	{
 		return instance;
@@ -46,32 +46,30 @@ public class ResourceLoader
 	
 	private void fillSprites(List<List<Image>> list, String path)
 	{
-		System.out.println(path);
-		for(EntityState state : EntityState.values())
+		// System.out.println(path);
+		for (EntityState state : EntityState.values())
 		{
-			if(state != EntityState.CREATED)
+			if (state != EntityState.CREATED
+					&& !((state == EntityState.AWAKENING || state == EntityState.SPAWNING) && path.equals(Config.PLAYER_PATH)))
 			{
-				try
-				{
-					System.out.println(path + Config.getSpriteFileName(state));
-					System.out.println(ClassLoader.getSystemResource(path + Config.getSpriteFileName(state)));
-					Image image = new Image(ClassLoader.getSystemResource(path + Config.getSpriteFileName(state)).toString());
-					list.add(state.getIndex(), new ArrayList<>());
-					for(int i=0; i<list.get(state.getIndex()).size(); i++)
-						list.get(state.getIndex()).add(i, new WritableImage(image.getPixelReader(), i * (int) image.getWidth() / list.get(state.getIndex()).size(), 0, (int) image.getWidth(), (int) image.getHeight()));
-					System.out.println(list.get(state.getIndex()).toString());
-				}
-				catch(NullPointerException e)
-				{
-					e.printStackTrace();
-				}
+				// System.out.println(path + Config.getSpriteFileName(state));
+				// System.out.println(ClassLoader.getSystemResource(path +
+				// Config.getSpriteFileName(state)));
+				URL url = ClassLoader.getSystemResource(path + Config.getSpriteFileName(state));
+				Image image = new Image(url.toString());
+				list.add(state.getIndex(), new ArrayList<>());
+				for (int i = 0; i < Config.getFrameCount(state); i++)
+					list.get(state.getIndex()).add(i,
+							new WritableImage(image.getPixelReader(), i * (int) image.getWidth() / Config.getFrameCount(state), 0,
+									(int) image.getWidth() / Config.getFrameCount(state), (int) image.getHeight()));
+				System.out.println(list.get(state.getIndex()).toString());
 			}
 		}
 	}
 	
 	public Image getPlayerSprite(EntityState state, int frame)
 	{
-		switch(state)
+		switch (state)
 		{
 			case DYING:
 			case IDLE:
@@ -83,7 +81,7 @@ public class ResourceLoader
 	
 	public Image getPawnSprite(EntityState state, int frame)
 	{
-		switch(state)
+		switch (state)
 		{
 			case DYING:
 			case IDLE:
@@ -95,7 +93,7 @@ public class ResourceLoader
 	
 	public Image getRookSprite(EntityState state, int frame)
 	{
-		switch(state)
+		switch (state)
 		{
 			case DYING:
 			case IDLE:
@@ -107,7 +105,7 @@ public class ResourceLoader
 	
 	public Image getKnightSprite(EntityState state, int frame)
 	{
-		switch(state)
+		switch (state)
 		{
 			case DYING:
 			case IDLE:
@@ -119,7 +117,7 @@ public class ResourceLoader
 	
 	public Image getBishopSprite(EntityState state, int frame)
 	{
-		switch(state)
+		switch (state)
 		{
 			case DYING:
 			case IDLE:
@@ -131,7 +129,7 @@ public class ResourceLoader
 	
 	public Image getQueenSprite(EntityState state, int frame)
 	{
-		switch(state)
+		switch (state)
 		{
 			case DYING:
 			case IDLE:
@@ -143,7 +141,7 @@ public class ResourceLoader
 	
 	public Image getKingSprite(EntityState state, int frame)
 	{
-		switch(state)
+		switch (state)
 		{
 			case DYING:
 			case IDLE:
