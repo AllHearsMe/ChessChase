@@ -40,13 +40,13 @@ public class GameScreen extends StackPane {
 		field = new Field(5000, 5000);
 		player = new Player(field, 2500, 2500);
 		field.setPlayer(player);
-		field.addEnemy(new KnightEnemy(field, 2200, 2200));
+		field.addEnemy(new KnightEnemy(field, 2300, 2300));
 		
 		AnimationTimer animation = new AnimationTimer() {
 			public void handle(long now) {
 				if (Main.isGameSceneShown()){
-					paintComponent();
 					update();
+					paintComponent();
 				}
 			}
 		};
