@@ -164,7 +164,6 @@ public class GameScreen extends StackPane {
 				field.setSkill(new BurstLinkSkill());
 			} else if (InputUtility.getInstance().getKeyTriggered(KeyCode.X)) {
 				powerup--;
-
 			}
 		}
 		InputUtility.getInstance().postUpdate();
