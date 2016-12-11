@@ -19,7 +19,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
-import jdk.nashorn.internal.ir.ContinueNode;
 import model.*;
 
 import util.Config;
