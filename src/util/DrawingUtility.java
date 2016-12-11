@@ -81,4 +81,14 @@ public class DrawingUtility
 		gc.fillRect(0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		gc.setGlobalAlpha(1);
 	}
+	
+	public static void drawPauseEffect(GraphicsContext gc)
+	{
+		gc.setGlobalAlpha(0.50);
+		gc.setFill(Color.DEEPSKYBLUE);
+		gc.fillRect(0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
+		gc.setGlobalAlpha(1);
+		Image image = ResourceLoader.getInstance().getPauseImage();
+		gc.drawImage(image, (Config.SCREEN_WIDTH - image.getWidth()) / 2, (Config.SCREEN_HEIGHT - image.getHeight()) / 2);
+	}
 }

@@ -7,6 +7,11 @@ public class PauseEffect implements IRenderable
 {
 	private boolean isPaused = false;
 	
+	public PauseEffect()
+	{
+		RenderableHolder.getInstance().add(this);
+	}
+	
 	public void togglePaused()
 	{
 		this.isPaused = !this.isPaused;
@@ -14,6 +19,11 @@ public class PauseEffect implements IRenderable
 
 	@Override
 	public boolean isVisible()
+	{
+		return isPaused;
+	}
+	
+	public boolean isPaused()
 	{
 		return isPaused;
 	}

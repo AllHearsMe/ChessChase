@@ -52,8 +52,8 @@ public abstract class Enemy<D extends IDirection> extends Entity
 					if (spriteDelayCounter <= 0 && spriteCounter >= getTotalSprites()) state = EntityState.IDLE;
 					break;
 				case IDLE:
-					if (Math.abs((this.x + this.hitW / 2) - (field.getPlayer().x + field.getPlayer().hitW)) <= Config.AWAKEN_RANGE_WIDTH
-							&& Math.abs((this.y + this.hitH / 2) - (field.getPlayer().y + field.getPlayer().hitH)) <= Config.AWAKEN_RANGE_HEIGHT)
+					if (Math.abs((this.x + this.hitW / 2) - (field.getPlayer().x + field.getPlayer().hitW / 2)) <= Config.AWAKEN_RANGE_WIDTH
+							&& Math.abs((this.y + this.hitH / 2) - (field.getPlayer().y + field.getPlayer().hitH / 2)) <= Config.AWAKEN_RANGE_HEIGHT)
 					{
 						state = EntityState.AWAKENING;
 						spriteDelayCounter = 0;

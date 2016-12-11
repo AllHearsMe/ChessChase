@@ -95,7 +95,8 @@ public class Config
 		KING_PATH = "king/";
 	
 	public static final String
-		FIELD_BACKGROUND_PATH = "field.jpg";
+		FIELD_BACKGROUND_PATH = "field.jpg",
+		PAUSE_IMAGE_PATH = "pause.png";
 	
 	public static String getSpriteFileName(EntityState state)
 	{
