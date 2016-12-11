@@ -1,6 +1,7 @@
 package util;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import model.BishopEnemy;
 import model.EntityState;
 import model.Field;
@@ -16,12 +17,22 @@ public class DrawingUtility
 	public static void drawField(GraphicsContext gc, Field field)
 	{
 		//TODO
+		System.out.print("drawField: ");
+		gc.setFill(Color.GREEN);
+		gc.fillRect(-field.getX(), -field.getY(), field.getWidth(), field.getHeight());
+		System.out.print(-field.getX());
+		System.out.print(" ");
+		System.out.println(-field.getY());
 	}
 	
 	public static void drawPlayer(GraphicsContext gc, Player player, Field field)
 	{
 		if(player.getState() == EntityState.DYING)
 			gc.setGlobalAlpha(1 - player.getSpriteCounter() / Config.DYING_FRAMES);
+		System.out.print("drawPlayer: ");
+		System.out.print(player.getDrawX() - field.getX());
+		System.out.print(" ");
+		System.out.println(player.getDrawY() - field.getY());
 		gc.drawImage(ResourceLoader.getInstance().getPlayerSprite(player.getState(), player.getSpriteCounter()), 
 				player.getDrawX() - field.getX(), player.getDrawY() - field.getY());
 		gc.setGlobalAlpha(1);

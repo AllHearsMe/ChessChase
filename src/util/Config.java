@@ -67,8 +67,8 @@ public class Config
 		KING_LIFESPAN = 100;
 
 	public static final double
-		AWAKEN_RANGE_WIDTH = 500,
-		AWAKEN_RANGE_HEIGHT = 500;
+		AWAKEN_RANGE_WIDTH = 400,
+		AWAKEN_RANGE_HEIGHT = 300;
 	
 	public static final int
 		SPAWNING_FRAMES = 15,
@@ -123,8 +123,8 @@ public class Config
 				return AWAKENING_FRAMES;
 			case RUNNING:
 				return RUNNING_FRAMES;
-			case DYING:
-				return DYING_FRAMES;
+//			case DYING:
+//				return DYING_FRAMES;
 			default:
 				return 1;
 		}

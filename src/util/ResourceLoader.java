@@ -1,6 +1,5 @@
 package util;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,23 +45,24 @@ public class ResourceLoader
 	
 	private void fillSprites(List<List<Image>> list, String path)
 	{
-		// System.out.println(path);
 		for (EntityState state : EntityState.values())
 		{
-			if (state != EntityState.CREATED
-					&& !((state == EntityState.AWAKENING || state == EntityState.SPAWNING) && path.equals(Config.PLAYER_PATH)))
+			if (state != EntityState.CREATED)
 			{
-				// System.out.println(path + Config.getSpriteFileName(state));
-				// System.out.println(ClassLoader.getSystemResource(path +
-				// Config.getSpriteFileName(state)));
-				URL url = ClassLoader.getSystemResource(path + Config.getSpriteFileName(state));
-				Image image = new Image(url.toString());
-				list.add(state.getIndex(), new ArrayList<>());
+				if((state == EntityState.AWAKENING || state == EntityState.SPAWNING) && path.equals(Config.PLAYER_PATH))
+				{
+					list.add(state.getIndex(), new ArrayList<>());
+					continue;
+				}
+				
+				List<Image> tempList = new ArrayList<>();
+				Image image = new Image(ClassLoader.getSystemResource(path + Config.getSpriteFileName(state)).toString());
 				for (int i = 0; i < Config.getFrameCount(state); i++)
-					list.get(state.getIndex()).add(i,
-							new WritableImage(image.getPixelReader(), i * (int) image.getWidth() / Config.getFrameCount(state), 0,
-									(int) image.getWidth() / Config.getFrameCount(state), (int) image.getHeight()));
-				System.out.println(list.get(state.getIndex()).toString());
+				{
+					tempList.add(new WritableImage(image.getPixelReader(), i * (int) image.getWidth() / Config.getFrameCount(state),
+							0, (int) image.getWidth() / Config.getFrameCount(state), (int) image.getHeight()));
+				}
+				list.add(state.getIndex(), tempList);
 			}
 		}
 	}
@@ -149,10 +149,5 @@ public class ResourceLoader
 			default:
 				return kingSprites.get(state.getIndex()).get(frame);
 		}
-	}
-	
-	public static void main(String[] args)
-	{
-		getInstance().loadResources();
 	}
 }
