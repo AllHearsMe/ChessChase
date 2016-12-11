@@ -82,6 +82,7 @@ public class Main extends Application{
 			ft.setOnFinished(e -> {
 				this.primaryStage.setScene(gameScene);
 				isGameSceneShown = !isGameSceneShown;
+				gameScreen.startNewGame();
 			});
 			
 		}

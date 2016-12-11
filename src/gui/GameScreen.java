@@ -17,6 +17,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
+import model.BishopEnemy;
 import model.Field;
 import model.IRenderable;
 import model.KnightEnemy;
@@ -25,6 +26,7 @@ import model.RenderableHolder;
 import util.Config;
 
 public class GameScreen extends StackPane {
+	private Main main;
 	private Canvas canvas;
 	private GraphicsContext gc;
 
@@ -43,14 +45,31 @@ public class GameScreen extends StackPane {
 		gc = canvas.getGraphicsContext2D();
 		this.getChildren().add(canvas);
 
+		this.main = main;
+		
+		this.setOnKeyPressed(event -> handleKeyPressed(event));
+		this.setOnKeyReleased(event -> handleKeyReleased(event));
+
+//		startNewGame();
+	}
+	
+	public void startNewGame()
+	{
+		time = 0;
+		delay = 0;
+		powerup = 3;
+		isPaused = isHoldingPause = false;
+		
+		RenderableHolder.getInstance().getRenderables().clear();
+		
 		field = new Field(5000, 5000);
 		player = new Player(field, 2500, 2500);
 		field.setPlayer(player);
 		field.addEnemy(new KnightEnemy(field, 2300, 2300));
-
-		this.setOnKeyPressed(event -> handleKeyPressed(event));
-		this.setOnKeyReleased(event -> handleKeyReleased(event));
-
+		field.addEnemy(new BishopEnemy(field, 2700, 2700));
+		
+		System.out.println(field.toString() + " " + player.toString());
+		
 		AnimationTimer animation = new AnimationTimer() {
 			public void handle(long now) {
 				if (Main.isGameSceneShown()) {
@@ -83,7 +102,6 @@ public class GameScreen extends StackPane {
 			}
 		};
 		animation.start();
-
 	}
 
 	public synchronized void paintComponent() {
@@ -117,9 +135,12 @@ public class GameScreen extends StackPane {
 		field.updateFieldState();
 	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/AllHearsMe/master
 	private void handleKeyPressed(KeyEvent event) {
-		System.out.println("Pressed: " + event.getCode().toString());
+//		System.out.println("Pressed: " + event.getCode().toString());
 		switch (event.getCode()) {
 		case LEFT:
 			player.setDx(-1);
@@ -144,7 +165,7 @@ public class GameScreen extends StackPane {
 	}
 
 	private void handleKeyReleased(KeyEvent event) {
-		System.out.println("Released: " + event.getCode().toString());
+//		System.out.println("Released: " + event.getCode().toString());
 		switch (event.getCode()) {
 		case LEFT:
 		case RIGHT:
