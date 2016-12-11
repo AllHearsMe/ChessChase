@@ -8,7 +8,7 @@ public class BurstLinkSkill extends SpecialSkill
 {
 	public BurstLinkSkill()
 	{
-		super(Config.BURST_LINK_DURATION, 0, 0, () -> Enemy.isPaused = true, () -> Enemy.isPaused = false);
+		super(Config.BURST_LINK_DURATION, () -> Enemy.isPaused = true, () -> Enemy.isPaused = false);
 	}
 
 	@Override

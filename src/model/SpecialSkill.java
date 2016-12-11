@@ -4,15 +4,12 @@ public abstract class SpecialSkill implements IRenderable
 {
 	protected boolean isActive;
 	protected int age, lifespan;
-	protected double x, y;
 	protected Runnable effect, reverseEffect;
 	
-	public SpecialSkill(int lifespan, double x, double y, Runnable effect, Runnable reverseEffect)
+	public SpecialSkill(int lifespan, Runnable effect, Runnable reverseEffect)
 	{
 		this.age = 0;
 		this.lifespan = lifespan;
-		this.x = x;
-		this.y = y;
 		this.isActive = true;
 		this.effect = effect;
 		this.reverseEffect = reverseEffect;
@@ -33,16 +30,6 @@ public abstract class SpecialSkill implements IRenderable
 	public boolean isActive()
 	{
 		return isActive;
-	}
-	
-	public double getX()
-	{
-		return x;
-	}
-
-	public double getY()
-	{
-		return y;
 	}
 
 	@Override
