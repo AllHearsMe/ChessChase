@@ -27,7 +27,7 @@ public class GameScreen extends StackPane {
 		AnimationTimer animation = new AnimationTimer() {
 			public void handle(long now) {
 				if (Main.isGameSceneShown()){
-					paintComponenet();
+					paintComponent();
 					update();
 				}
 			}
@@ -35,7 +35,7 @@ public class GameScreen extends StackPane {
 		animation.start();
 	}
 	
-	public synchronized void paintComponenet(){
+	public synchronized void paintComponent(){
 		gc.setFill(Color.BLACK);
 		gc.clearRect(0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		gc.fillRect(0, 0, Config.SCREEN_WIDTH, 100);
