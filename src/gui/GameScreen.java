@@ -128,7 +128,7 @@ public class GameScreen extends StackPane {
 	public synchronized void update() {
 		checkInputKeys();
 		if (pauseEffect.isPaused()) return;
-		if (delay % NORMAL_TICK_PER_SECOND == 0) time++;
+		if (delay % Config.NORMAL_TICK_PER_SECOND == 0) time++;
 		delay++;
 		field.updateFieldState();
 	}
