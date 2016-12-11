@@ -12,17 +12,20 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import model.BishopEnemy;
+import model.BurstLinkSkill;
 import model.Field;
 import model.KnightEnemy;
+import model.PauseEffect;
 import model.Player;
 import model.RenderableHolder;
 import util.Config;
+import util.InputUtility;
 
 public class GameScreen extends StackPane {
 	private Main main;
@@ -31,12 +34,11 @@ public class GameScreen extends StackPane {
 
 	private Field field;
 	private Player player;
+	private PauseEffect pauseEffect;
 
 	private int time = 0;
 	private int delay = 0;
 	private int powerup = 3;
-
-	private boolean isPaused = false, isHoldingPause = false;
 
 	public GameScreen(Main main) {
 		this.setPrefSize(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
@@ -46,8 +48,8 @@ public class GameScreen extends StackPane {
 
 		this.main = main;
 		
-		this.setOnKeyPressed(event -> handleKeyPressed(event));
-		this.setOnKeyReleased(event -> handleKeyReleased(event));
+		this.setOnKeyPressed(event -> InputUtility.getInstance().handleKeyPress(event.getCode()));
+		this.setOnKeyReleased(event -> InputUtility.getInstance().handleKeyRelease(event.getCode()));
 
 //		startNewGame();
 	}
@@ -57,12 +59,12 @@ public class GameScreen extends StackPane {
 		time = 0;
 		delay = 0;
 		powerup = 3;
-		isPaused = isHoldingPause = false;
 		
 		RenderableHolder.getInstance().getRenderables().clear();
 		
 		field = new Field(5000, 5000);
 		player = new Player(field, 2500, 2500);
+		pauseEffect = new PauseEffect();
 		field.setPlayer(player);
 		field.addEnemy(new KnightEnemy(field, 2300, 2300));
 		field.addEnemy(new BishopEnemy(field, 2700, 2700));
@@ -122,18 +124,43 @@ public class GameScreen extends StackPane {
 	}
 
 	public synchronized void update() {
-		if (isPaused)
-			return;
-		if (delay % 60 == 0) {
-			time++;
-		}
+		checkInputKeys();
+		if (pauseEffect.isPaused()) return;
+		if (delay % 60 == 0) time++;
 		delay++;
 		field.updateFieldState();
 	}
+	
+	private void checkInputKeys()
+	{
+		player.setDx((InputUtility.getInstance().getKeyPressed(KeyCode.LEFT) || InputUtility.getInstance().getKeyPressed(KeyCode.A) ? -1 : 0)
+				+ (InputUtility.getInstance().getKeyPressed(KeyCode.RIGHT) || InputUtility.getInstance().getKeyPressed(KeyCode.D) ? 1 : 0));
+		player.setDy((InputUtility.getInstance().getKeyPressed(KeyCode.UP) || InputUtility.getInstance().getKeyPressed(KeyCode.W) ? -1 : 0)
+				+ (InputUtility.getInstance().getKeyPressed(KeyCode.DOWN) || InputUtility.getInstance().getKeyPressed(KeyCode.S) ? 1 : 0));
+		if(InputUtility.getInstance().getKeyTriggered(KeyCode.SPACE))
+		{
+			pauseEffect.togglePaused();
+		}
+		if(!field.isSkillActive() && powerup > 0)
+		{
+			if(InputUtility.getInstance().getKeyTriggered(KeyCode.Z))
+			{
+				powerup--;
+				field.setSkill(new BurstLinkSkill());
+			}
+			else if(InputUtility.getInstance().getKeyTriggered(KeyCode.X))
+			{
+				powerup--;
+				
+			}
+		}
+		
+		InputUtility.getInstance().postUpdate();
+	}
 
-	private void handleKeyPressed(KeyEvent event) {
+	/*private void handleKeyPressed(KeyCode code) {
 //		System.out.println("Pressed: " + event.getCode().toString());
-		switch (event.getCode()) {
+		switch (code) {
 		case LEFT:
 		case A:
 			player.setDx(-1);
@@ -166,9 +193,9 @@ public class GameScreen extends StackPane {
 		}
 	}
 
-	private void handleKeyReleased(KeyEvent event) {
+	private void handleKeyReleased(KeyCode code) {
 //		System.out.println("Released: " + event.getCode().toString());
-		switch (event.getCode()) {
+		switch (code) {
 		case LEFT:
 		case A:
 		case RIGHT:
@@ -188,7 +215,7 @@ public class GameScreen extends StackPane {
 			break;
 		}
 
-	}
+	}*/
 
 	public void requestFocusForCanvas() {
 		this.requestFocus();
