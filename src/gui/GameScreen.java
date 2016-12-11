@@ -122,7 +122,7 @@ public class GameScreen extends StackPane {
 		gc.fillText(Integer.toString(powerup), 150, 75);
 		Image powerup = new Image("file:pic/powerup.png");
 		gc.drawImage(powerup, 50, 12.5);
-
+		
 	}
 
 	public synchronized void update() {
