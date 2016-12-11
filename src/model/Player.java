@@ -82,7 +82,7 @@ public class Player extends Entity
 	protected void calculateNextPosition()
 	{
 		nextX = x + dx * speed;
-		nextY = y + dx * speed;
+		nextY = y + dy * speed;
 	}
 
 	public int getDx()

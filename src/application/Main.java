@@ -41,6 +41,7 @@ public class Main extends Application{
 				if (e.getCode() == KeyCode.ENTER){
 					if (!isGameSceneShown){	
 						toggleScene();
+						gameScreen.requestFocusForCanvas();
 					}
 				}	
 			});
