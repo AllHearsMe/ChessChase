@@ -19,7 +19,6 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 import model.BishopEnemy;
 import model.Field;
-import model.IRenderable;
 import model.KnightEnemy;
 import model.Player;
 import model.RenderableHolder;
@@ -68,8 +67,6 @@ public class GameScreen extends StackPane {
 		field.addEnemy(new KnightEnemy(field, 2300, 2300));
 		field.addEnemy(new BishopEnemy(field, 2700, 2700));
 		
-		System.out.println(field.toString() + " " + player.toString());
-		
 		AnimationTimer animation = new AnimationTimer() {
 			public void handle(long now) {
 				if (Main.isGameSceneShown()) {
@@ -107,8 +104,7 @@ public class GameScreen extends StackPane {
 	public synchronized void paintComponent() {
 		gc.clearRect(0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 
-		for (IRenderable r : RenderableHolder.getInstance().getRenderables())
-			r.draw(gc);
+		RenderableHolder.getInstance().draw(gc);
 
 		gc.setFill(Color.BLACK);
 		gc.fillRect(0, 0, Config.SCREEN_WIDTH, 100);
@@ -139,16 +135,26 @@ public class GameScreen extends StackPane {
 //		System.out.println("Pressed: " + event.getCode().toString());
 		switch (event.getCode()) {
 		case LEFT:
+		case A:
 			player.setDx(-1);
 			break;
 		case RIGHT:
+		case D:
 			player.setDx(1);
 			break;
 		case UP:
+		case W:
 			player.setDy(-1);
 			break;
 		case DOWN:
+		case S:
 			player.setDy(1);
+			break;
+		case Z:
+			
+			break;
+		case X:
+			
 			break;
 		case SPACE:
 			if (!isHoldingPause)
@@ -164,11 +170,15 @@ public class GameScreen extends StackPane {
 //		System.out.println("Released: " + event.getCode().toString());
 		switch (event.getCode()) {
 		case LEFT:
+		case A:
 		case RIGHT:
+		case D:
 			player.setDx(0);
 			break;
 		case UP:
+		case W:
 		case DOWN:
+		case S:
 			player.setDy(0);
 			break;
 		case SPACE:

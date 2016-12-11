@@ -18,7 +18,7 @@ public class Player extends Entity
 	@Override
 	public int getZ()
 	{
-		return 1;
+		return 3;
 	}
 	
 	@Override
