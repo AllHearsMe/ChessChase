@@ -12,14 +12,12 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import model.EntityState;
 import model.Field;
 import model.IRenderable;
 import model.KnightEnemy;
 import model.Player;
 import model.RenderableHolder;
 import util.Config;
-import util.ResourceLoader;
 
 public class GameScreen extends StackPane {
 	private Canvas canvas;

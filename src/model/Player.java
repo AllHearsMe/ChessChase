@@ -67,7 +67,7 @@ public class Player extends Entity
 					break;
 			}
 			
-			if(field.checkLoseCondition())
+			if(field.checkLoseCondition() && state != EntityState.DYING)
 			{
 				state = EntityState.DYING;
 				spriteDelayCounter = 0;
