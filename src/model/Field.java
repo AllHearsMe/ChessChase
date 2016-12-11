@@ -22,6 +22,7 @@ public class Field implements IRenderable
 		this.x = this.y = 0;
 		this.width = width;
 		this.height = height;
+		RenderableHolder.getInstance().add(this);
 	}
 
 	@Override
@@ -48,18 +49,20 @@ public class Field implements IRenderable
 		for(Enemy<?> e : enemies)
 			e.update();
 
-//		this.x = bound(player.getX() + player.getHitX() / 2 - Config.SCREEN_WIDTH / 2, width, Config.SCREEN_WIDTH);
-//		this.y = bound(player.getY() + player.getHitY() / 2 - Config.SCREEN_HEIGHT / 2, height, Config.SCREEN_HEIGHT);
 		this.x = bound(player.getX() + player.getHitX() / 2 - Config.SCREEN_WIDTH / 2, Config.SCREEN_WIDTH, this.width);
 		this.y = bound(player.getY() + player.getHitY() / 2 - Config.SCREEN_HEIGHT / 2, Config.SCREEN_HEIGHT, this.height);
-//		this.x = player.getX() + player.getHitX() / 2 - Config.SCREEN_WIDTH / 2;
-//		this.y = player.getY() + player.getHitY() / 2 - Config.SCREEN_HEIGHT / 2;
 		
 		for(Iterator<Enemy<?>> i = enemies.iterator(); i.hasNext();)
 		{
-			if(i.next().isDestroyed())
+			Enemy<?> e = i.next();
+			if(e.isDestroyed())
+			{
 				i.remove();
+				RenderableHolder.getInstance().getRenderables().remove(e);
+			}
 		}
+		if(player.isDestroyed())
+			RenderableHolder.getInstance().getRenderables().remove(player);
 		return player.isDestroyed();
 		
 	}
