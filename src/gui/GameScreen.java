@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.Random;
+
 import com.sun.javafx.tk.FontLoader;
 import com.sun.javafx.tk.Toolkit;
 
@@ -17,13 +19,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
-import model.BishopEnemy;
-import model.BurstLinkSkill;
-import model.Field;
-import model.KnightEnemy;
-import model.PauseEffect;
-import model.Player;
-import model.RenderableHolder;
+
+import model.*;
+
 import util.Config;
 import util.InputUtility;
 
@@ -66,12 +64,16 @@ public class GameScreen extends StackPane {
 		player = new Player(field, 2500, 2500);
 		pauseEffect = new PauseEffect();
 		field.setPlayer(player);
-		field.addEnemy(new KnightEnemy(field, 2300, 2300));
-		field.addEnemy(new BishopEnemy(field, 2700, 2700));
+		for (int i = 0; i < 3; i++) {
+			createEnemy(field);
+		}
 		
 		AnimationTimer animation = new AnimationTimer() {
 			public void handle(long now) {
 				if (Main.isGameSceneShown()) {
+					if (delay % (Config.NORMAL_TICK_PER_SECOND / 2) == 0){
+						createEnemy(field);
+					}
 					update();
 					paintComponent();
 					if (player.isDestroyed()) {
@@ -126,7 +128,7 @@ public class GameScreen extends StackPane {
 	public synchronized void update() {
 		checkInputKeys();
 		if (pauseEffect.isPaused()) return;
-		if (delay % 60 == 0) time++;
+		if (delay % NORMAL_TICK_PER_SECOND == 0) time++;
 		delay++;
 		field.updateFieldState();
 	}
@@ -219,6 +221,29 @@ public class GameScreen extends StackPane {
 
 	public void requestFocusForCanvas() {
 		this.requestFocus();
+	}
+	
+	public void createEnemy(Field field){
+		long now = System.nanoTime();
+		int spawnNumber = new Random(now).nextInt(Config.MAX_SPAWN) +1;
+		for (int i = 0; i < spawnNumber; i++) {
+			int spawnX = new Random(now).nextInt((int) field.getWidth());
+			int spawnY = new Random(now).nextInt((int) field.getHeight());
+			int spawnCase = new Random(now).nextInt(100);
+			if (spawnCase < 40){
+				field.addEnemy(new PawnEnemy(field, spawnX, spawnY));
+			}else if (spawnCase < 55){
+				field.addEnemy(new KnightEnemy(field, spawnX, spawnY));
+			}else if (spawnCase < 70){
+				field.addEnemy(new RookEnemy(field, spawnX, spawnY));
+			}else if (spawnCase < 85){
+				field.addEnemy(new BishopEnemy(field, spawnX, spawnY));
+			}else if (spawnCase <95){
+				field.addEnemy(new QueenEnemy(field, spawnX, spawnY));
+			}else {
+				field.addEnemy(new KingEnemy(field, spawnX, spawnY));
+			}
+		}
 	}
 
 }
