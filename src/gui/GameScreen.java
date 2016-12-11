@@ -61,12 +61,6 @@ public class GameScreen extends StackPane {
 		gc.fillRect(0, 0, Config.SCREEN_WIDTH, 100);
 		Font font = new Font("Impact", 65);
 		gc.setFont(font);
-		// delete here
-		gc.fillText("Insert background here", 100, 400);
-		gc.fillText("I dont know what to do anymore orz", 0, 500);
-		
-		//
-		//
 		gc.setFill(Color.WHITE);
 		gc.fillText(Integer.toString(time),Config.SCREEN_WIDTH - 150, 75);
 		FontLoader ft = Toolkit.getToolkit().getFontLoader();

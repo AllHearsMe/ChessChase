@@ -44,7 +44,6 @@ public class ResourceLoader
 		fillSprites(kingSprites, Config.KING_PATH);
 		
 		fieldBackground = new Image(ClassLoader.getSystemResource(Config.FIELD_BACKGROUND_PATH).toString());
-		System.out.println(fieldBackground.toString() + " " + fieldBackground.getWidth() + " " + fieldBackground.getHeight());
 	}
 	
 	private void fillSprites(List<List<Image>> list, String path)
