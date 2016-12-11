@@ -118,13 +118,13 @@ public class Field implements IRenderable
 		return false;
 	}
 	
-	public double boundX(double x)
+	public double boundX(double x, double hitW)
 	{
-		return x < 0 ? 0 : x > width ? width : x;
+		return x < 0 ? 0 : x + hitW > width ? width - hitW : x;
 	}
 	
-	public double boundY(double y)
+	public double boundY(double y, double hitH)
 	{
-		return y < 0 ? 0 : y > height ? height : y;
+		return y < 0 ? 0 : y + hitH > height ? height - hitH : y;
 	}
 }

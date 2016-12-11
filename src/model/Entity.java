@@ -44,8 +44,8 @@ public abstract class Entity implements IRenderable
 	{
 		if(isDestroyed)
 			return false;
-		x = field.boundX(nextX);
-		y = field.boundY(nextY);
+		x = field.boundX(nextX, hitW);
+		y = field.boundY(nextY, hitH);
 		calculateNextPosition();
 		return true;
 	}
