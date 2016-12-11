@@ -2,6 +2,7 @@ package util;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import model.BishopEnemy;
 import model.EntityState;
@@ -71,5 +72,13 @@ public class DrawingUtility
 	{
 		drawSprite(gc, ResourceLoader.getInstance().getKingSprite(king.getState(), king.getSpriteCounter()), king.getState(),
 				king.getSpriteCounter(), king.getDrawX() - field.getX(), king.getDrawY() - field.getY(), king.getDirection().getFacing());
+	}
+	
+	public static void drawBurstLinkEffect(GraphicsContext gc)
+	{
+		gc.setGlobalAlpha(0.50);
+		gc.setFill(Color.DEEPSKYBLUE);
+		gc.fillRect(0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
+		gc.setGlobalAlpha(1);
 	}
 }

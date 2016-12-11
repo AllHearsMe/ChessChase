@@ -25,7 +25,7 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	@Override
 	public int getZ()
 	{
-		return 2;
+		return 1;
 	}
 	
 	@Override

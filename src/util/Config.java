@@ -132,4 +132,8 @@ public class Config
 				return 1;
 		}
 	}
+	
+	public static final int
+		BURST_LINK_DURATION = 3 * NORMAL_TICK_PER_SECOND,
+		TRIPLE_ACCEL_DURATION = 7 * NORMAL_TICK_PER_SECOND; 
 }

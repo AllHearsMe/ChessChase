@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import javafx.scene.canvas.GraphicsContext;
+
 public class RenderableHolder
 {
 	private static RenderableHolder instance = new RenderableHolder();
@@ -35,5 +37,11 @@ public class RenderableHolder
 	public void sort()
 	{
 		renderables.sort(comparator);
+	}
+	
+	public void draw(GraphicsContext gc)
+	{
+		for (IRenderable r : renderables)
+			if(r.isVisible()) r.draw(gc);
 	}
 }
