@@ -1,13 +1,11 @@
 package application;
 
-import com.sun.xml.internal.ws.developer.SerializationFeature;
 
 import gui.GameScreen;
 import gui.MenuScreen;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import application.Main;
 import util.Config;
@@ -45,6 +43,7 @@ public class Main extends Application{
 				if (e.getCode() == KeyCode.ENTER){
 					if (!isGameSceneShown){
 						toggleScene();
+						gameScreen.requestFocusForCanvas();
 					}
 				}	
 			});
