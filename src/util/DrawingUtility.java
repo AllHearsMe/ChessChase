@@ -81,4 +81,9 @@ public class DrawingUtility
 		gc.fillRect(0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		gc.setGlobalAlpha(1);
 	}
+	
+	public static void drawPauseEffect(GraphicsContext gc)
+	{
+		
+	}
 }

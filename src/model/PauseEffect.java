@@ -18,6 +18,11 @@ public class PauseEffect implements IRenderable
 		return isPaused;
 	}
 	
+	public boolean isPaused()
+	{
+		return isPaused;
+	}
+	
 	@Override
 	public int getZ()
 	{
