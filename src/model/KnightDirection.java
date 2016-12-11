@@ -33,4 +33,9 @@ public enum KnightDirection implements IDirection
 		else if(phase < 1) return (Math.abs(dy) > Math.abs(dx)) ? 0 : Math.signum(dy);
 		else return dy;
 	}
+	
+	public int getFacing()
+	{
+		return dx < 0 ? -1 : 1;
+	}
 }

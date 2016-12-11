@@ -15,6 +15,16 @@ import model.RookEnemy;
 
 public class DrawingUtility
 {
+	private static void drawSprite(GraphicsContext gc, Image sprite, EntityState state, int spriteCounter, double x, double y, int facing)
+	{
+		if(state == EntityState.DYING)
+			gc.setGlobalAlpha(1 - (double) spriteCounter / Config.DYING_FRAMES);
+		gc.scale(facing, 1);
+		gc.drawImage(sprite, facing * x, y);
+		gc.setGlobalAlpha(1);
+		gc.scale(1, 1);
+	}
+	
 	public static void drawField(GraphicsContext gc, Field field)
 	{
 		Image background = ResourceLoader.getInstance().getFieldBackground();
@@ -24,11 +34,12 @@ public class DrawingUtility
 	
 	public static void drawPlayer(GraphicsContext gc, Player player, Field field)
 	{
-		if(player.getState() == EntityState.DYING)
-			gc.setGlobalAlpha(1 - (double) player.getSpriteCounter() / Config.DYING_FRAMES);
-		gc.drawImage(ResourceLoader.getInstance().getPlayerSprite(player.getState(), player.getSpriteCounter()), 
-				player.getDrawX() - field.getX(), player.getDrawY() - field.getY());
-		gc.setGlobalAlpha(1);
+//		if(player.getState() == EntityState.DYING)
+//			gc.setGlobalAlpha(1 - (double) player.getSpriteCounter() / Config.DYING_FRAMES);
+//		gc.drawImage(ResourceLoader.getInstance().getPlayerSprite(player.getState(), player.getSpriteCounter()), 
+//				player.getDrawX() - field.getX(), player.getDrawY() - field.getY());
+//		gc.setGlobalAlpha(1);
+		drawSprite(gc, ResourceLoader.getInstance().getPlayerSprite(player.getState(), player.getSpriteCounter()), player.getState(), player.getSpriteCounter(), player.getDrawX() - field.getX(), player.getDrawY() - field.getY(), player.getDx() < 0 ? -1 : 1);
 	}
 	
 	public static void drawPawn(GraphicsContext gc, PawnEnemy pawn, Field field)
