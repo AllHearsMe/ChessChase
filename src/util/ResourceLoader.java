@@ -23,6 +23,7 @@ public class ResourceLoader
 	}
 	
 	private List<List<Image>> playerSprites, pawnSprites, rookSprites, knightSprites, bishopSprites, queenSprites, kingSprites;
+	private Image fieldBackground;
 	
 	public void loadResources()
 	{
@@ -41,6 +42,9 @@ public class ResourceLoader
 		fillSprites(bishopSprites, Config.BISHOP_PATH);
 		fillSprites(queenSprites, Config.QUEEN_PATH);
 		fillSprites(kingSprites, Config.KING_PATH);
+		
+		fieldBackground = new Image(ClassLoader.getSystemResource(Config.FIELD_BACKGROUND_PATH).toString());
+		System.out.println(fieldBackground.toString() + " " + fieldBackground.getWidth() + " " + fieldBackground.getHeight());
 	}
 	
 	private void fillSprites(List<List<Image>> list, String path)
@@ -149,5 +153,10 @@ public class ResourceLoader
 			default:
 				return kingSprites.get(state.getIndex()).get(frame);
 		}
+	}
+
+	public Image getFieldBackground()
+	{
+		return fieldBackground;
 	}
 }

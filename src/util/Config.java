@@ -94,6 +94,9 @@ public class Config
 		QUEEN_PATH = "queen/",
 		KING_PATH = "king/";
 	
+	public static final String
+		FIELD_BACKGROUND_PATH = "field.jpg";
+	
 	public static String getSpriteFileName(EntityState state)
 	{
 		switch(state)

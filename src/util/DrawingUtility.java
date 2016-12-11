@@ -1,7 +1,8 @@
 package util;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 import model.BishopEnemy;
 import model.EntityState;
 import model.Field;
@@ -16,13 +17,9 @@ public class DrawingUtility
 {
 	public static void drawField(GraphicsContext gc, Field field)
 	{
-		//TODO
-		System.out.print("drawField: ");
-		gc.setFill(Color.GREEN);
+		Image background = ResourceLoader.getInstance().getFieldBackground();
+		gc.setFill(new ImagePattern(background, 0, 0, background.getWidth() / field.getWidth(), background.getHeight() / field.getHeight(), true));
 		gc.fillRect(-field.getX(), -field.getY(), field.getWidth(), field.getHeight());
-		System.out.print(-field.getX());
-		System.out.print(" ");
-		System.out.println(-field.getY());
 	}
 	
 	public static void drawPlayer(GraphicsContext gc, Player player, Field field)
