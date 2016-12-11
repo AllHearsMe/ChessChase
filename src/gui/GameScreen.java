@@ -56,7 +56,7 @@ public class GameScreen extends StackPane {
 				if (Main.isGameSceneShown()) {
 					update();
 					paintComponent();
-					if (checkEnd()) {
+					if (player.isDestroyed()) {
 						Platform.runLater(new Runnable() {
 
 							@Override
@@ -104,7 +104,7 @@ public class GameScreen extends StackPane {
 		gc.fillText(Integer.toString(powerup), 150, 75);
 		Image powerup = new Image("file:pic/powerup.png");
 		gc.drawImage(powerup, 50, 12.5);
-
+		
 	}
 
 	public synchronized void update() {
@@ -117,12 +117,6 @@ public class GameScreen extends StackPane {
 		field.updateFieldState();
 	}
 
-	public boolean checkEnd() {
-		if (player.isDestroyed()) {
-			return true;
-		} else
-			return false;
-	}
 
 	private void handleKeyPressed(KeyEvent event) {
 		System.out.println("Pressed: " + event.getCode().toString());
