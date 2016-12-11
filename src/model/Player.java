@@ -51,6 +51,7 @@ public class Player extends Entity
 					}
 					break;
 				case DYING:
+					dx = dy = 0;
 					if(spriteDelayCounter <= 0 && spriteCounter >= getTotalSprites())
 						isDestroyed = true;
 					break;

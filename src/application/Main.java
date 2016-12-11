@@ -43,7 +43,6 @@ public class Main extends Application{
 				if (e.getCode() == KeyCode.ENTER){
 					if (!isGameSceneShown){
 						toggleScene();
-						gameScreen.requestFocusForCanvas();
 					}
 				}	
 			});
@@ -63,6 +62,7 @@ public class Main extends Application{
 	
 	public synchronized void toggleScene(){
 		if (isGameSceneShown){
+			isGameSceneShown = !isGameSceneShown;
 			this.primaryStage.setScene(menuScene);
 			FadeTransition ft = new FadeTransition(new Duration(2000), menuScreen);
 			ft.setFromValue(0.0);
@@ -70,18 +70,22 @@ public class Main extends Application{
 			ft.setCycleCount(1);
 			ft.playFromStart();
 			ft.setOnFinished(e->{
-				isGameSceneShown = !isGameSceneShown;
+//				isGameSceneShown = !isGameSceneShown;
 			});
 		}
 		else{
+			isGameSceneShown = !isGameSceneShown;
 			FadeTransition ft = new FadeTransition(new Duration(2000), menuScreen);
 			ft.setFromValue(1.0);
 			ft.setToValue(0.0);
 			ft.setCycleCount(1);
 			ft.playFromStart();
 			ft.setOnFinished(e -> {
+				gameScreen = new GameScreen(this);
+				gameScene = new Scene(gameScreen, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
+				gameScreen.requestFocusForCanvas();
 				this.primaryStage.setScene(gameScene);
-				isGameSceneShown = !isGameSceneShown;
+//				isGameSceneShown = !isGameSceneShown;
 				gameScreen.startNewGame();
 			});
 			
