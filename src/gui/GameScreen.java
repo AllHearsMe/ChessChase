@@ -156,68 +156,8 @@ public class GameScreen extends StackPane {
 				
 			}
 		}
-		
 		InputUtility.getInstance().postUpdate();
 	}
-
-	/*private void handleKeyPressed(KeyCode code) {
-//		System.out.println("Pressed: " + event.getCode().toString());
-		switch (code) {
-		case LEFT:
-		case A:
-			player.setDx(-1);
-			break;
-		case RIGHT:
-		case D:
-			player.setDx(1);
-			break;
-		case UP:
-		case W:
-			player.setDy(-1);
-			break;
-		case DOWN:
-		case S:
-			player.setDy(1);
-			break;
-		case Z:
-			
-			break;
-		case X:
-			
-			break;
-		case SPACE:
-			if (!isHoldingPause)
-				isPaused = !isPaused;
-			isHoldingPause = true;
-			break;
-		default:
-			break;
-		}
-	}
-
-	private void handleKeyReleased(KeyCode code) {
-//		System.out.println("Released: " + event.getCode().toString());
-		switch (code) {
-		case LEFT:
-		case A:
-		case RIGHT:
-		case D:
-			player.setDx(0);
-			break;
-		case UP:
-		case W:
-		case DOWN:
-		case S:
-			player.setDy(0);
-			break;
-		case SPACE:
-			isHoldingPause = false;
-			break;
-		default:
-			break;
-		}
-
-	}*/
 
 	public void requestFocusForCanvas() {
 		this.requestFocus();
