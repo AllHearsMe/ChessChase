@@ -78,6 +78,8 @@ public class ResourceLoader
 			case DYING:
 			case IDLE:
 				return playerSprites.get(state.getIndex()).get(0);
+			case CREATED:
+				return playerSprites.get(EntityState.SPAWNING.getIndex()).get(0);
 			default:
 				return playerSprites.get(state.getIndex()).get(frame);
 		}
@@ -90,6 +92,8 @@ public class ResourceLoader
 			case DYING:
 			case IDLE:
 				return pawnSprites.get(state.getIndex()).get(0);
+			case CREATED:
+				return pawnSprites.get(EntityState.SPAWNING.getIndex()).get(0);
 			default:
 				return pawnSprites.get(state.getIndex()).get(frame);
 		}
@@ -102,6 +106,8 @@ public class ResourceLoader
 			case DYING:
 			case IDLE:
 				return rookSprites.get(state.getIndex()).get(0);
+			case CREATED:
+				return rookSprites.get(EntityState.SPAWNING.getIndex()).get(0);
 			default:
 				return rookSprites.get(state.getIndex()).get(frame);
 		}
@@ -114,6 +120,8 @@ public class ResourceLoader
 			case DYING:
 			case IDLE:
 				return knightSprites.get(state.getIndex()).get(0);
+			case CREATED:
+				return knightSprites.get(EntityState.SPAWNING.getIndex()).get(0);
 			default:
 				return knightSprites.get(state.getIndex()).get(frame);
 		}
@@ -126,6 +134,8 @@ public class ResourceLoader
 			case DYING:
 			case IDLE:
 				return bishopSprites.get(state.getIndex()).get(0);
+			case CREATED:
+				return bishopSprites.get(EntityState.SPAWNING.getIndex()).get(0);
 			default:
 				return bishopSprites.get(state.getIndex()).get(frame);
 		}
@@ -138,6 +148,8 @@ public class ResourceLoader
 			case DYING:
 			case IDLE:
 				return queenSprites.get(state.getIndex()).get(0);
+			case CREATED:
+				return queenSprites.get(EntityState.SPAWNING.getIndex()).get(0);
 			default:
 				return queenSprites.get(state.getIndex()).get(frame);
 		}
@@ -150,6 +162,8 @@ public class ResourceLoader
 			case DYING:
 			case IDLE:
 				return kingSprites.get(state.getIndex()).get(0);
+			case CREATED:
+				return kingSprites.get(EntityState.SPAWNING.getIndex()).get(0);
 			default:
 				return kingSprites.get(state.getIndex()).get(frame);
 		}
