@@ -135,10 +135,6 @@ public class GameScreen extends StackPane {
 		field.updateFieldState();
 	}
 
-<<<<<<< HEAD
-
-=======
->>>>>>> refs/remotes/AllHearsMe/master
 	private void handleKeyPressed(KeyEvent event) {
 //		System.out.println("Pressed: " + event.getCode().toString());
 		switch (event.getCode()) {
