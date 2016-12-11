@@ -15,6 +15,7 @@ public class Field implements IRenderable
 
 	private List<Enemy<?>> enemies;
 	private Player player;
+	private SpecialSkill skill;
 	
 	public Field(double width, double height)
 	{
@@ -48,6 +49,7 @@ public class Field implements IRenderable
 		player.update();
 		for(Enemy<?> e : enemies)
 			e.update();
+		if(isSkillActive()) skill.update();
 
 		this.x = bound(player.getX() + player.getHitX() / 2 - Config.SCREEN_WIDTH / 2, Config.SCREEN_WIDTH, this.width);
 		this.y = bound(player.getY() + player.getHitY() / 2 - Config.SCREEN_HEIGHT / 2, Config.SCREEN_HEIGHT, this.height);
@@ -119,9 +121,10 @@ public class Field implements IRenderable
 	
 	public boolean checkLoseCondition()
 	{
+		if(isSkillActive() && skill instanceof BurstLinkSkill) return false;
 		for(Enemy<?> e : enemies)
 		{
-			if(Entity.checkCollision(player, e))
+			if(Entity.checkCollision(player, e) && e.getState() == EntityState.RUNNING)
 				return true;
 		}
 		return false;
@@ -140,5 +143,15 @@ public class Field implements IRenderable
 	public double boundY(double y, double hitH)
 	{
 		return bound(y, hitH, height);
+	}
+
+	public void setSkill(SpecialSkill skill)
+	{
+		this.skill = skill;
+	}
+	
+	public boolean isSkillActive()
+	{
+		return skill != null && skill.isActive();
 	}
 }

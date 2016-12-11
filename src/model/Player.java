@@ -82,8 +82,11 @@ public class Player extends Entity
 	@Override
 	protected void calculateNextPosition()
 	{
-		nextX = x + dx * speed;
-		nextY = y + dy * speed;
+		if(state != EntityState.DYING)
+		{
+			nextX = x + dx * speed;
+			nextY = y + dy * speed;
+		}
 	}
 
 	public int getDx()

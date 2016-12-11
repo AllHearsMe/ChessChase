@@ -9,12 +9,12 @@ public class InputUtility
 {
 	private static InputUtility instance = new InputUtility();
 	
-	private List<KeyCode> keysPressed, keysHeld;
+	private List<KeyCode> keysTriggered, keysPressed;
 	
 	private InputUtility()
 	{
+		keysTriggered = new ArrayList<>();
 		keysPressed = new ArrayList<>();
-		keysHeld = new ArrayList<>();
 	}
 
 	public static InputUtility getInstance()
@@ -24,20 +24,31 @@ public class InputUtility
 	
 	public void handleKeyPress(KeyCode code)
 	{
-		if(!keysHeld.contains(code))
+		if(!keysPressed.contains(code))
 		{
+			keysTriggered.add(code);
 			keysPressed.add(code);
-			keysHeld.add(code);
-		}
-		else
-		{
-			keysPressed.remove(code);
 		}
 	}
 	
 	public void handleKeyRelease(KeyCode code)
 	{
+		keysTriggered.remove(code);
 		keysPressed.remove(code);
-		keysHeld.remove(code);
+	}
+	
+	public boolean getKeyTriggered(KeyCode code)
+	{
+		return keysTriggered.contains(code);
+	}
+	
+	public boolean getKeyPressed(KeyCode code)
+	{
+		return keysPressed.contains(code);
+	}
+	
+	public void postUpdate()
+	{
+		keysTriggered.clear();
 	}
 }
