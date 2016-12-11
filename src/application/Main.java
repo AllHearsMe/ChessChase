@@ -43,6 +43,7 @@ public class Main extends Application{
 			
 			menuScene.setOnKeyPressed(e ->{
 				if (e.getCode() == KeyCode.ENTER){
+					if (!isGameSceneShown){
 						toggleScene();
 					}
 				}	
