@@ -132,6 +132,8 @@ public class GameScreen extends StackPane {
 		if (delay % Config.NORMAL_TICK_PER_SECOND == 0) time++;
 		delay++;
 		field.updateFieldState();
+		if (delay % Config.MULTIPLIER_DELAY == 0) 
+			Enemy.setMultiplier(Enemy.getMultiplier() + Config.MULTIPLIER_INCREMENT);
 	}
 	
 	private void checkInputKeys()

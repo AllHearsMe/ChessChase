@@ -3,7 +3,12 @@ package util;
 import model.EntityState;
 
 public class Config
-{
+{	
+	public static final int
+		FRAME_DELAY = 2,
+		NORMAL_TICK_PER_SECOND = 60,
+		NORMAL_FRAME_PER_SECOND = NORMAL_TICK_PER_SECOND / FRAME_DELAY;
+
 	//X, Y in relation to sprite
 	public static final double
 		PLAYER_HITBOX_X = 57,
@@ -48,7 +53,9 @@ public class Config
 		KNIGHT_SPEED = 10,
 		BISHOP_SPEED = 10,
 		QUEEN_SPEED = 10,
-		KING_SPEED = 10;
+		KING_SPEED = 10,
+		MULTIPLIER_DELAY = 5 * NORMAL_TICK_PER_SECOND,
+		MULTIPLIER_INCREMENT = 0.2 ;
 
 	public static final int
 		PAWN_DIRECTION_CHANGE_DELAY = 30,
@@ -75,11 +82,6 @@ public class Config
 		AWAKENING_FRAMES = 15,
 		RUNNING_FRAMES = 15,
 		DYING_FRAMES = 15;
-	
-	public static final int
-		FRAME_DELAY = 2,
-		NORMAL_TICK_PER_SECOND = 60,
-		NORMAL_FRAME_PER_SECOND = NORMAL_TICK_PER_SECOND / FRAME_DELAY;
 	
 	public static final int
 		SCREEN_WIDTH = 1024,
@@ -139,6 +141,6 @@ public class Config
 		TRIPLE_ACCEL_DURATION = 7 * NORMAL_TICK_PER_SECOND;
 	
 	public static final int
-	MAX_SPAWN = 5;
+		MAX_SPAWN = 5;
 }
 
