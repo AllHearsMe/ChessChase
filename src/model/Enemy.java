@@ -13,7 +13,7 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	public Enemy(Field field, double x, double y, double speed, double drawX, double drawY, double hitH, double hitW, IDirection direction,
 			int directionChangeDelay, int lifeSpan)
 	{
-		super(field, x, y, speed, Config.FRAME_DELAY, drawX, drawY, hitH, hitW);
+		super(field, x, y, speed, Config.FRAME_DELAY, drawX, drawY, hitW, hitH);
 		this.direction = direction;
 		this.direction = getClosestDirection();
 		this.directionChangeDelay = directionChangeDelay;

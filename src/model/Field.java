@@ -42,24 +42,26 @@ public class Field implements IRenderable
 		DrawingUtility.drawField(gc, this);
 	}
 	
-	public void updateFieldState()
+	public boolean updateFieldState()
 	{
 		player.update();
 		for(Enemy<?> e : enemies)
 			e.update();
 
-		this.x = bound(player.getX() + player.getHitX() / 2 - this.width / 2, width, Config.SCREEN_WIDTH);
-		this.y = bound(player.getY() + player.getHitY() / 2 - this.height / 2, height, Config.SCREEN_HEIGHT);
+//		this.x = bound(player.getX() + player.getHitX() / 2 - Config.SCREEN_WIDTH / 2, width, Config.SCREEN_WIDTH);
+//		this.y = bound(player.getY() + player.getHitY() / 2 - Config.SCREEN_HEIGHT / 2, height, Config.SCREEN_HEIGHT);
+		this.x = bound(player.getX() + player.getHitX() / 2 - Config.SCREEN_WIDTH / 2, Config.SCREEN_WIDTH, this.width);
+		this.y = bound(player.getY() + player.getHitY() / 2 - Config.SCREEN_HEIGHT / 2, Config.SCREEN_HEIGHT, this.height);
+//		this.x = player.getX() + player.getHitX() / 2 - Config.SCREEN_WIDTH / 2;
+//		this.y = player.getY() + player.getHitY() / 2 - Config.SCREEN_HEIGHT / 2;
 		
 		for(Iterator<Enemy<?>> i = enemies.iterator(); i.hasNext();)
 		{
 			if(i.next().isDestroyed())
 				i.remove();
 		}
-		if(player.isDestroyed())
-		{
-			//TODO game ends
-		}
+		return player.isDestroyed();
+		
 	}
 	
 	public void addEnemy(Enemy<?> e)

@@ -14,7 +14,7 @@ public abstract class Entity implements IRenderable
 	protected EntityState state;
 	protected double hitX, hitY, hitW, hitH;
 	
-	public Entity(Field field, double x, double y, double speed, int spriteDelay, double hitX, double hitY, double hitH, double hitW)
+	public Entity(Field field, double x, double y, double speed, int spriteDelay, double hitX, double hitY, double hitW, double hitH)
 	{
 		this.field = field;
 		RenderableHolder.getInstance().add(this);

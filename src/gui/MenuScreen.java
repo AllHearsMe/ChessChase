@@ -29,7 +29,6 @@ public class MenuScreen extends StackPane{
 		gcBack.drawImage(backgroundImage, 0, 0);
 		StackPane.setMargin(canvasBack, new Insets(400, 0, 0, 0));
 		rotateBackground(gcBack);
-		
 	}
 	
 	public void rotateBackground(GraphicsContext gc){
