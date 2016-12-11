@@ -156,7 +156,7 @@ public class GameScreen extends StackPane {
 			else if(InputUtility.getInstance().getKeyTriggered(KeyCode.X))
 			{
 				powerup--;
-				
+				field.setSkill(new TripleAccelSkill(player, field));
 			}
 		}
 		InputUtility.getInstance().postUpdate();
