@@ -6,7 +6,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import util.Config;
 
@@ -30,6 +29,7 @@ public class MenuScreen extends StackPane{
 		gcBack.drawImage(backgroundImage, 0, 0);
 		StackPane.setMargin(canvasBack, new Insets(400, 0, 0, 0));
 		rotateBackground(gcBack);
+		
 	}
 	
 	public void rotateBackground(GraphicsContext gc){
