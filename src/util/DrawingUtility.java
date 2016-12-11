@@ -34,19 +34,19 @@ public class DrawingUtility
 	
 	public static void drawPlayer(GraphicsContext gc, Player player, Field field)
 	{
-//		if(player.getState() == EntityState.DYING)
-//			gc.setGlobalAlpha(1 - (double) player.getSpriteCounter() / Config.DYING_FRAMES);
-//		gc.drawImage(ResourceLoader.getInstance().getPlayerSprite(player.getState(), player.getSpriteCounter()), 
-//				player.getDrawX() - field.getX(), player.getDrawY() - field.getY());
-//		gc.setGlobalAlpha(1);
-		drawSprite(gc, ResourceLoader.getInstance().getPlayerSprite(player.getState(), player.getSpriteCounter()), player.getState(), player.getSpriteCounter(), player.getDrawX() - field.getX(), player.getDrawY() - field.getY(), player.getDx() < 0 ? -1 : 1);
+		if(player.getState() == EntityState.DYING)
+			gc.setGlobalAlpha(1 - (double) player.getSpriteCounter() / Config.DYING_FRAMES);
+		gc.drawImage(ResourceLoader.getInstance().getPlayerSprite(player.getState(), player.getSpriteCounter()), 
+				player.getDrawX() - field.getX(), player.getDrawY() - field.getY());
+		gc.setGlobalAlpha(1);
+//		drawSprite(gc, ResourceLoader.getInstance().getPlayerSprite(player.getState(), player.getSpriteCounter()), player.getState(), player.getSpriteCounter(), player.getDrawX() - field.getX(), player.getDrawY() - field.getY(), player.getDx() < 0 ? -1 : 1);
 	}
 	
 	public static void drawPawn(GraphicsContext gc, PawnEnemy pawn, Field field)
 	{
 		if(pawn.getState() == EntityState.DYING)
 			gc.setGlobalAlpha(1 - (double) pawn.getSpriteCounter() / Config.DYING_FRAMES);
-		gc.drawImage(ResourceLoader.getInstance().getPlayerSprite(pawn.getState(), pawn.getSpriteCounter()), 
+		gc.drawImage(ResourceLoader.getInstance().getPawnSprite(pawn.getState(), pawn.getSpriteCounter()), 
 				pawn.getDrawX() - field.getX(), pawn.getDrawY() - field.getY());
 		gc.setGlobalAlpha(1);
 	}
@@ -55,7 +55,7 @@ public class DrawingUtility
 	{
 		if(rook.getState() == EntityState.DYING)
 			gc.setGlobalAlpha(1 - (double) rook.getSpriteCounter() / Config.DYING_FRAMES);
-		gc.drawImage(ResourceLoader.getInstance().getPlayerSprite(rook.getState(), rook.getSpriteCounter()), 
+		gc.drawImage(ResourceLoader.getInstance().getRookSprite(rook.getState(), rook.getSpriteCounter()), 
 				rook.getDrawX() - field.getX(), rook.getDrawY() - field.getY());
 		gc.setGlobalAlpha(1);
 	}
@@ -73,7 +73,7 @@ public class DrawingUtility
 	{
 		if(bishop.getState() == EntityState.DYING)
 			gc.setGlobalAlpha(1 - (double) bishop.getSpriteCounter() / Config.DYING_FRAMES);
-		gc.drawImage(ResourceLoader.getInstance().getPlayerSprite(bishop.getState(), bishop.getSpriteCounter()), 
+		gc.drawImage(ResourceLoader.getInstance().getBishopSprite(bishop.getState(), bishop.getSpriteCounter()), 
 				bishop.getDrawX() - field.getX(), bishop.getDrawY() - field.getY());
 		gc.setGlobalAlpha(1);
 	}
