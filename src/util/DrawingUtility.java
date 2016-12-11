@@ -91,4 +91,6 @@ public class DrawingUtility
 		Image image = ResourceLoader.getInstance().getPauseImage();
 		gc.drawImage(image, (Config.SCREEN_WIDTH - image.getWidth()) / 2, (Config.SCREEN_HEIGHT - image.getHeight()) / 2);
 	}
+	
+//	public static void drawPlayerAfterImage(GraphicsContext gc, )
 }
