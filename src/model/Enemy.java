@@ -7,7 +7,7 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	protected IDirection direction;
 	protected int directionChangeDelay, directionChangeDelayCounter;
 	protected int age, lifespan;
-	
+	protected static double multiplier = 1;
 	protected static boolean isPaused = false;
 	
 	public Enemy(Field field, double x, double y, double speed, double drawX, double drawY, double hitH, double hitW, IDirection direction,
@@ -99,15 +99,15 @@ public abstract class Enemy<D extends IDirection> extends Entity
 		if (state == EntityState.RUNNING)
 		{
 			double phase = (double) directionChangeDelayCounter / (double) directionChangeDelay;
-			nextX = x + direction.getDx(phase) * speed;
-			nextY = y + direction.getDy(phase) * speed;
+			nextX = x + direction.getDx(phase) * speed * multiplier;
+			nextY = y + direction.getDy(phase) * speed * multiplier;
 		}
 	}
 	
 	private double calculateNewDistance(IDirection dir)
 	{
-		return Math.abs(this.x + dir.getDx(1) * this.speed * this.directionChangeDelay - field.getPlayer().getX())
-				+ Math.abs(this.y + dir.getDy(1) * this.speed * this.directionChangeDelay - field.getPlayer().getY());
+		return Math.abs(this.x + dir.getDx(1) * this.speed * multiplier * this.directionChangeDelay - field.getPlayer().getX())
+				+ Math.abs(this.y + dir.getDy(1) * this.speed * multiplier * this.directionChangeDelay - field.getPlayer().getY());
 	}
 	
 	// get all directions, find one that brings this closest to player
@@ -130,5 +130,13 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	public IDirection getDirection()
 	{
 		return direction;
+	}
+
+	public static void setMultiplier(double multiplier) {
+		Enemy.multiplier = multiplier;
+	}
+
+	public static double getMultiplier() {
+		return multiplier;
 	}
 }
