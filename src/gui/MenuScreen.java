@@ -1,5 +1,6 @@
 package gui;
 
+import application.Main;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
@@ -28,7 +29,10 @@ public class MenuScreen extends StackPane{
 		gcBack = canvasBack.getGraphicsContext2D();
 		gcBack.drawImage(backgroundImage, 0, 0);
 		StackPane.setMargin(canvasBack, new Insets(400, 0, 0, 0));
+		
 		rotateBackground(gcBack);
+		
+		
 	}
 	
 	public void rotateBackground(GraphicsContext gc){
@@ -36,6 +40,7 @@ public class MenuScreen extends StackPane{
 			@Override
 			public void handle(long now) {
 				gc.getCanvas().getTransforms().add(new Rotate(0.75, backgroundImage.getWidth() / 2, (backgroundImage.getHeight() / 2) ));
+				
 			}
 		}.start();
 	}

@@ -6,12 +6,17 @@ import com.sun.javafx.tk.Toolkit;
 
 import application.Main;
 import javafx.animation.AnimationTimer;
+import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 import model.Field;
 import model.IRenderable;
 import model.KnightEnemy;
@@ -29,7 +34,7 @@ public class GameScreen extends StackPane {
 	private int time = 0;
 	private int delay = 0;
 	private int powerup = 3;
-	public GameScreen(){
+	public GameScreen(Main main){
 		this.setPrefSize(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		canvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		gc = canvas.getGraphicsContext2D();
@@ -40,15 +45,40 @@ public class GameScreen extends StackPane {
 		field.setPlayer(player);
 		field.addEnemy(new KnightEnemy(field, 2300, 2300));
 		
+		
 		AnimationTimer animation = new AnimationTimer() {
 			public void handle(long now) {
 				if (Main.isGameSceneShown()){
 					update();
 					paintComponent();
+					if (checkEnd()){
+						Platform.runLater(new Runnable() {
+							
+							@Override
+							public void run() {
+								FadeTransition ft = new FadeTransition(new Duration(2000), canvas);
+								ft.setFromValue(1.0);
+								ft.setToValue(0.0);
+								ft.setCycleCount(1);
+								ft.playFromStart();
+								ft.setOnFinished(e -> {
+									Alert alert = new Alert(AlertType.INFORMATION);
+									alert.setContentText("You died noob LOLOLOL");
+									alert.show();
+									alert.setOnCloseRequest(f->{
+										main.toggleScene();
+									});
+								});
+								
+							}
+						});
+						this.stop();
+					}
 				}
 			}
 		};
 		animation.start();
+		
 	}
 	
 	public synchronized void paintComponent(){
@@ -61,12 +91,6 @@ public class GameScreen extends StackPane {
 		gc.fillRect(0, 0, Config.SCREEN_WIDTH, 100);
 		Font font = new Font("Impact", 65);
 		gc.setFont(font);
-		// delete here
-		gc.fillText("Insert background here", 100, 400);
-		gc.fillText("I dont know what to do anymore orz", 0, 500);
-		
-		//
-		//
 		gc.setFill(Color.WHITE);
 		gc.fillText(Integer.toString(time),Config.SCREEN_WIDTH - 150, 75);
 		FontLoader ft = Toolkit.getToolkit().getFontLoader();
@@ -84,6 +108,13 @@ public class GameScreen extends StackPane {
 		}
 		delay++;
 		field.updateFieldState();
+	}
+	
+	public boolean checkEnd(){
+		if (player.isDestroyed()){
+			return true;
+		}else 
+			return false;
 	}
 
 }
