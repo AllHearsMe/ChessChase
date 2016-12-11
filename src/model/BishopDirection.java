@@ -24,4 +24,9 @@ public enum BishopDirection implements IDirection
 	{
 		return dy;
 	}
+	
+	public int getFacing()
+	{
+		return dx < 0 ? -1 : 1;
+	}
 }
