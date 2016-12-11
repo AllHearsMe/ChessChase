@@ -67,6 +67,7 @@ public class GameScreen extends StackPane {
 		for (int i = 0; i < 3; i++) {
 			createEnemy(field);
 		}
+		field.addEnemy(new PawnEnemy(field, 2200, 2200));
 		
 		AnimationTimer animation = new AnimationTimer() {
 			public void handle(long now) {
@@ -167,9 +168,9 @@ public class GameScreen extends StackPane {
 		long now = System.nanoTime();
 		int spawnNumber = new Random(now).nextInt(Config.MAX_SPAWN) +1;
 		for (int i = 0; i < spawnNumber; i++) {
-			int spawnX = new Random(now).nextInt((int) field.getWidth());
-			int spawnY = new Random(now).nextInt((int) field.getHeight());
-			int spawnCase = new Random(now).nextInt(100);
+			int spawnX = new Random(now / Config.SCREEN_HEIGHT / (i + 1)).nextInt((int) field.getWidth());
+			int spawnY = new Random(now/ Config.SCREEN_WIDTH /(i + 1)).nextInt((int) field.getHeight());
+			int spawnCase = new Random(now / (i + 1)).nextInt(100);
 			if (spawnCase < 40){
 				field.addEnemy(new PawnEnemy(field, spawnX, spawnY));
 			}else if (spawnCase < 55){
