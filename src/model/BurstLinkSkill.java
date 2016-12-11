@@ -4,9 +4,9 @@ import javafx.scene.canvas.GraphicsContext;
 import util.Config;
 import util.DrawingUtility;
 
-public class BurstLinkEffect extends SpecialSkill
+public class BurstLinkSkill extends SpecialSkill
 {
-	public BurstLinkEffect()
+	public BurstLinkSkill()
 	{
 		super(Config.BURST_LINK_DURATION, 0, 0, () -> Enemy.isPaused = true, () -> Enemy.isPaused = false);
 	}
@@ -17,4 +17,9 @@ public class BurstLinkEffect extends SpecialSkill
 		DrawingUtility.drawBurstLinkEffect(gc);
 	}
 	
+	@Override
+	public boolean isVisible()
+	{
+		return isActive;
+	}
 }
