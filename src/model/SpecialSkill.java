@@ -2,10 +2,10 @@ package model;
 
 public abstract class SpecialSkill implements IRenderable
 {
-	private boolean isVisible;
-	private int age, lifespan;
-	private double x, y;
-	private Runnable effect, reverseEffect;
+	protected boolean isActive;
+	protected int age, lifespan;
+	protected double x, y;
+	protected Runnable effect, reverseEffect;
 	
 	public SpecialSkill(int lifespan, double x, double y, Runnable effect, Runnable reverseEffect)
 	{
@@ -13,9 +13,10 @@ public abstract class SpecialSkill implements IRenderable
 		this.lifespan = lifespan;
 		this.x = x;
 		this.y = y;
-		this.isVisible = true;
+		this.isActive = true;
 		this.effect = effect;
 		this.reverseEffect = reverseEffect;
+		RenderableHolder.getInstance().add(this);
 		this.effect.run();
 	}
 	
@@ -24,15 +25,14 @@ public abstract class SpecialSkill implements IRenderable
 		age++;
 		if(age >= lifespan)
 		{
-			isVisible = false;
+			isActive = false;
 			reverseEffect.run();
 		}
 	}
 	
-	@Override
-	public boolean isVisible()
+	public boolean isActive()
 	{
-		return isVisible;
+		return isActive;
 	}
 	
 	public double getX()
