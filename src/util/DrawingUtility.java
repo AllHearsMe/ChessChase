@@ -13,6 +13,11 @@ import model.RookEnemy;
 
 public class DrawingUtility
 {
+	public static void drawField(GraphicsContext gc, Field field)
+	{
+		//TODO
+	}
+	
 	public static void drawPlayer(GraphicsContext gc, Player player, Field field)
 	{
 		if(player.getState() == EntityState.DYING)

@@ -86,20 +86,20 @@ public class Config
 		SCREEN_HEIGHT = 768;
 	
 	public static final String
-		PLAYER_PATH = "pic/pawn/",
-		PAWN_PATH = "pic/enemypawn/",
-		ROOK_PATH = "pic/rook/",
-		KNIGHT_PATH = "pic/knight/",
-		BISHOP_PATH = "pic/bishop/",
-		QUEEN_PATH = "pic/queen/",
-		KING_PATH = "pic/king/";
+		PLAYER_PATH = "pawn/",
+		PAWN_PATH = "enemypawn/",
+		ROOK_PATH = "rook/",
+		KNIGHT_PATH = "knight/",
+		BISHOP_PATH = "bishop/",
+		QUEEN_PATH = "queen/",
+		KING_PATH = "king/";
 	
 	public static String getSpriteFileName(EntityState state)
 	{
 		switch(state)
 		{
 			case SPAWNING:
-				return "spawnsprite.png";
+				return "bornsprite.png";
 			case IDLE:
 				return "idle.png";
 			case AWAKENING:

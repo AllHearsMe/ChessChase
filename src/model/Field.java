@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import javafx.scene.canvas.GraphicsContext;
+import util.Config;
+import util.DrawingUtility;
 
 public class Field implements IRenderable
 {
@@ -37,8 +39,7 @@ public class Field implements IRenderable
 	@Override
 	public void draw(GraphicsContext gc)
 	{
-		// TODO Auto-generated method stub
-		
+		DrawingUtility.drawField(gc, this);
 	}
 	
 	public void updateFieldState()
@@ -46,6 +47,9 @@ public class Field implements IRenderable
 		player.update();
 		for(Enemy<?> e : enemies)
 			e.update();
+
+		this.x = bound(player.getX() + player.getHitX() / 2 - this.width / 2, width, Config.SCREEN_WIDTH);
+		this.y = bound(player.getY() + player.getHitY() / 2 - this.height / 2, height, Config.SCREEN_HEIGHT);
 		
 		for(Iterator<Enemy<?>> i = enemies.iterator(); i.hasNext();)
 		{
@@ -118,13 +122,18 @@ public class Field implements IRenderable
 		return false;
 	}
 	
+	private double bound(double value, double size, double frame)
+	{
+		return value < 0 ? 0 : value + size > frame ? frame - size : value;
+	}
+	
 	public double boundX(double x, double hitW)
 	{
-		return x < 0 ? 0 : x + hitW > width ? width - hitW : x;
+		return bound(x, hitW, width);
 	}
 	
 	public double boundY(double y, double hitH)
 	{
-		return y < 0 ? 0 : y + hitH > height ? height - hitH : y;
+		return bound(y, hitH, height);
 	}
 }

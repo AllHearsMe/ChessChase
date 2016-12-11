@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import util.Config;
+import util.ResourceLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 
@@ -22,6 +23,8 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage)
 	{
+		ResourceLoader.getInstance().loadResources();
+		
 		try
 		{
 			this.primaryStage=primaryStage;

@@ -91,6 +91,16 @@ public abstract class Entity implements IRenderable
 		return y - hitY;
 	}
 
+	public double getHitX()
+	{
+		return hitX;
+	}
+
+	public double getHitY()
+	{
+		return hitY;
+	}
+
 	public double getHitW()
 	{
 		return hitW;
