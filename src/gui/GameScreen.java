@@ -30,6 +30,9 @@ public class GameScreen extends StackPane {
 	private int time = 0;
 	private int delay = 0;
 	private int powerup = 3;
+	
+	private boolean isPaused = false, isHoldingPause = false;
+	
 	public GameScreen(){
 		this.setPrefSize(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		canvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
@@ -77,6 +80,7 @@ public class GameScreen extends StackPane {
 	}
 	
 	public synchronized void update(){
+		if(isPaused) return;
 		if (delay%60==0){
 		time++;
 		}
@@ -101,6 +105,10 @@ public class GameScreen extends StackPane {
 			case DOWN:
 				player.setDy(1);
 				break;
+			case SPACE:
+				if(!isHoldingPause) isPaused = !isPaused;
+				isHoldingPause = true;
+				break;
 			default:
 				break;
 		}
@@ -118,6 +126,9 @@ public class GameScreen extends StackPane {
 			case UP:
 			case DOWN:
 				player.setDy(0);
+				break;
+			case SPACE:
+				isHoldingPause = false;
 				break;
 			default:
 				break;
