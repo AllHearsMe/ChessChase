@@ -94,7 +94,7 @@ public class GameScreen extends StackPane {
 	public synchronized void paintComponent() {
 		gc.clearRect(0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		RenderableHolder.draw(gc);
-		DrawingUtility.drawGameMenu(gc, time, powerup);
+		DrawingUtility.drawGameMenu(gc, time, powerup, field);
 
 	}
 

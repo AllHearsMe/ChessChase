@@ -22,26 +22,36 @@ import model.PawnEnemy;
 import model.Player;
 import model.QueenEnemy;
 import model.RookEnemy;
+import model.TripleAccelSkill;
 
 public class DrawingUtility
 {
 	private static Font font = new Font("Impact", 65);
-	private static String timeText = "TIME: ";
+	private static String timeText = "TIME : ", tripleAccelText = "Triple Accel", theWorldText = "ZA WARUDO";
 	private static FontLoader fl = Toolkit.getToolkit().getFontLoader();
 	
-	private static final double BAR_HEIGHT = 100, TEXT_Y = 75, POWERUP_TEXT_X = 150, POWERUP_X = 50, POWERUP_Y = 12.5;
+	private static final double BAR_HEIGHT = 100, TEXT_Y = 85, POWERUP_TEXT_X = 150, POWERUP_X = 50, POWERUP_Y = 20 , TIME_TEXT_X = 100;
 	
-	public static void drawGameMenu(GraphicsContext gc, int time, int powerup)
+	public static void drawGameMenu(GraphicsContext gc, int time, int powerup, Field field)
 	{
 		gc.setFill(Color.BLACK);
 		gc.fillRect(0, 0, Config.SCREEN_WIDTH, BAR_HEIGHT);
 		gc.setFont(font);
 		gc.setFill(Color.WHITE);
-		gc.fillText(Integer.toString(time), Config.SCREEN_WIDTH - POWERUP_TEXT_X, TEXT_Y);
+		gc.fillText(Integer.toString(time), Config.SCREEN_WIDTH - TIME_TEXT_X, TEXT_Y);
 		double width = fl.computeStringWidth(timeText, font);
-		gc.fillText(timeText, Config.SCREEN_WIDTH - POWERUP_TEXT_X - width, TEXT_Y);
+		gc.fillText(timeText, Config.SCREEN_WIDTH - TIME_TEXT_X - width, TEXT_Y);
 		gc.fillText(Integer.toString(powerup), POWERUP_TEXT_X, TEXT_Y);
 		gc.drawImage(ResourceLoader.getPowerupImage(), POWERUP_X, POWERUP_Y);
+		if (field.isSkillActive()){
+			if (field.getSkill() instanceof TripleAccelSkill){
+				double length = fl.computeStringWidth(tripleAccelText, font);
+				gc.fillText(tripleAccelText, (((Config.SCREEN_WIDTH - TIME_TEXT_X + POWERUP_X)) / 2) - (length / 2), TEXT_Y);
+			}else {
+				double length = fl.computeStringWidth(theWorldText, font);
+				gc.fillText(theWorldText, (((Config.SCREEN_WIDTH - TIME_TEXT_X + POWERUP_X)) / 2) - (length / 2), TEXT_Y);
+			}
+		}
 	}
 	
 	public static void fadeScreen(Node node, double initialOpacity, EventHandler<ActionEvent> onFinished)
