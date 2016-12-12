@@ -26,6 +26,8 @@ import model.RookEnemy;
 public class DrawingUtility
 {
 	private static Font font = new Font("Impact", 65);
+	private static String timeText = "TIME: ";
+	private static FontLoader fl = Toolkit.getToolkit().getFontLoader();
 	
 	private static void drawSprite(GraphicsContext gc, Image sprite, EntityState state, int spriteCounter, double x, double y, int facing)
 	{
@@ -118,19 +120,17 @@ public class DrawingUtility
 		gc.setFont(font);
 		gc.setFill(Color.WHITE);
 		gc.fillText(Integer.toString(time), Config.SCREEN_WIDTH - 150, 75);
-		FontLoader ft = Toolkit.getToolkit().getFontLoader();
-		double width = ft.computeStringWidth("TIME : ", font);
-		gc.fillText("TIME : ", Config.SCREEN_WIDTH - 150 - width, 75);
+		double width = fl.computeStringWidth(timeText, font);
+		gc.fillText(timeText, Config.SCREEN_WIDTH - 150 - width, 75);
 		gc.fillText(Integer.toString(powerup), 150, 75);
 		gc.drawImage(ResourceLoader.getPowerupImage(), 50, 12.5);
 	}
 	
-	//
 	public static void fadeScreen(Node node, double initialOpacity, EventHandler<ActionEvent> onFinished)
 	{
 		FadeTransition ft = new FadeTransition(new Duration(2000), node);
 		ft.setFromValue(initialOpacity);
-		ft.setToValue(Math.abs(1 - initialOpacity));
+		ft.setToValue(Math.abs(1 - initialOpacity)); 
 		ft.setCycleCount(1);
 		ft.playFromStart();
 		ft.setOnFinished(onFinished);
