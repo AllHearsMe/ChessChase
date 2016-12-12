@@ -45,8 +45,8 @@ public class GameScreen extends StackPane {
 
 		this.main = main;
 
-		this.setOnKeyPressed(event -> InputUtility.getInstance().handleKeyPress(event.getCode()));
-		this.setOnKeyReleased(event -> InputUtility.getInstance().handleKeyRelease(event.getCode()));
+		this.setOnKeyPressed(event -> InputUtility.handleKeyPress(event.getCode()));
+		this.setOnKeyReleased(event -> InputUtility.handleKeyRelease(event.getCode()));
 	}
 
 	public void startNewGame() {
@@ -147,29 +147,29 @@ public class GameScreen extends StackPane {
 	}
 
 	private void checkInputKeys() {
-		player.setDx((InputUtility.getInstance().getKeyPressed(KeyCode.LEFT)
-				|| InputUtility.getInstance().getKeyPressed(KeyCode.A) ? -1 : 0)
-				+ (InputUtility.getInstance().getKeyPressed(KeyCode.RIGHT)
-						|| InputUtility.getInstance().getKeyPressed(KeyCode.D) ? 1 : 0));
-		player.setDy((InputUtility.getInstance().getKeyPressed(KeyCode.UP)
-				|| InputUtility.getInstance().getKeyPressed(KeyCode.W) ? -1 : 0)
-				+ (InputUtility.getInstance().getKeyPressed(KeyCode.DOWN)
-						|| InputUtility.getInstance().getKeyPressed(KeyCode.S) ? 1 : 0));
-		if (InputUtility.getInstance().getKeyTriggered(KeyCode.SPACE)) {
+		player.setDx((InputUtility.getKeyPressed(KeyCode.LEFT)
+				|| InputUtility.getKeyPressed(KeyCode.A) ? -1 : 0)
+				+ (InputUtility.getKeyPressed(KeyCode.RIGHT)
+						|| InputUtility.getKeyPressed(KeyCode.D) ? 1 : 0));
+		player.setDy((InputUtility.getKeyPressed(KeyCode.UP)
+				|| InputUtility.getKeyPressed(KeyCode.W) ? -1 : 0)
+				+ (InputUtility.getKeyPressed(KeyCode.DOWN)
+						|| InputUtility.getKeyPressed(KeyCode.S) ? 1 : 0));
+		if (InputUtility.getKeyTriggered(KeyCode.SPACE)) {
 			pauseEffect.togglePaused();
 		}
 		if (!field.isSkillActive() && powerup > 0) {
-			if (InputUtility.getInstance().getKeyTriggered(KeyCode.Z)) {
+			if (InputUtility.getKeyTriggered(KeyCode.Z)) {
 				powerup--;
 				field.setSkill(new BurstLinkSkill());
 				AudioUtility.playBurstLinkSound();
-			} else if (InputUtility.getInstance().getKeyTriggered(KeyCode.X)) {
+			} else if (InputUtility.getKeyTriggered(KeyCode.X)) {
 				powerup--;
 				field.setSkill(new TripleAccelSkill(player, field));
 				AudioUtility.playTripleAccelSound();
 			}
 		}
-		InputUtility.getInstance().postUpdate();
+		InputUtility.postUpdate();
 	}
 
 	private void resetValues()
@@ -181,7 +181,7 @@ public class GameScreen extends StackPane {
 		Enemy.setMultiplier(1);
 		Enemy.setDivider(1);
 		
-		InputUtility.getInstance().reset();
+		InputUtility.reset();
 		RenderableHolder.getRenderables().clear();
 	}
 	
