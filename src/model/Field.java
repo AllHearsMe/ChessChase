@@ -122,7 +122,7 @@ public class Field implements IRenderable
 	
 	public boolean checkLoseCondition()
 	{
-		if(isSkillActive() && skill instanceof BurstLinkSkill) return false;
+		if(isSkillActive() && skill instanceof ZaWarudoSkill) return false;
 		for(Enemy<?> e : enemies)
 		{
 			if(Entity.checkCollision(player, e) && e.getState() == EntityState.RUNNING)

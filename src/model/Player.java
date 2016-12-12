@@ -6,13 +6,14 @@ import util.DrawingUtility;
 
 public class Player extends Entity
 {
-	protected int dx, dy;
+	protected int dx, dy, facing;
 	
 	public Player(Field field, double x, double y)
 	{
 		super(field, x, y, Config.PLAYER_SPEED, Config.FRAME_DELAY, Config.PLAYER_HITBOX_X, Config.PLAYER_HITBOX_Y, Config.PLAYER_HITBOX_W, Config.PLAYER_HITBOX_H);
 		this.dx = this.dy = 0;
 		this.state = EntityState.IDLE;
+		this.facing = 1;
 	}
 
 	@Override
@@ -39,7 +40,6 @@ public class Player extends Entity
 				spriteDelayCounter = 0;
 				spriteCounter++;
 			}
-			
 			switch(state)
 			{
 				case RUNNING:
@@ -65,14 +65,13 @@ public class Player extends Entity
 					state = EntityState.IDLE;
 					break;
 			}
-			
 			if(field.checkLoseCondition() && state != EntityState.DYING)
 			{
 				state = EntityState.DYING;
 				resetSprite();
 			}
-
 			if(spriteCounter >= getTotalSprites()) spriteCounter = 0;
+			facing = (dx < 0 ? -1 : dx > 0 ? 1 : facing);
 		}
 	}
 	
@@ -118,5 +117,10 @@ public class Player extends Entity
 			default:
 				return 1;
 		}
+	}
+	
+	public int getFacing()
+	{
+		return facing; 
 	}
 }

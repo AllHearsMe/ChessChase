@@ -97,7 +97,7 @@ public class Config
 	public static final String
 		MENU_BGM_PATH = "Grassy World (8-Bit_Orchestral Overture) - Main Title Theme.mp3",
 		GAME_BGM_PATH = "Cytus - The Blocks We Loved.mp3",
-		BURST_LINK_SOUND_PATH = "ZA_WARUDO__TOKI_WO_TOMARE_.mp3",
+		ZA_WARUDO_SOUND_PATH = "ZA_WARUDO__TOKI_WO_TOMARE_.mp3",
 		TRIPLE_ACCEL_SOUND_PATH = "FAIZ_AXEL_STARTUP.mp3",
 		GAME_OVER_SOUND_PATH = "sega-rally-15-game-over-yeah.mp3";
 	
@@ -152,7 +152,7 @@ public class Config
 	}
 	
 	public static final int
-		BURST_LINK_DURATION = 3 * NORMAL_TICK_PER_SECOND,
+		ZA_WARUDO_DURATION = 3 * NORMAL_TICK_PER_SECOND,
 		TRIPLE_ACCEL_DURATION = 7 * NORMAL_TICK_PER_SECOND;
 	
 	public static final int

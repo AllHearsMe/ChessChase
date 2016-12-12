@@ -21,7 +21,7 @@ public class AudioUtility
 	public static void playBGM(AudioClip bgm)
 	{
 		getInstance();
-		if(instance.currentBGM.isPlaying()) AudioUtility.stopBGM();
+		if(instance.currentBGM.isPlaying()) stopBGM();
 		instance.currentBGM = bgm;
 		instance.currentBGM.setCycleCount(AudioClip.INDEFINITE);
 		instance.currentBGM.play();
@@ -29,12 +29,12 @@ public class AudioUtility
 	
 	public static void playMenuBGM()
 	{
-		AudioUtility.playBGM(ResourceLoader.getMenuBGM());
+		playBGM(ResourceLoader.getMenuBGM());
 	}
 	
 	public static void playGameBGM()
 	{
-		AudioUtility.playBGM(ResourceLoader.getGameBGM());
+		playBGM(ResourceLoader.getGameBGM());
 	}
 	
 	public static void stopBGM()
@@ -45,7 +45,7 @@ public class AudioUtility
 	public static void playSoundEffect(AudioClip sound)
 	{
 		getInstance();
-		if(instance.currentSFX.isPlaying()) AudioUtility.stopSoundEffect();
+		if(instance.currentSFX.isPlaying()) stopSoundEffect();
 		instance.currentSFX = sound;
 		instance.currentSFX.play();
 	}
@@ -57,17 +57,17 @@ public class AudioUtility
 
 	public static void playGameOverSound()
 	{
-		AudioUtility.stopBGM();
-		AudioUtility.playSoundEffect(ResourceLoader.getGameOverSound());
+		stopBGM();
+		playSoundEffect(ResourceLoader.getGameOverSound());
 	}
 	
 	public static void playBurstLinkSound()
 	{
-		AudioUtility.playSoundEffect(ResourceLoader.getBurstLinkSound());
+		playSoundEffect(ResourceLoader.getBurstLinkSound());
 	}
 	
 	public static void playTripleAccelSound()
 	{
-		AudioUtility.playSoundEffect(ResourceLoader.getTripleAccelSound());
+		playSoundEffect(ResourceLoader.getTripleAccelSound());
 	}
 }

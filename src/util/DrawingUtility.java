@@ -35,7 +35,9 @@ public class DrawingUtility
 	public static void drawGameMenu(GraphicsContext gc, int time, int powerup, Field field)
 	{
 		gc.setFill(Color.BLACK);
+		gc.setGlobalAlpha(0.5);
 		gc.fillRect(0, 0, Config.SCREEN_WIDTH, BAR_HEIGHT);
+		gc.setGlobalAlpha(1);
 		gc.setFont(font);
 		gc.setFill(Color.WHITE);
 		gc.fillText(Integer.toString(time), Config.SCREEN_WIDTH - TIME_TEXT_X, TEXT_Y);
@@ -83,7 +85,7 @@ public class DrawingUtility
 	public static void drawPlayer(GraphicsContext gc, Player player, Field field)
 	{
 		drawSprite(gc, ResourceLoader.getPlayerSprite(player.getState(), player.getSpriteCounter()), player.getState(),
-				player.getSpriteCounter(), player.getDrawX() - field.getX(), player.getDrawY() - field.getY(), player.getDx() < 0 ? -1 : 1);
+				player.getSpriteCounter(), player.getDrawX() - field.getX(), player.getDrawY() - field.getY(), player.getFacing());
 	}
 	
 	public static void drawPawn(GraphicsContext gc, PawnEnemy pawn, Field field)

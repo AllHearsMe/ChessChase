@@ -77,7 +77,8 @@ public class Main extends Application{
 	public void toggleScene(){
 		if (isGameSceneShown) {
 			this.primaryStage.setScene(menuScene);
-			DrawingUtility.fadeScreen(menuScreen, 0.0, e -> AudioUtility.playMenuBGM());
+			AudioUtility.playMenuBGM();
+			DrawingUtility.fadeScreen(menuScreen, 0.0, e -> {});
 		}
 		else {
 			DrawingUtility.fadeScreen(menuScreen, 1.0, e -> {

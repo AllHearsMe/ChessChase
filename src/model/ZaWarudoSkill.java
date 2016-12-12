@@ -4,11 +4,11 @@ import javafx.scene.canvas.GraphicsContext;
 import util.Config;
 import util.DrawingUtility;
 
-public class BurstLinkSkill extends SpecialSkill
+public class ZaWarudoSkill extends SpecialSkill
 {
-	public BurstLinkSkill()
+	public ZaWarudoSkill()
 	{
-		super(Config.BURST_LINK_DURATION, () -> Enemy.isPaused = true, () -> Enemy.isPaused = false);
+		super(Config.ZA_WARUDO_DURATION, () -> Enemy.isPaused = true, () -> Enemy.isPaused = false);
 	}
 
 	@Override
