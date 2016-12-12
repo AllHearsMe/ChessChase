@@ -83,7 +83,7 @@ public class Main extends Application{
 			DrawingUtility.fadeScreen(menuScreen, 1.0, e -> {
 				gameScreen = new GameScreen(this);
 				gameScene = new Scene(gameScreen, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
-				gameScreen.requestFocusForCanvas();
+				gameScreen.requestFocus();
 				this.primaryStage.setScene(gameScene);
 				gameScreen.startNewGame();
 				AudioUtility.playGameBGM();
