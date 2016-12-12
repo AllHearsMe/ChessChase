@@ -8,7 +8,7 @@ public class ZaWarudoSkill extends SpecialSkill
 {
 	public ZaWarudoSkill()
 	{
-		super(Config.BURST_LINK_DURATION, () -> Enemy.isPaused = true, () -> Enemy.isPaused = false);
+		super(Config.ZA_WARUDO_DURATION, () -> Enemy.isPaused = true, () -> Enemy.isPaused = false);
 	}
 
 	@Override

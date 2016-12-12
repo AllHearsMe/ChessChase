@@ -57,7 +57,7 @@ public class ResourceLoader
 			
 			instance.menuBGM = new AudioClip(getSystemResourcePath(Config.MENU_BGM_PATH));
 			instance.gameBGM = new AudioClip(getSystemResourcePath(Config.GAME_BGM_PATH));
-			instance.burstLinkSound = new AudioClip(getSystemResourcePath(Config.BURST_LINK_SOUND_PATH));
+			instance.burstLinkSound = new AudioClip(getSystemResourcePath(Config.ZA_WARUDO_SOUND_PATH));
 			instance.tripleAccelSound = new AudioClip(getSystemResourcePath(Config.TRIPLE_ACCEL_SOUND_PATH));
 			instance.gameOverSound = new AudioClip(getSystemResourcePath(Config.GAME_OVER_SOUND_PATH));
 		}
