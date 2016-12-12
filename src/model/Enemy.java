@@ -53,8 +53,10 @@ public abstract class Enemy<D extends IDirection> extends Entity
 					if (spriteDelayCounter <= 0 && spriteCounter >= getTotalSprites()) state = EntityState.IDLE;
 					break;
 				case IDLE:
-					if (Math.abs((this.x + this.hitW / 2) - (field.getPlayer().x + field.getPlayer().hitW / 2)) <= Config.AWAKEN_RANGE_WIDTH
-							&& Math.abs((this.y + this.hitH / 2) - (field.getPlayer().y + field.getPlayer().hitH / 2)) <= Config.AWAKEN_RANGE_HEIGHT)
+					if (Math.abs((this.x + this.hitW / 2) - (field.getPlayer().x + field.getPlayer().hitW / 2))
+							<= Config.AWAKEN_RANGE_WIDTH + (this.hitW + field.getPlayer().hitW) / 2
+							&& Math.abs((this.y + this.hitH / 2) - (field.getPlayer().y + field.getPlayer().hitH / 2))
+							<= Config.AWAKEN_RANGE_HEIGHT + (this.hitH + field.getPlayer().hitH) / 2)
 					{
 						state = EntityState.AWAKENING;
 						spriteDelayCounter = 0;
@@ -127,32 +129,39 @@ public abstract class Enemy<D extends IDirection> extends Entity
 		}
 		return minDir;
 	}
-
+	
 	public IDirection getDirection()
 	{
 		return direction;
 	}
-
+	
 	public static void setMultiplier(double multiplier)
 	{
 		Enemy.multiplier = multiplier;
 	}
-
+	
 	public static double getMultiplier()
 	{
 		return multiplier;
 	}
-
+	
 	public static void setDivider(double divider)
 	{
 		Enemy.divider = divider;
 	}
-
-	public static boolean isPaused() {
+	
+	public static double getDivider()
+	{
+		return divider;
+	}
+	
+	public static boolean isPaused()
+	{
 		return isPaused;
 	}
-
-	public static void setPaused(boolean isPaused) {
+	
+	public static void setPaused(boolean isPaused)
+	{
 		Enemy.isPaused = isPaused;
 	}
 }

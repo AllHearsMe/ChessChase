@@ -66,17 +66,8 @@ public class GameScreen extends StackPane {
 		AnimationTimer animation = new AnimationTimer() {
 			public void handle(long now) {
 				if (Main.isGameSceneShown()) {
-					if (field.isSkillActive()) {
-						if ( field.getSkill() instanceof TripleAccelSkill)
-							if (delay % (Config.NORMAL_TICK_PER_SECOND * 9) == 0) {
-								createEnemy(field);
-							}
-						}else {
-							if (delay % (Config.NORMAL_TICK_PER_SECOND * 3) == 0) {
-								createEnemy(field);
-							}
-					} 
-
+					if (delay % (Config.NORMAL_TICK_PER_SECOND * 3 * Enemy.getDivider()) == 0) {
+						createEnemy(field);
 					}
 					update();
 					paintComponent();
@@ -104,7 +95,7 @@ public class GameScreen extends StackPane {
 						this.stop();
 					}
 				}
-			
+			}
 		};
 		animation.start();
 	}
