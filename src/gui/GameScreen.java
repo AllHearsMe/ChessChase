@@ -19,7 +19,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
-
 import model.*;
 
 import util.Config;
@@ -45,21 +44,21 @@ public class GameScreen extends StackPane {
 		this.getChildren().add(canvas);
 
 		this.main = main;
-		
+
 		this.setOnKeyPressed(event -> InputUtility.getInstance().handleKeyPress(event.getCode()));
 		this.setOnKeyReleased(event -> InputUtility.getInstance().handleKeyRelease(event.getCode()));
 
-//		startNewGame();
+		// startNewGame();
 	}
-	
-	public void startNewGame()
-	{
+
+	public void startNewGame() {
 		time = 0;
 		delay = 0;
 		powerup = 3;
-		
+		Enemy.setPaused(false);
+
 		RenderableHolder.getInstance().getRenderables().clear();
-		
+
 		field = new Field(5000, 5000);
 		player = new Player(field, 2500, 2500);
 		pauseEffect = new PauseEffect();
@@ -68,12 +67,21 @@ public class GameScreen extends StackPane {
 			createEnemy(field);
 		}
 		field.addEnemy(new PawnEnemy(field, 2200, 2200));
-		
+
 		AnimationTimer animation = new AnimationTimer() {
 			public void handle(long now) {
 				if (Main.isGameSceneShown()) {
-					if (delay % (Config.NORMAL_TICK_PER_SECOND / 2) == 0){
-						createEnemy(field);
+					if (field.isSkillActive()) {
+						if ( field.getSkill() instanceof TripleAccelSkill)
+							if (delay % (Config.NORMAL_TICK_PER_SECOND * 9) == 0) {
+								createEnemy(field);
+							}
+						}else {
+							if (delay % (Config.NORMAL_TICK_PER_SECOND * 3) == 0) {
+								createEnemy(field);
+							}
+					} 
+
 					}
 					update();
 					paintComponent();
@@ -101,7 +109,7 @@ public class GameScreen extends StackPane {
 						this.stop();
 					}
 				}
-			}
+			
 		};
 		animation.start();
 	}
@@ -123,40 +131,39 @@ public class GameScreen extends StackPane {
 		gc.fillText(Integer.toString(powerup), 150, 75);
 		Image powerup = new Image("file:pic/powerup.png");
 		gc.drawImage(powerup, 50, 12.5);
-		
+
 	}
 
 	public synchronized void update() {
 		checkInputKeys();
-		if (pauseEffect.isPaused()) return;
-		if (delay % Config.NORMAL_TICK_PER_SECOND == 0) time++;
+		if (pauseEffect.isPaused())
+			return;
+		if (delay % Config.NORMAL_TICK_PER_SECOND == 0)
+			time++;
 		delay++;
 		field.updateFieldState();
-		if (delay % Config.MULTIPLIER_DELAY == 0) 
+		if (delay % Config.MULTIPLIER_DELAY == 0)
 			Enemy.setMultiplier(Enemy.getMultiplier() + Config.MULTIPLIER_INCREMENT);
 	}
-	
-	private void checkInputKeys()
-	{
-		player.setDx((InputUtility.getInstance().getKeyPressed(KeyCode.LEFT) || InputUtility.getInstance().getKeyPressed(KeyCode.A) ? -1 : 0)
-				+ (InputUtility.getInstance().getKeyPressed(KeyCode.RIGHT) || InputUtility.getInstance().getKeyPressed(KeyCode.D) ? 1 : 0));
-		player.setDy((InputUtility.getInstance().getKeyPressed(KeyCode.UP) || InputUtility.getInstance().getKeyPressed(KeyCode.W) ? -1 : 0)
-				+ (InputUtility.getInstance().getKeyPressed(KeyCode.DOWN) || InputUtility.getInstance().getKeyPressed(KeyCode.S) ? 1 : 0));
-		if(InputUtility.getInstance().getKeyTriggered(KeyCode.SPACE))
-		{
+
+	private void checkInputKeys() {
+		player.setDx((InputUtility.getInstance().getKeyPressed(KeyCode.LEFT)
+				|| InputUtility.getInstance().getKeyPressed(KeyCode.A) ? -1 : 0)
+				+ (InputUtility.getInstance().getKeyPressed(KeyCode.RIGHT)
+						|| InputUtility.getInstance().getKeyPressed(KeyCode.D) ? 1 : 0));
+		player.setDy((InputUtility.getInstance().getKeyPressed(KeyCode.UP)
+				|| InputUtility.getInstance().getKeyPressed(KeyCode.W) ? -1 : 0)
+				+ (InputUtility.getInstance().getKeyPressed(KeyCode.DOWN)
+						|| InputUtility.getInstance().getKeyPressed(KeyCode.S) ? 1 : 0));
+		if (InputUtility.getInstance().getKeyTriggered(KeyCode.SPACE)) {
 			pauseEffect.togglePaused();
 		}
-		if(!field.isSkillActive() && powerup > 0)
-		{
-			if(InputUtility.getInstance().getKeyTriggered(KeyCode.Z))
-			{
+		if (!field.isSkillActive() && powerup > 0) {
+			if (InputUtility.getInstance().getKeyTriggered(KeyCode.Z)) {
 				powerup--;
 				field.setSkill(new BurstLinkSkill());
-			}
-			else if(InputUtility.getInstance().getKeyTriggered(KeyCode.X))
-			{
+			} else if (InputUtility.getInstance().getKeyTriggered(KeyCode.X)) {
 				powerup--;
-				field.setSkill(new TripleAccelSkill(player, field));
 			}
 		}
 		InputUtility.getInstance().postUpdate();
@@ -165,25 +172,25 @@ public class GameScreen extends StackPane {
 	public void requestFocusForCanvas() {
 		this.requestFocus();
 	}
-	
-	public void createEnemy(Field field){
+
+	public void createEnemy(Field field) {
 		long now = System.nanoTime();
-		int spawnNumber = new Random(now).nextInt(Config.MAX_SPAWN) +1;
+		int spawnNumber = new Random(now).nextInt(Config.MAX_SPAWN) + 1;
 		for (int i = 0; i < spawnNumber; i++) {
-			int spawnX = new Random(now / Config.SCREEN_HEIGHT / (i + 1)).nextInt((int) field.getWidth());
-			int spawnY = new Random(now/ Config.SCREEN_WIDTH /(i + 1)).nextInt((int) field.getHeight());
-			int spawnCase = new Random(now / (i + 1)).nextInt(100);
-			if (spawnCase < 40){
+			int spawnX = new Random(now / Config.SCREEN_HEIGHT / (i + 10)).nextInt((int) field.getWidth());
+			int spawnY = new Random(now / Config.SCREEN_WIDTH / (i + 20)).nextInt((int) field.getHeight());
+			int spawnCase = new Random(now / (i + 30)).nextInt(100);
+			if (spawnCase < 40) {
 				field.addEnemy(new PawnEnemy(field, spawnX, spawnY));
-			}else if (spawnCase < 55){
+			} else if (spawnCase < 55) {
 				field.addEnemy(new KnightEnemy(field, spawnX, spawnY));
-			}else if (spawnCase < 70){
+			} else if (spawnCase < 70) {
 				field.addEnemy(new RookEnemy(field, spawnX, spawnY));
-			}else if (spawnCase < 85){
+			} else if (spawnCase < 85) {
 				field.addEnemy(new BishopEnemy(field, spawnX, spawnY));
-			}else if (spawnCase <95){
+			} else if (spawnCase < 95) {
 				field.addEnemy(new QueenEnemy(field, spawnX, spawnY));
-			}else {
+			} else {
 				field.addEnemy(new KingEnemy(field, spawnX, spawnY));
 			}
 		}

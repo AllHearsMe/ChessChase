@@ -151,6 +151,10 @@ public class Field implements IRenderable
 		this.skill = skill;
 	}
 	
+	public SpecialSkill getSkill() {
+		return skill;
+	}
+
 	public boolean isSkillActive()
 	{
 		return skill != null && skill.isActive();

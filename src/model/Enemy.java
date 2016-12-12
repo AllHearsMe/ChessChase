@@ -147,4 +147,12 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	{
 		Enemy.divider = divider;
 	}
+
+	public static boolean isPaused() {
+		return isPaused;
+	}
+
+	public static void setPaused(boolean isPaused) {
+		Enemy.isPaused = isPaused;
+	}
 }
