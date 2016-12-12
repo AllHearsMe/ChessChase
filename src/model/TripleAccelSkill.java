@@ -15,14 +15,16 @@ public class TripleAccelSkill extends SpecialSkill
 		int spriteCount;
 		EntityState state;
 		double age;
+		int facing;
 		
-		public AfterImage(double x, double y, int spriteCount, EntityState state, double age)
+		public AfterImage(double x, double y, int spriteCount, EntityState state, double age, int facing)
 		{
 			this.x = x;
 			this.y = y;
 			this.spriteCount = spriteCount;
 			this.state = state;
 			this.age = age;
+			this.facing = facing;
 		}
 	}
 	
@@ -36,7 +38,7 @@ public class TripleAccelSkill extends SpecialSkill
 		this.player = player;
 		this.field = field;
 		points = new LinkedList<AfterImage>();
-		points.offer(new AfterImage(player.getDrawX(), player.getDrawY(), player.getSpriteCounter(), player.getState(), age));
+		points.offer(new AfterImage(player.getDrawX(), player.getDrawY(), player.getSpriteCounter(), player.getState(), age, player.getDx() < 0 ? -1 : 1));
 	}
 	
 	@Override
@@ -45,7 +47,7 @@ public class TripleAccelSkill extends SpecialSkill
 		super.update();
 //		if(age % (Config.TRIPLE_ACCEL_DURATION / Config.NORMAL_TICK_PER_SECOND) == 0)
 		if(isActive && age % (Config.NORMAL_TICK_PER_SECOND / Config.TRIPLE_ACCEL_AFTER_IMAGE_PER_SECOND) == 0)
-			points.offer(new AfterImage(player.getDrawX(), player.getDrawY(), player.getSpriteCounter(), player.getState(), age));
+			points.offer(new AfterImage(player.getDrawX(), player.getDrawY(), player.getSpriteCounter(), player.getState(), age, player.getDx() < 0 ? -1 : 1));
 		while(points.peek().age - age >= Config.NORMAL_TICK_PER_SECOND)
 			points.poll();
 		
@@ -67,7 +69,7 @@ public class TripleAccelSkill extends SpecialSkill
 	public void draw(GraphicsContext gc)
 	{
 		for(AfterImage a : points)
-			DrawingUtility.drawPlayerAfterImage(gc, a.x, a.y, a.state, a.spriteCount, player, field, 1 - (age - a.age) / Config.NORMAL_TICK_PER_SECOND);
+			DrawingUtility.drawPlayerAfterImage(gc, a.x, a.y, a.state, a.spriteCount, a.facing, field, 1 - (age - a.age) / Config.NORMAL_TICK_PER_SECOND);
 	}
 	
 }
