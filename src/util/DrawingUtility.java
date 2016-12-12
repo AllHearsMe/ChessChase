@@ -92,11 +92,11 @@ public class DrawingUtility
 		gc.drawImage(image, (Config.SCREEN_WIDTH - image.getWidth()) / 2, (Config.SCREEN_HEIGHT - image.getHeight()) / 2);
 	}
 	
-	public static void drawPlayerAfterImage(GraphicsContext gc, double x, double y, EntityState state, int spriteCounter, Player player, Field field, double opacity)
+	public static void drawPlayerAfterImage(GraphicsContext gc, double x, double y, EntityState state, int spriteCounter, int facing, Field field, double opacity)
 	{
 		gc.setGlobalAlpha(opacity);
 		drawSprite(gc, ResourceLoader.getInstance().getPlayerSprite(state, spriteCounter), state,
-				spriteCounter, x - field.getX(), y - field.getY(), player.getDx() < 0 ? -1 : 1);
+				spriteCounter, x - field.getX(), y - field.getY(), facing);
 		gc.setGlobalAlpha(1);
 	}
 }

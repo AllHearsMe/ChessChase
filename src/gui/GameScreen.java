@@ -52,13 +52,8 @@ public class GameScreen extends StackPane {
 	}
 
 	public void startNewGame() {
-		time = 0;
-		delay = 0;
-		powerup = 3;
-		Enemy.setPaused(false);
-
-		RenderableHolder.getInstance().getRenderables().clear();
-
+		resetValues();
+		
 		field = new Field(5000, 5000);
 		player = new Player(field, 2500, 2500);
 		pauseEffect = new PauseEffect();
@@ -142,7 +137,7 @@ public class GameScreen extends StackPane {
 			time++;
 		delay++;
 		field.updateFieldState();
-		if (delay % Config.MULTIPLIER_DELAY == 0)
+		if (!field.isSkillActive() && delay % Config.MULTIPLIER_DELAY == 0)
 			Enemy.setMultiplier(Enemy.getMultiplier() + Config.MULTIPLIER_INCREMENT);
 	}
 
@@ -170,6 +165,19 @@ public class GameScreen extends StackPane {
 		InputUtility.getInstance().postUpdate();
 	}
 
+	private void resetValues()
+	{
+		time = 0;
+		delay = 0;
+		powerup = 3;
+		Enemy.setPaused(false);
+		Enemy.setMultiplier(1);
+		Enemy.setDivider(1);
+		
+		InputUtility.getInstance().reset();
+		RenderableHolder.getInstance().getRenderables().clear();
+	}
+	
 	public void requestFocusForCanvas() {
 		this.requestFocus();
 	}
