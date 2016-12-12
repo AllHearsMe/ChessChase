@@ -77,7 +77,7 @@ public class DrawingUtility
 	public static void drawBurstLinkEffect(GraphicsContext gc)
 	{
 		gc.setGlobalAlpha(0.50);
-		gc.setFill(Color.DEEPSKYBLUE);
+		gc.setFill(Color.DARKSLATEBLUE);
 		gc.fillRect(0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		gc.setGlobalAlpha(1);
 	}
@@ -85,7 +85,7 @@ public class DrawingUtility
 	public static void drawPauseEffect(GraphicsContext gc)
 	{
 		gc.setGlobalAlpha(0.50);
-		gc.setFill(Color.DEEPSKYBLUE);
+		gc.setFill(Color.STEELBLUE);
 		gc.fillRect(0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		gc.setGlobalAlpha(1);
 		Image image = ResourceLoader.getInstance().getPauseImage();

@@ -33,9 +33,9 @@ public class GameScreen extends StackPane {
 	private Player player;
 	private PauseEffect pauseEffect;
 
-	private int time = 0;
-	private int delay = 0;
-	private int powerup = 3;
+	private int time;
+	private int delay;
+	private int powerup;
 
 	public GameScreen(Main main) {
 		this.setPrefSize(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
@@ -60,6 +60,7 @@ public class GameScreen extends StackPane {
 			createEnemy(field);
 		}
 		field.addEnemy(new PawnEnemy(field, 2200, 2200));
+		field.addEnemy(new PawnEnemy(field, 2800, 2800));
 
 		AnimationTimer animation = new AnimationTimer() {
 			public void handle(long now) {
@@ -82,7 +83,21 @@ public class GameScreen extends StackPane {
 								ft.playFromStart();
 								ft.setOnFinished(e -> {
 									Alert alert = new Alert(AlertType.INFORMATION);
-									alert.setContentText("You died noob LOLOLOL");
+									alert.setHeaderText("You survived for "+ time + " seconds");
+									if (time < 5){
+										alert.setContentText("Use ArrowPad or WASD to move OK?");
+									} else if (time < 20){
+										alert.setContentText("This game is not that hard you know?");
+									} else if (time < 30){
+										alert.setContentText("Died already huh?");
+									} else if (time < 50){
+										alert.setContentText("DIE DIE DIE LOLOLOLOL");
+									}else if (time < 90){
+										alert.setContentText("You have done well for surviving this long");
+									}else {
+										alert.setContentText("Go buy some lottery, maybe you will get a 1st price");
+									}
+									
 									alert.show();
 									alert.setOnCloseRequest(f -> {
 										main.toggleScene();
