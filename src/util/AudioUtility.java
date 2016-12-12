@@ -20,10 +20,11 @@ public class AudioUtility
 	
 	public static void playBGM(AudioClip bgm)
 	{
-		if(getInstance().currentBGM.isPlaying()) AudioUtility.stopBGM();
-		getInstance().currentBGM = bgm;
-		getInstance().currentBGM.setCycleCount(AudioClip.INDEFINITE);
-		getInstance().currentBGM.play();
+		getInstance();
+		if(instance.currentBGM.isPlaying()) AudioUtility.stopBGM();
+		instance.currentBGM = bgm;
+		instance.currentBGM.setCycleCount(AudioClip.INDEFINITE);
+		instance.currentBGM.play();
 	}
 	
 	public static void playMenuBGM()
@@ -43,9 +44,10 @@ public class AudioUtility
 	
 	public static void playSoundEffect(AudioClip sound)
 	{
-		if(getInstance().currentSFX.isPlaying()) AudioUtility.stopSoundEffect();
-		getInstance().currentSFX = sound;
-		getInstance().currentSFX.play();
+		getInstance();
+		if(instance.currentSFX.isPlaying()) AudioUtility.stopSoundEffect();
+		instance.currentSFX = sound;
+		instance.currentSFX.play();
 	}
 	
 	public static void stopSoundEffect()

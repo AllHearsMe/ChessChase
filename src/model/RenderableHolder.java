@@ -39,6 +39,11 @@ public class RenderableHolder
 		getInstance().renderables.sort(comparator);
 	}
 	
+	public static void clear()
+	{
+		getInstance().renderables.clear();
+	}
+	
 	public static void draw(GraphicsContext gc)
 	{
 		for (IRenderable r : getInstance().renderables)

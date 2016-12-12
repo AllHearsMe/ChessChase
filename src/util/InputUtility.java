@@ -13,8 +13,8 @@ public class InputUtility
 	
 	private InputUtility()
 	{
-		keysTriggered = new ArrayList<>();
-		keysPressed = new ArrayList<>();
+		instance.keysTriggered = new ArrayList<>();
+		instance.keysPressed = new ArrayList<>();
 	}
 
 	public static InputUtility getInstance()
@@ -22,39 +22,42 @@ public class InputUtility
 		return instance;
 	}
 	
-	public void handleKeyPress(KeyCode code)
+	public static void handleKeyPress(KeyCode code)
 	{
-		if(!keysPressed.contains(code))
+		getInstance();
+		if(!instance.keysPressed.contains(code))
 		{
-			keysTriggered.add(code);
-			keysPressed.add(code);
+			instance.keysTriggered.add(code);
+			instance.keysPressed.add(code);
 		}
 	}
 	
-	public void handleKeyRelease(KeyCode code)
+	public static void handleKeyRelease(KeyCode code)
 	{
-		keysTriggered.remove(code);
-		keysPressed.remove(code);
+		getInstance();
+		instance.keysTriggered.remove(code);
+		instance.keysPressed.remove(code);
 	}
 	
-	public boolean getKeyTriggered(KeyCode code)
+	public static boolean getKeyTriggered(KeyCode code)
 	{
-		return keysTriggered.contains(code);
+		return getInstance().keysTriggered.contains(code);
 	}
 	
-	public boolean getKeyPressed(KeyCode code)
+	public static boolean getKeyPressed(KeyCode code)
 	{
-		return keysPressed.contains(code);
+		return getInstance().keysPressed.contains(code);
 	}
 	
-	public void reset()
+	public static void reset()
 	{
-		keysPressed.clear();
-		keysTriggered.clear();
+		getInstance();
+		instance.keysPressed.clear();
+		instance.keysTriggered.clear();
 	}
 	
-	public void postUpdate()
+	public static void postUpdate()
 	{
-		keysTriggered.clear();
+		getInstance().keysTriggered.clear();
 	}
 }
