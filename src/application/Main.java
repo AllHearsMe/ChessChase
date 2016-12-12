@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import application.Main;
+import util.AudioUtility;
 import util.Config;
 import util.ResourceLoader;
 import javafx.scene.Scene;
@@ -38,6 +39,8 @@ public class Main extends Application{
 			menuScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(menuScene);
 			primaryStage.show();
+			
+			AudioUtility.playMenuBGM();
 			
 			menuScene.setOnKeyPressed(e ->{
 				if (e.getCode() == KeyCode.ENTER){
@@ -70,7 +73,7 @@ public class Main extends Application{
 			ft.setCycleCount(1);
 			ft.playFromStart();
 			ft.setOnFinished(e->{
-//				isGameSceneShown = !isGameSceneShown;
+				AudioUtility.playMenuBGM();
 			});
 		}
 		else{
@@ -85,8 +88,8 @@ public class Main extends Application{
 				gameScene = new Scene(gameScreen, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 				gameScreen.requestFocusForCanvas();
 				this.primaryStage.setScene(gameScene);
-//				isGameSceneShown = !isGameSceneShown;
 				gameScreen.startNewGame();
+				AudioUtility.playGameBGM();
 			});
 			
 		}

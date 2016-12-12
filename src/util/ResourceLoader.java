@@ -49,7 +49,11 @@ public class ResourceLoader
 		fieldBackground = new Image(ClassLoader.getSystemResource(Config.FIELD_BACKGROUND_PATH).toString());
 		pauseImage = new Image(ClassLoader.getSystemResource(Config.PAUSE_IMAGE_PATH).toString());
 		
-		
+		menuBGM = new AudioClip(ClassLoader.getSystemResource(Config.MENU_BGM_PATH).toString());
+		gameBGM = new AudioClip(ClassLoader.getSystemResource(Config.GAME_BGM_PATH).toString());
+		burstLinkSound = new AudioClip(ClassLoader.getSystemResource(Config.BURST_LINK_SOUND_PATH).toString());
+		tripleAccelSound = new AudioClip(ClassLoader.getSystemResource(Config.TRIPLE_ACCEL_SOUND_PATH).toString());
+		gameOverSound = new AudioClip(ClassLoader.getSystemResource(Config.GAME_OVER_SOUND_PATH).toString());
 	}
 	
 	private void fillSprites(List<List<Image>> list, String path)
@@ -182,5 +186,30 @@ public class ResourceLoader
 	public Image getPauseImage()
 	{
 		return pauseImage;
+	}
+
+	public AudioClip getBurstLinkSound()
+	{
+		return burstLinkSound;
+	}
+
+	public AudioClip getTripleAccelSound()
+	{
+		return tripleAccelSound;
+	}
+
+	public AudioClip getGameOverSound()
+	{
+		return gameOverSound;
+	}
+
+	public AudioClip getMenuBGM()
+	{
+		return menuBGM;
+	}
+
+	public AudioClip getGameBGM()
+	{
+		return gameBGM;
 	}
 }
