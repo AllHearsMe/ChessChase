@@ -44,15 +44,21 @@ public class TripleAccelSkill extends SpecialSkill
 	{
 		super.update();
 //		if(age % (Config.TRIPLE_ACCEL_DURATION / Config.NORMAL_TICK_PER_SECOND) == 0)
-		if(age % (Config.NORMAL_TICK_PER_SECOND / 10) == 0)
+		if(isActive && age % (Config.NORMAL_TICK_PER_SECOND / 10) == 0)
 			points.offer(new AfterImage(player.getDrawX(), player.getDrawY(), player.getSpriteCounter(), player.getState(), age));
-		if(points.peek().age - age >= Config.NORMAL_TICK_PER_SECOND)
+		while(points.peek().age - age >= Config.NORMAL_TICK_PER_SECOND)
 			points.poll();
 		
 	}
 
 	@Override
 	public boolean isVisible()
+	{
+		return !points.isEmpty();
+	}
+	
+	@Override
+	public boolean needsUpdating()
 	{
 		return !points.isEmpty();
 	}

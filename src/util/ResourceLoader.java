@@ -5,6 +5,7 @@ import java.util.List;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
+import javafx.scene.media.AudioClip;
 import model.EntityState;
 
 public class ResourceLoader
@@ -13,8 +14,8 @@ public class ResourceLoader
 	
 	private ResourceLoader()
 	{
-		// Should be called at program's start instead
-		// loadResources();
+		//Part of singleton pattern
+		//NOTE: call loadResources() in Main
 	}
 	
 	public static ResourceLoader getInstance()
@@ -24,6 +25,8 @@ public class ResourceLoader
 	
 	private List<List<Image>> playerSprites, pawnSprites, rookSprites, knightSprites, bishopSprites, queenSprites, kingSprites;
 	private Image fieldBackground, pauseImage;
+	
+	private AudioClip burstLinkSound, tripleAccelSound, gameOverSound, menuBGM, gameBGM;
 	
 	public void loadResources()
 	{
@@ -45,6 +48,8 @@ public class ResourceLoader
 		
 		fieldBackground = new Image(ClassLoader.getSystemResource(Config.FIELD_BACKGROUND_PATH).toString());
 		pauseImage = new Image(ClassLoader.getSystemResource(Config.PAUSE_IMAGE_PATH).toString());
+		
+		
 	}
 	
 	private void fillSprites(List<List<Image>> list, String path)

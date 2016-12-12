@@ -36,7 +36,7 @@ public abstract class Enemy<D extends IDirection> extends Entity
 		if (move())
 		{
 			spriteDelayCounter++;
-			if (spriteDelayCounter >= spriteDelay)
+			if (spriteDelayCounter >= spriteDelay * divider)
 			{
 				spriteDelayCounter = 0;
 				spriteCounter++;
@@ -72,7 +72,7 @@ public abstract class Enemy<D extends IDirection> extends Entity
 					break;
 				case RUNNING:
 					directionChangeDelayCounter++;
-					if (directionChangeDelayCounter >= directionChangeDelay)
+					if (directionChangeDelayCounter >= directionChangeDelay * divider)
 					{
 						directionChangeDelayCounter = 0;
 						direction = getClosestDirection();
@@ -107,8 +107,8 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	
 	private double calculateNewDistance(IDirection dir)
 	{
-		return Math.abs(this.x + dir.getDx(1) * this.speed * multiplier * this.directionChangeDelay - field.getPlayer().getX())
-				+ Math.abs(this.y + dir.getDy(1) * this.speed * multiplier * this.directionChangeDelay - field.getPlayer().getY());
+		return Math.abs(this.x + dir.getDx(1) * this.speed * multiplier / divider * this.directionChangeDelay - field.getPlayer().getX())
+				+ Math.abs(this.y + dir.getDy(1) * this.speed * multiplier / divider * this.directionChangeDelay - field.getPlayer().getY());
 	}
 	
 	// get all directions, find one that brings this closest to player

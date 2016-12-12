@@ -88,6 +88,13 @@ public class Config
 		SCREEN_HEIGHT = 768;
 	
 	public static final String
+		MENU_BGM_PATH = "",
+		GAME_BGM_PATH = "",
+		BURST_LINK_SOUND_PATH = "ZA_WARUDO__TOKI_WO_TOMARE.mp3",
+		TRIPLE_ACCEL_SOUND_PATH = "FAIZ_AXEL_STARTUP.mp3",
+		GAME_OVER_SOUND_PATH = "";
+	
+	public static final String
 		PLAYER_PATH = "pawn/",
 		PAWN_PATH = "enemypawn/",
 		ROOK_PATH = "rook/",
@@ -129,8 +136,6 @@ public class Config
 				return AWAKENING_FRAMES;
 			case RUNNING:
 				return RUNNING_FRAMES;
-//			case DYING:
-//				return DYING_FRAMES;
 			default:
 				return 1;
 		}
