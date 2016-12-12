@@ -3,16 +3,14 @@ package application;
 
 import gui.GameScreen;
 import gui.MenuScreen;
-import javafx.animation.FadeTransition;
 import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-import application.Main;
-import util.AudioUtility;
-import util.Config;
-import util.ResourceLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
+import util.AudioUtility;
+import util.Config;
+import util.DrawingUtility;
+import util.ResourceLoader;
 
 public class Main extends Application{
 	
@@ -30,17 +28,19 @@ public class Main extends Application{
 		
 		try
 		{
-			this.primaryStage=primaryStage;
+			this.primaryStage = primaryStage;
 			primaryStage.setTitle("Chess Chase");
-			menuScreen = new MenuScreen();
-			gameScreen = new GameScreen(this);
-			menuScene = new Scene(menuScreen, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
-			gameScene = new Scene(gameScreen, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
-			menuScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(menuScene);
 			primaryStage.setResizable(false);
 			primaryStage.setHeight(Config.SCREEN_HEIGHT);
 			primaryStage.setWidth(Config.SCREEN_WIDTH);
+			
+			menuScreen = new MenuScreen();
+			gameScreen = new GameScreen(this);
+			
+			menuScene = new Scene(menuScreen, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
+			gameScene = new Scene(gameScreen, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
+			
+			primaryStage.setScene(menuScene);
 			primaryStage.show();
 			
 			AudioUtility.playMenuBGM();
@@ -67,26 +67,12 @@ public class Main extends Application{
 	}
 	
 	public synchronized void toggleScene(){
-		if (isGameSceneShown){
-			isGameSceneShown = !isGameSceneShown;
+		if (isGameSceneShown) {
 			this.primaryStage.setScene(menuScene);
-			FadeTransition ft = new FadeTransition(new Duration(2000), menuScreen);
-			ft.setFromValue(0.0);
-			ft.setToValue(1.0);
-			ft.setCycleCount(1);
-			ft.playFromStart();
-			ft.setOnFinished(e->{
-				AudioUtility.playMenuBGM();
-			});
+			DrawingUtility.fadeScreen(menuScreen, 0.0, e -> AudioUtility.playMenuBGM());
 		}
-		else{
-			isGameSceneShown = !isGameSceneShown;
-			FadeTransition ft = new FadeTransition(new Duration(2000), menuScreen);
-			ft.setFromValue(1.0);
-			ft.setToValue(0.0);
-			ft.setCycleCount(1);
-			ft.playFromStart();
-			ft.setOnFinished(e -> {
+		else {
+			DrawingUtility.fadeScreen(menuScreen, 1.0, e -> {
 				gameScreen = new GameScreen(this);
 				gameScene = new Scene(gameScreen, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 				gameScreen.requestFocusForCanvas();
@@ -94,8 +80,8 @@ public class Main extends Application{
 				gameScreen.startNewGame();
 				AudioUtility.playGameBGM();
 			});
-			
 		}
+		isGameSceneShown = !isGameSceneShown;
 	}
 
 	public static boolean isGameSceneShown() {

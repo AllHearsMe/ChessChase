@@ -2,26 +2,32 @@ package gui;
 
 import java.util.Random;
 
-import com.sun.javafx.tk.FontLoader;
-import com.sun.javafx.tk.Toolkit;
-
 import application.Main;
 import javafx.animation.AnimationTimer;
-import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.util.Duration;
-import model.*;
+import model.BishopEnemy;
+import model.BurstLinkSkill;
+import model.Enemy;
+import model.EntityState;
+import model.Field;
+import model.KingEnemy;
+import model.KnightEnemy;
+import model.PauseEffect;
+import model.PawnEnemy;
+import model.Player;
+import model.QueenEnemy;
+import model.RenderableHolder;
+import model.RookEnemy;
+import model.TripleAccelSkill;
 import util.AudioUtility;
 import util.Config;
+import util.DrawingUtility;
 import util.InputUtility;
 
 public class GameScreen extends StackPane {
@@ -59,6 +65,8 @@ public class GameScreen extends StackPane {
 		for (int i = 0; i < 3; i++) {
 			createEnemy(field);
 		}
+		
+		//Initial enemies
 		field.addEnemy(new PawnEnemy(field, player.getX() - 300, player.getX() - 300));
 		field.addEnemy(new PawnEnemy(field, player.getX() + 300, player.getX() + 300));
 
@@ -68,44 +76,13 @@ public class GameScreen extends StackPane {
 					if (delay % (Config.NORMAL_TICK_PER_SECOND * 3 * Enemy.getDivider()) == 0) {
 						createEnemy(field);
 					}
+					
 					update();
 					paintComponent();
+					
 					if (player.isDestroyed()) {
-						Platform.runLater(new Runnable() {
-
-							@Override
-							public void run() {
-								AudioUtility.playGameOverSound();
-								FadeTransition ft = new FadeTransition(new Duration(2000), canvas);
-								ft.setFromValue(1.0);
-								ft.setToValue(0.0);
-								ft.setCycleCount(1);
-								ft.playFromStart();
-								ft.setOnFinished(e -> {
-									Alert alert = new Alert(AlertType.INFORMATION);
-									alert.setHeaderText("You survived for "+ time + " seconds");
-									if (time < 5){
-										alert.setContentText("Use ArrowPad or WASD to move OK?");
-									} else if (time < 20){
-										alert.setContentText("This game is not that hard you know?");
-									} else if (time < 30){
-										alert.setContentText("Died already huh?");
-									} else if (time < 50){
-										alert.setContentText("DIE DIE DIE LOLOLOLOL");
-									}else if (time < 90){
-										alert.setContentText("You have done well for surviving this long");
-									}else {
-										alert.setContentText("Go buy some lottery, maybe you will get a 1st price");
-									}
-									
-									alert.show();
-									alert.setOnCloseRequest(f -> {
-										main.toggleScene();
-									});
-								});
-
-							}
-						});
+						AudioUtility.playGameOverSound();
+						Platform.runLater(() -> DrawingUtility.fadeScreen(canvas, 1.0, e -> showGameOverAlert()));
 						this.stop();
 					}
 				}
@@ -116,37 +93,26 @@ public class GameScreen extends StackPane {
 
 	public synchronized void paintComponent() {
 		gc.clearRect(0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
-
 		RenderableHolder.draw(gc);
-
-		gc.setFill(Color.BLACK);
-		gc.fillRect(0, 0, Config.SCREEN_WIDTH, 100);
-		Font font = new Font("Impact", 65);
-		gc.setFont(font);
-		gc.setFill(Color.WHITE);
-		gc.fillText(Integer.toString(time), Config.SCREEN_WIDTH - 150, 75);
-		FontLoader ft = Toolkit.getToolkit().getFontLoader();
-		double width = ft.computeStringWidth("TIME : ", font);
-		gc.fillText("TIME : ", Config.SCREEN_WIDTH - 150 - width, 75);
-		gc.fillText(Integer.toString(powerup), 150, 75);
-		Image powerup = new Image("file:pic/powerup.png");
-		gc.drawImage(powerup, 50, 12.5);
+		DrawingUtility.drawGameMenu(gc, time, powerup);
 
 	}
 
-	public synchronized void update() {
+	public synchronized void update()
+	{
 		checkInputKeys();
-		if (pauseEffect.isPaused())
-			return;
-		if (delay % Config.NORMAL_TICK_PER_SECOND == 0)
-			time++;
+		if (pauseEffect.isPaused()) return;
+		
+		if (delay % Config.NORMAL_TICK_PER_SECOND == 0) time++;
 		delay++;
+		
 		field.updateFieldState();
 		if (!field.isSkillActive() && delay % Config.MULTIPLIER_DELAY == 0)
 			Enemy.setMultiplier(Enemy.getMultiplier() + Config.MULTIPLIER_INCREMENT);
 	}
 
-	private void checkInputKeys() {
+	private void checkInputKeys()
+	{
 		player.setDx((InputUtility.getKeyPressed(KeyCode.LEFT)
 				|| InputUtility.getKeyPressed(KeyCode.A) ? -1 : 0)
 				+ (InputUtility.getKeyPressed(KeyCode.RIGHT)
@@ -155,18 +121,24 @@ public class GameScreen extends StackPane {
 				|| InputUtility.getKeyPressed(KeyCode.W) ? -1 : 0)
 				+ (InputUtility.getKeyPressed(KeyCode.DOWN)
 						|| InputUtility.getKeyPressed(KeyCode.S) ? 1 : 0));
-		if (InputUtility.getKeyTriggered(KeyCode.SPACE)) {
-			pauseEffect.togglePaused();
-		}
-		if (!field.isSkillActive() && powerup > 0) {
-			if (InputUtility.getKeyTriggered(KeyCode.Z)) {
-				powerup--;
-				field.setSkill(new BurstLinkSkill());
-				AudioUtility.playBurstLinkSound();
-			} else if (InputUtility.getKeyTriggered(KeyCode.X)) {
-				powerup--;
-				field.setSkill(new TripleAccelSkill(player, field));
-				AudioUtility.playTripleAccelSound();
+		if(player.getState() != EntityState.DYING)
+		{
+			if (InputUtility.getKeyTriggered(KeyCode.SPACE))
+				pauseEffect.togglePaused();
+			if (!field.isSkillActive() && powerup > 0)
+			{
+				if (InputUtility.getKeyTriggered(KeyCode.Z))
+				{
+					powerup--;
+					field.setSkill(new BurstLinkSkill());
+					AudioUtility.playBurstLinkSound();
+				}
+				else if (InputUtility.getKeyTriggered(KeyCode.X))
+				{
+					powerup--;
+					field.setSkill(new TripleAccelSkill(player, field));
+					AudioUtility.playTripleAccelSound();
+				}
 			}
 		}
 		InputUtility.postUpdate();
@@ -210,6 +182,30 @@ public class GameScreen extends StackPane {
 				field.addEnemy(new KingEnemy(field, spawnX, spawnY));
 			}
 		}
+	}
+	
+	private void showGameOverAlert()
+	{
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setHeaderText("You survived for "+ time + " seconds");
+		if (time < 5){
+			alert.setContentText("Use ArrowPad or WASD to move, OK?");
+		} else if (time < 20){
+			alert.setContentText("This game is not that hard, you know?");
+		} else if (time < 30){
+			alert.setContentText("Died already huh?");
+		} else if (time < 50){
+			alert.setContentText("DIE DIE DIE LOLOLOLOL");
+		}else if (time < 90){
+			alert.setContentText("You have done well for surviving this long.");
+		}else {
+			alert.setContentText("Go buy a lottery, maybe you will get the 1st price.");
+		}
+		
+		alert.show();
+		alert.setOnCloseRequest(f -> {
+			main.toggleScene();
+		});
 	}
 
 }

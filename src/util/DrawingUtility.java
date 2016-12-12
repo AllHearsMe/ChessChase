@@ -1,9 +1,18 @@
 package util;
 
+import com.sun.javafx.tk.FontLoader;
+import com.sun.javafx.tk.Toolkit;
+
+import javafx.animation.FadeTransition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.text.Font;
+import javafx.util.Duration;
 import model.BishopEnemy;
 import model.EntityState;
 import model.Field;
@@ -16,6 +25,8 @@ import model.RookEnemy;
 
 public class DrawingUtility
 {
+	private static Font font = new Font("Impact", 65);
+	
 	private static void drawSprite(GraphicsContext gc, Image sprite, EntityState state, int spriteCounter, double x, double y, int facing)
 	{
 		if (state == EntityState.DYING) gc.setGlobalAlpha(1 - (double) spriteCounter / Config.DYING_FRAMES);
@@ -98,5 +109,30 @@ public class DrawingUtility
 		drawSprite(gc, ResourceLoader.getPlayerSprite(state, spriteCounter), state,
 				spriteCounter, x - field.getX(), y - field.getY(), facing);
 		gc.setGlobalAlpha(1);
+	}
+	
+	public static void drawGameMenu(GraphicsContext gc, int time, int powerup)
+	{
+		gc.setFill(Color.BLACK);
+		gc.fillRect(0, 0, Config.SCREEN_WIDTH, 100);
+		gc.setFont(font);
+		gc.setFill(Color.WHITE);
+		gc.fillText(Integer.toString(time), Config.SCREEN_WIDTH - 150, 75);
+		FontLoader ft = Toolkit.getToolkit().getFontLoader();
+		double width = ft.computeStringWidth("TIME : ", font);
+		gc.fillText("TIME : ", Config.SCREEN_WIDTH - 150 - width, 75);
+		gc.fillText(Integer.toString(powerup), 150, 75);
+		gc.drawImage(ResourceLoader.getPowerupImage(), 50, 12.5);
+	}
+	
+	//
+	public static void fadeScreen(Node node, double initialOpacity, EventHandler<ActionEvent> onFinished)
+	{
+		FadeTransition ft = new FadeTransition(new Duration(2000), node);
+		ft.setFromValue(initialOpacity);
+		ft.setToValue(Math.abs(1 - initialOpacity));
+		ft.setCycleCount(1);
+		ft.playFromStart();
+		ft.setOnFinished(onFinished);
 	}
 }
