@@ -117,7 +117,7 @@ public class GameScreen extends StackPane {
 	public synchronized void paintComponent() {
 		gc.clearRect(0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 
-		RenderableHolder.getInstance().draw(gc);
+		RenderableHolder.draw(gc);
 
 		gc.setFill(Color.BLACK);
 		gc.fillRect(0, 0, Config.SCREEN_WIDTH, 100);
@@ -182,7 +182,7 @@ public class GameScreen extends StackPane {
 		Enemy.setDivider(1);
 		
 		InputUtility.getInstance().reset();
-		RenderableHolder.getInstance().getRenderables().clear();
+		RenderableHolder.getRenderables().clear();
 	}
 	
 	public void requestFocusForCanvas() {

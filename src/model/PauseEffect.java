@@ -9,7 +9,7 @@ public class PauseEffect implements IRenderable
 	
 	public PauseEffect()
 	{
-		RenderableHolder.getInstance().add(this);
+		RenderableHolder.add(this);
 	}
 	
 	public void togglePaused()

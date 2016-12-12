@@ -9,8 +9,8 @@ public class AudioUtility
 	
 	private AudioUtility()
 	{
-		currentBGM = ResourceLoader.getInstance().getMenuBGM();
-		currentSFX = ResourceLoader.getInstance().getGameOverSound();
+		currentBGM = ResourceLoader.getMenuBGM();
+		currentSFX = ResourceLoader.getGameOverSound();
 	}
 
 	private static AudioUtility getInstance()
@@ -28,12 +28,12 @@ public class AudioUtility
 	
 	public static void playMenuBGM()
 	{
-		AudioUtility.playBGM(ResourceLoader.getInstance().getMenuBGM());
+		AudioUtility.playBGM(ResourceLoader.getMenuBGM());
 	}
 	
 	public static void playGameBGM()
 	{
-		AudioUtility.playBGM(ResourceLoader.getInstance().getGameBGM());
+		AudioUtility.playBGM(ResourceLoader.getGameBGM());
 	}
 	
 	public static void stopBGM()
@@ -56,16 +56,16 @@ public class AudioUtility
 	public static void playGameOverSound()
 	{
 		AudioUtility.stopBGM();
-		AudioUtility.playSoundEffect(ResourceLoader.getInstance().getGameOverSound());
+		AudioUtility.playSoundEffect(ResourceLoader.getGameOverSound());
 	}
 	
 	public static void playBurstLinkSound()
 	{
-		AudioUtility.playSoundEffect(ResourceLoader.getInstance().getBurstLinkSound());
+		AudioUtility.playSoundEffect(ResourceLoader.getBurstLinkSound());
 	}
 	
 	public static void playTripleAccelSound()
 	{
-		AudioUtility.playSoundEffect(ResourceLoader.getInstance().getTripleAccelSound());
+		AudioUtility.playSoundEffect(ResourceLoader.getTripleAccelSound());
 	}
 }

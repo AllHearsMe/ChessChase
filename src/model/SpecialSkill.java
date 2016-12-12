@@ -13,7 +13,7 @@ public abstract class SpecialSkill implements IRenderable
 		this.isActive = true;
 		this.effect = effect;
 		this.reverseEffect = reverseEffect;
-		RenderableHolder.getInstance().add(this);
+		RenderableHolder.add(this);
 		this.effect.run();
 	}
 	

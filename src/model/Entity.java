@@ -17,7 +17,7 @@ public abstract class Entity implements IRenderable
 	public Entity(Field field, double x, double y, double speed, int spriteDelay, double hitX, double hitY, double hitW, double hitH)
 	{
 		this.field = field;
-		RenderableHolder.getInstance().add(this);
+		RenderableHolder.add(this);
 		
 		this.x = this.nextX = x;
 		this.y = this.nextY = y;
