@@ -113,17 +113,19 @@ public class DrawingUtility
 		gc.setGlobalAlpha(1);
 	}
 	
+	private static final double BAR_HEIGHT = 100, TEXT_Y = 75, POWERUP_TEXT_X = 150, POWERUP_X = 50, POWERUP_Y = 12.5;
+	
 	public static void drawGameMenu(GraphicsContext gc, int time, int powerup)
 	{
 		gc.setFill(Color.BLACK);
-		gc.fillRect(0, 0, Config.SCREEN_WIDTH, 100);
+		gc.fillRect(0, 0, Config.SCREEN_WIDTH, BAR_HEIGHT);
 		gc.setFont(font);
 		gc.setFill(Color.WHITE);
-		gc.fillText(Integer.toString(time), Config.SCREEN_WIDTH - 150, 75);
+		gc.fillText(Integer.toString(time), Config.SCREEN_WIDTH - POWERUP_TEXT_X, TEXT_Y);
 		double width = fl.computeStringWidth(timeText, font);
-		gc.fillText(timeText, Config.SCREEN_WIDTH - 150 - width, 75);
-		gc.fillText(Integer.toString(powerup), 150, 75);
-		gc.drawImage(ResourceLoader.getPowerupImage(), 50, 12.5);
+		gc.fillText(timeText, Config.SCREEN_WIDTH - POWERUP_TEXT_X - width, TEXT_Y);
+		gc.fillText(Integer.toString(powerup), POWERUP_TEXT_X, TEXT_Y);
+		gc.drawImage(ResourceLoader.getPowerupImage(), POWERUP_X, POWERUP_Y);
 	}
 	
 	public static void fadeScreen(Node node, double initialOpacity, EventHandler<ActionEvent> onFinished)
