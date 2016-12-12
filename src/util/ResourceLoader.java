@@ -14,11 +14,16 @@ public class ResourceLoader
 	
 	private ResourceLoader()
 	{
-		//Part of singleton pattern
-		//NOTE: call loadResources() in Main
+		playerSprites = new ArrayList<>();
+		pawnSprites = new ArrayList<>();
+		rookSprites = new ArrayList<>();
+		knightSprites = new ArrayList<>();
+		bishopSprites = new ArrayList<>();
+		queenSprites = new ArrayList<>();
+		kingSprites = new ArrayList<>();
 	}
 	
-	public static ResourceLoader getInstance()
+	private static ResourceLoader getInstance()
 	{
 		return instance;
 	}
@@ -28,35 +33,27 @@ public class ResourceLoader
 	
 	private AudioClip burstLinkSound, tripleAccelSound, gameOverSound, menuBGM, gameBGM;
 	
-	public void loadResources()
+	public static void loadResources()
 	{
-		playerSprites = new ArrayList<>();
-		pawnSprites = new ArrayList<>();
-		rookSprites = new ArrayList<>();
-		knightSprites = new ArrayList<>();
-		bishopSprites = new ArrayList<>();
-		queenSprites = new ArrayList<>();
-		kingSprites = new ArrayList<>();
+		fillSprites(getInstance().playerSprites, Config.PLAYER_PATH);
+		fillSprites(getInstance().pawnSprites, Config.PAWN_PATH);
+		fillSprites(getInstance().rookSprites, Config.ROOK_PATH);
+		fillSprites(getInstance().knightSprites, Config.KNIGHT_PATH);
+		fillSprites(getInstance().bishopSprites, Config.BISHOP_PATH);
+		fillSprites(getInstance().queenSprites, Config.QUEEN_PATH);
+		fillSprites(getInstance().kingSprites, Config.KING_PATH);
 		
-		fillSprites(playerSprites, Config.PLAYER_PATH);
-		fillSprites(pawnSprites, Config.PAWN_PATH);
-		fillSprites(rookSprites, Config.ROOK_PATH);
-		fillSprites(knightSprites, Config.KNIGHT_PATH);
-		fillSprites(bishopSprites, Config.BISHOP_PATH);
-		fillSprites(queenSprites, Config.QUEEN_PATH);
-		fillSprites(kingSprites, Config.KING_PATH);
+		getInstance().fieldBackground = new Image(ClassLoader.getSystemResource(Config.FIELD_BACKGROUND_PATH).toString());
+		getInstance().pauseImage = new Image(ClassLoader.getSystemResource(Config.PAUSE_IMAGE_PATH).toString());
 		
-		fieldBackground = new Image(ClassLoader.getSystemResource(Config.FIELD_BACKGROUND_PATH).toString());
-		pauseImage = new Image(ClassLoader.getSystemResource(Config.PAUSE_IMAGE_PATH).toString());
-		
-		menuBGM = new AudioClip(ClassLoader.getSystemResource(Config.MENU_BGM_PATH).toString());
-		gameBGM = new AudioClip(ClassLoader.getSystemResource(Config.GAME_BGM_PATH).toString());
-		burstLinkSound = new AudioClip(ClassLoader.getSystemResource(Config.BURST_LINK_SOUND_PATH).toString());
-		tripleAccelSound = new AudioClip(ClassLoader.getSystemResource(Config.TRIPLE_ACCEL_SOUND_PATH).toString());
-		gameOverSound = new AudioClip(ClassLoader.getSystemResource(Config.GAME_OVER_SOUND_PATH).toString());
+		getInstance().menuBGM = new AudioClip(ClassLoader.getSystemResource(Config.MENU_BGM_PATH).toString());
+		getInstance().gameBGM = new AudioClip(ClassLoader.getSystemResource(Config.GAME_BGM_PATH).toString());
+		getInstance().burstLinkSound = new AudioClip(ClassLoader.getSystemResource(Config.BURST_LINK_SOUND_PATH).toString());
+		getInstance().tripleAccelSound = new AudioClip(ClassLoader.getSystemResource(Config.TRIPLE_ACCEL_SOUND_PATH).toString());
+		getInstance().gameOverSound = new AudioClip(ClassLoader.getSystemResource(Config.GAME_OVER_SOUND_PATH).toString());
 	}
 	
-	private void fillSprites(List<List<Image>> list, String path)
+	private static void fillSprites(List<List<Image>> list, String path)
 	{
 		for (EntityState state : EntityState.values())
 		{
@@ -80,136 +77,136 @@ public class ResourceLoader
 		}
 	}
 	
-	public Image getPlayerSprite(EntityState state, int frame)
+	public static Image getPlayerSprite(EntityState state, int frame)
 	{
 		switch (state)
 		{
 			case DYING:
 			case IDLE:
-				return playerSprites.get(state.getIndex()).get(0);
+				return getInstance().playerSprites.get(state.getIndex()).get(0);
 			case CREATED:
-				return playerSprites.get(EntityState.SPAWNING.getIndex()).get(0);
+				return getInstance().playerSprites.get(EntityState.SPAWNING.getIndex()).get(0);
 			default:
-				return playerSprites.get(state.getIndex()).get(frame);
+				return getInstance().playerSprites.get(state.getIndex()).get(frame);
 		}
 	}
 	
-	public Image getPawnSprite(EntityState state, int frame)
+	public static Image getPawnSprite(EntityState state, int frame)
 	{
 		switch (state)
 		{
 			case DYING:
 			case IDLE:
-				return pawnSprites.get(state.getIndex()).get(0);
+				return getInstance().pawnSprites.get(state.getIndex()).get(0);
 			case CREATED:
-				return pawnSprites.get(EntityState.SPAWNING.getIndex()).get(0);
+				return getInstance().pawnSprites.get(EntityState.SPAWNING.getIndex()).get(0);
 			default:
-				return pawnSprites.get(state.getIndex()).get(frame);
+				return getInstance().pawnSprites.get(state.getIndex()).get(frame);
 		}
 	}
 	
-	public Image getRookSprite(EntityState state, int frame)
+	public static Image getRookSprite(EntityState state, int frame)
 	{
 		switch (state)
 		{
 			case DYING:
 			case IDLE:
-				return rookSprites.get(state.getIndex()).get(0);
+				return getInstance().rookSprites.get(state.getIndex()).get(0);
 			case CREATED:
-				return rookSprites.get(EntityState.SPAWNING.getIndex()).get(0);
+				return getInstance().rookSprites.get(EntityState.SPAWNING.getIndex()).get(0);
 			default:
-				return rookSprites.get(state.getIndex()).get(frame);
+				return getInstance().rookSprites.get(state.getIndex()).get(frame);
 		}
 	}
 	
-	public Image getKnightSprite(EntityState state, int frame)
+	public static Image getKnightSprite(EntityState state, int frame)
 	{
 		switch (state)
 		{
 			case DYING:
 			case IDLE:
-				return knightSprites.get(state.getIndex()).get(0);
+				return getInstance().knightSprites.get(state.getIndex()).get(0);
 			case CREATED:
-				return knightSprites.get(EntityState.SPAWNING.getIndex()).get(0);
+				return getInstance().knightSprites.get(EntityState.SPAWNING.getIndex()).get(0);
 			default:
-				return knightSprites.get(state.getIndex()).get(frame);
+				return getInstance().knightSprites.get(state.getIndex()).get(frame);
 		}
 	}
 	
-	public Image getBishopSprite(EntityState state, int frame)
+	public static Image getBishopSprite(EntityState state, int frame)
 	{
 		switch (state)
 		{
 			case DYING:
 			case IDLE:
-				return bishopSprites.get(state.getIndex()).get(0);
+				return getInstance().bishopSprites.get(state.getIndex()).get(0);
 			case CREATED:
-				return bishopSprites.get(EntityState.SPAWNING.getIndex()).get(0);
+				return getInstance().bishopSprites.get(EntityState.SPAWNING.getIndex()).get(0);
 			default:
-				return bishopSprites.get(state.getIndex()).get(frame);
+				return getInstance().bishopSprites.get(state.getIndex()).get(frame);
 		}
 	}
 	
-	public Image getQueenSprite(EntityState state, int frame)
+	public static Image getQueenSprite(EntityState state, int frame)
 	{
 		switch (state)
 		{
 			case DYING:
 			case IDLE:
-				return queenSprites.get(state.getIndex()).get(0);
+				return getInstance().queenSprites.get(state.getIndex()).get(0);
 			case CREATED:
-				return queenSprites.get(EntityState.SPAWNING.getIndex()).get(0);
+				return getInstance().queenSprites.get(EntityState.SPAWNING.getIndex()).get(0);
 			default:
-				return queenSprites.get(state.getIndex()).get(frame);
+				return getInstance().queenSprites.get(state.getIndex()).get(frame);
 		}
 	}
 	
-	public Image getKingSprite(EntityState state, int frame)
+	public static Image getKingSprite(EntityState state, int frame)
 	{
 		switch (state)
 		{
 			case DYING:
 			case IDLE:
-				return kingSprites.get(state.getIndex()).get(0);
+				return getInstance().kingSprites.get(state.getIndex()).get(0);
 			case CREATED:
-				return kingSprites.get(EntityState.SPAWNING.getIndex()).get(0);
+				return getInstance().kingSprites.get(EntityState.SPAWNING.getIndex()).get(0);
 			default:
-				return kingSprites.get(state.getIndex()).get(frame);
+				return getInstance().kingSprites.get(state.getIndex()).get(frame);
 		}
 	}
 
-	public Image getFieldBackground()
+	public static Image getFieldBackground()
 	{
-		return fieldBackground;
+		return getInstance().fieldBackground;
 	}
 
-	public Image getPauseImage()
+	public static Image getPauseImage()
 	{
-		return pauseImage;
+		return getInstance().pauseImage;
 	}
 
-	public AudioClip getBurstLinkSound()
+	public static AudioClip getBurstLinkSound()
 	{
-		return burstLinkSound;
+		return getInstance().burstLinkSound;
 	}
 
-	public AudioClip getTripleAccelSound()
+	public static AudioClip getTripleAccelSound()
 	{
-		return tripleAccelSound;
+		return getInstance().tripleAccelSound;
 	}
 
-	public AudioClip getGameOverSound()
+	public static AudioClip getGameOverSound()
 	{
-		return gameOverSound;
+		return getInstance().gameOverSound;
 	}
 
-	public AudioClip getMenuBGM()
+	public static AudioClip getMenuBGM()
 	{
-		return menuBGM;
+		return getInstance().menuBGM;
 	}
 
-	public AudioClip getGameBGM()
+	public static AudioClip getGameBGM()
 	{
-		return gameBGM;
+		return getInstance().gameBGM;
 	}
 }

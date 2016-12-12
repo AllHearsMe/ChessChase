@@ -23,7 +23,7 @@ public class Field implements IRenderable
 		this.x = this.y = 0;
 		this.width = width;
 		this.height = height;
-		RenderableHolder.getInstance().add(this);
+		RenderableHolder.add(this);
 	}
 
 	@Override
@@ -61,11 +61,11 @@ public class Field implements IRenderable
 			if(e.isDestroyed())
 			{
 				i.remove();
-				RenderableHolder.getInstance().getRenderables().remove(e);
+				RenderableHolder.getRenderables().remove(e);
 			}
 		}
 		if(player.isDestroyed())
-			RenderableHolder.getInstance().getRenderables().remove(player);
+			RenderableHolder.getRenderables().remove(player);
 		return player.isDestroyed();
 		
 	}

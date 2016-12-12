@@ -26,7 +26,7 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage)
 	{
-		ResourceLoader.getInstance().loadResources();
+		ResourceLoader.loadResources();
 		
 		try
 		{

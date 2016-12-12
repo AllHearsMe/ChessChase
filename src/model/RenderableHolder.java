@@ -18,30 +18,30 @@ public class RenderableHolder
 		renderables = new ArrayList<>();
 	}
 
-	public static RenderableHolder getInstance()
+	private static RenderableHolder getInstance()
 	{
 		return instance;
 	}
 	
-	public List<IRenderable> getRenderables()
+	public static List<IRenderable> getRenderables()
 	{
-		return renderables;
+		return getInstance().renderables;
 	}
 
-	public void add(IRenderable r)
+	public static void add(IRenderable r)
 	{
-		renderables.add(r);
+		getInstance().renderables.add(r);
 		sort();
 	}
 	
-	public void sort()
+	public static void sort()
 	{
-		renderables.sort(comparator);
+		getInstance().renderables.sort(comparator);
 	}
 	
-	public void draw(GraphicsContext gc)
+	public static void draw(GraphicsContext gc)
 	{
-		for (IRenderable r : renderables)
+		for (IRenderable r : getInstance().renderables)
 			if(r.isVisible()) r.draw(gc);
 	}
 }
