@@ -13,8 +13,8 @@ public class InputUtility
 	
 	private InputUtility()
 	{
-		instance.keysTriggered = new ArrayList<>();
-		instance.keysPressed = new ArrayList<>();
+		keysTriggered = new ArrayList<>();
+		keysPressed = new ArrayList<>();
 	}
 
 	public static InputUtility getInstance()
