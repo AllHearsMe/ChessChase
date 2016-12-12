@@ -56,6 +56,9 @@ public class Config
 		KING_SPEED = 2,
 		MULTIPLIER_DELAY = 5 * NORMAL_TICK_PER_SECOND,
 		MULTIPLIER_INCREMENT = 0.1 ;
+	
+	public static final int
+		TRIPLE_ACCEL_AFTER_IMAGE_PER_SECOND = 6;
 
 	public static final int
 		PAWN_DIRECTION_CHANGE_DELAY = 30,
