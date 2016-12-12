@@ -47,6 +47,12 @@ public class InputUtility
 		return keysPressed.contains(code);
 	}
 	
+	public void reset()
+	{
+		keysPressed.clear();
+		keysTriggered.clear();
+	}
+	
 	public void postUpdate()
 	{
 		keysTriggered.clear();
