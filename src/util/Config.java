@@ -117,6 +117,13 @@ public class Config
 		PAUSE_IMAGE_PATH = "pause.png",
 		POWERUP_PATH = "powerup.png";
 	
+	public static final int
+		ZA_WARUDO_DURATION = 3 * NORMAL_TICK_PER_SECOND,
+		TRIPLE_ACCEL_DURATION = 7 * NORMAL_TICK_PER_SECOND;
+
+	public static final int
+		MAX_SPAWN = 5;
+	
 	public static String getSpriteFileName(EntityState state)
 	{
 		switch(state)
@@ -151,11 +158,5 @@ public class Config
 		}
 	}
 	
-	public static final int
-		ZA_WARUDO_DURATION = 3 * NORMAL_TICK_PER_SECOND,
-		TRIPLE_ACCEL_DURATION = 7 * NORMAL_TICK_PER_SECOND;
-	
-	public static final int
-		MAX_SPAWN = 5;
 }
 

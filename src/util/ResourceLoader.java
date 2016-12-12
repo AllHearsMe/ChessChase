@@ -14,6 +14,11 @@ public class ResourceLoader
 {
 	private static ResourceLoader instance = new ResourceLoader();
 	
+	private List<List<Image>> playerSprites, pawnSprites, rookSprites, knightSprites, bishopSprites, queenSprites, kingSprites;
+	private Image fieldBackground, pauseImage, powerupImage, frontTitleImage, backTitleImage;
+	
+	private AudioClip zaWarudoSound, tripleAccelSound, gameOverSound, menuBGM, gameBGM;
+	
 	private ResourceLoader()
 	{
 		playerSprites = new ArrayList<>();
@@ -29,11 +34,6 @@ public class ResourceLoader
 	{
 		return instance;
 	}
-	
-	private List<List<Image>> playerSprites, pawnSprites, rookSprites, knightSprites, bishopSprites, queenSprites, kingSprites;
-	private Image fieldBackground, pauseImage, powerupImage, frontTitleImage, backTitleImage;
-	
-	private AudioClip burstLinkSound, tripleAccelSound, gameOverSound, menuBGM, gameBGM;
 	
 	public static void loadResources() throws ResourceMissingException
 	{
@@ -57,7 +57,7 @@ public class ResourceLoader
 			
 			instance.menuBGM = new AudioClip(getSystemResourcePath(Config.MENU_BGM_PATH));
 			instance.gameBGM = new AudioClip(getSystemResourcePath(Config.GAME_BGM_PATH));
-			instance.burstLinkSound = new AudioClip(getSystemResourcePath(Config.ZA_WARUDO_SOUND_PATH));
+			instance.zaWarudoSound = new AudioClip(getSystemResourcePath(Config.ZA_WARUDO_SOUND_PATH));
 			instance.tripleAccelSound = new AudioClip(getSystemResourcePath(Config.TRIPLE_ACCEL_SOUND_PATH));
 			instance.gameOverSound = new AudioClip(getSystemResourcePath(Config.GAME_OVER_SOUND_PATH));
 		}
@@ -228,9 +228,9 @@ public class ResourceLoader
 		return getInstance().powerupImage;
 	}
 
-	public static AudioClip getBurstLinkSound()
+	public static AudioClip getZaWarudoSound()
 	{
-		return getInstance().burstLinkSound;
+		return getInstance().zaWarudoSound;
 	}
 
 	public static AudioClip getTripleAccelSound()

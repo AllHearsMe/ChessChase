@@ -14,7 +14,7 @@ public class ZaWarudoSkill extends SpecialSkill
 	@Override
 	public void draw(GraphicsContext gc)
 	{
-		DrawingUtility.drawBurstLinkEffect(gc);
+		DrawingUtility.drawZaWarudoEffect(gc);
 	}
 	
 	@Override
