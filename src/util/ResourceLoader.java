@@ -29,7 +29,7 @@ public class ResourceLoader
 	}
 	
 	private List<List<Image>> playerSprites, pawnSprites, rookSprites, knightSprites, bishopSprites, queenSprites, kingSprites;
-	private Image fieldBackground, pauseImage;
+	private Image fieldBackground, pauseImage, powerupImage, frontTitleImage, backTitleImage;
 	
 	private AudioClip burstLinkSound, tripleAccelSound, gameOverSound, menuBGM, gameBGM;
 	
@@ -47,6 +47,9 @@ public class ResourceLoader
 		
 		instance.fieldBackground = new Image(ClassLoader.getSystemResource(Config.FIELD_BACKGROUND_PATH).toString());
 		instance.pauseImage = new Image(ClassLoader.getSystemResource(Config.PAUSE_IMAGE_PATH).toString());
+		instance.powerupImage = new Image(ClassLoader.getSystemResource(Config.POWERUP_PATH).toString());
+		instance.frontTitleImage = new Image(ClassLoader.getSystemResource(Config.FRONT_TITLE_PATH).toString());
+		instance.backTitleImage = new Image(ClassLoader.getSystemResource(Config.BACK_TITLE_PATH).toString());
 		
 		instance.menuBGM = new AudioClip(ClassLoader.getSystemResource(Config.MENU_BGM_PATH).toString());
 		instance.gameBGM = new AudioClip(ClassLoader.getSystemResource(Config.GAME_BGM_PATH).toString());
@@ -184,6 +187,16 @@ public class ResourceLoader
 		}
 	}
 
+	public static Image getFrontTitleImage()
+	{
+		return getInstance().frontTitleImage;
+	}
+
+	public static Image getBackTitleImage()
+	{
+		return getInstance().backTitleImage;
+	}
+
 	public static Image getFieldBackground()
 	{
 		return getInstance().fieldBackground;
@@ -192,6 +205,11 @@ public class ResourceLoader
 	public static Image getPauseImage()
 	{
 		return getInstance().pauseImage;
+	}
+
+	public static Image getPowerupImage()
+	{
+		return getInstance().powerupImage;
 	}
 
 	public static AudioClip getBurstLinkSound()
