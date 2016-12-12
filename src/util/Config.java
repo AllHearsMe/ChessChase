@@ -90,6 +90,10 @@ public class Config
 		SCREEN_WIDTH = 1024,
 		SCREEN_HEIGHT = 768;
 	
+	public static final double
+		FIELD_WIDTH = 5000,
+		FIELD_HEIGHT = 5000;
+	
 	public static final String
 		MENU_BGM_PATH = "Grassy World (8-Bit_Orchestral Overture) - Main Title Theme.mp3",
 		GAME_BGM_PATH = "Cytus - The Blocks We Loved.mp3",

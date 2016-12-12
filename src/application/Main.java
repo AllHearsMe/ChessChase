@@ -39,6 +39,8 @@ public class Main extends Application{
 			menuScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(menuScene);
 			primaryStage.setResizable(false);
+			primaryStage.setHeight(Config.SCREEN_HEIGHT);
+			primaryStage.setWidth(Config.SCREEN_WIDTH);
 			primaryStage.show();
 			
 			AudioUtility.playMenuBGM();
