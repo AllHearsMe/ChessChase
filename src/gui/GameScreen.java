@@ -20,7 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import model.*;
-
+import util.AudioUtility;
 import util.Config;
 import util.InputUtility;
 
@@ -47,8 +47,6 @@ public class GameScreen extends StackPane {
 
 		this.setOnKeyPressed(event -> InputUtility.getInstance().handleKeyPress(event.getCode()));
 		this.setOnKeyReleased(event -> InputUtility.getInstance().handleKeyRelease(event.getCode()));
-
-		// startNewGame();
 	}
 
 	public void startNewGame() {
@@ -76,6 +74,7 @@ public class GameScreen extends StackPane {
 
 							@Override
 							public void run() {
+								AudioUtility.playGameOverSound();
 								FadeTransition ft = new FadeTransition(new Duration(2000), canvas);
 								ft.setFromValue(1.0);
 								ft.setToValue(0.0);
@@ -148,9 +147,11 @@ public class GameScreen extends StackPane {
 			if (InputUtility.getInstance().getKeyTriggered(KeyCode.Z)) {
 				powerup--;
 				field.setSkill(new BurstLinkSkill());
+				AudioUtility.playBurstLinkSound();
 			} else if (InputUtility.getInstance().getKeyTriggered(KeyCode.X)) {
 				powerup--;
 				field.setSkill(new TripleAccelSkill(player, field));
+				AudioUtility.playTripleAccelSound();
 			}
 		}
 		InputUtility.getInstance().postUpdate();

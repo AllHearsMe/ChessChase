@@ -5,14 +5,15 @@ import javafx.scene.media.AudioClip;
 public class AudioUtility
 {
 	private static AudioUtility instance = new AudioUtility();
-	private AudioClip currentBGM;
+	private AudioClip currentBGM, currentSFX;
 	
 	private AudioUtility()
 	{
 		currentBGM = ResourceLoader.getInstance().getMenuBGM();
+		currentSFX = ResourceLoader.getInstance().getGameOverSound();
 	}
 
-	public static AudioUtility getInstance()
+	private static AudioUtility getInstance()
 	{
 		return instance;
 	}
@@ -42,9 +43,16 @@ public class AudioUtility
 	
 	public static void playSoundEffect(AudioClip sound)
 	{
-		sound.play();
+		if(getInstance().currentSFX.isPlaying()) AudioUtility.stopSoundEffect();
+		getInstance().currentSFX = sound;
+		getInstance().currentSFX.play();
 	}
 	
+	public static void stopSoundEffect()
+	{
+		getInstance().currentSFX.stop();
+	}
+
 	public static void playGameOverSound()
 	{
 		AudioUtility.stopBGM();
