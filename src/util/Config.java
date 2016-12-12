@@ -95,8 +95,8 @@ public class Config
 		FIELD_HEIGHT = 5000;
 	
 	public static final String
-		MENU_BGM_PATH = "Grassy World (8-Bit_Orchestral Overture) - Main Title Theme.mp3",
-		GAME_BGM_PATH = "Cytus - The Blocks We Loved.mp3",
+		MENU_BGM_PATH = "Grassy World (8-Bit_Orchestral Overture) - Main Title Theme.wav",
+		GAME_BGM_PATH = "Cytus - The Blocks We Loved.wav",
 		ZA_WARUDO_SOUND_PATH = "ZA_WARUDO__TOKI_WO_TOMARE_.mp3",
 		TRIPLE_ACCEL_SOUND_PATH = "FAIZ_AXEL_STARTUP.mp3",
 		GAME_OVER_SOUND_PATH = "sega-rally-15-game-over-yeah.mp3";
