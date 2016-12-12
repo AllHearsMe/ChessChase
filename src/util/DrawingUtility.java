@@ -29,6 +29,31 @@ public class DrawingUtility
 	private static String timeText = "TIME: ";
 	private static FontLoader fl = Toolkit.getToolkit().getFontLoader();
 	
+	private static final double BAR_HEIGHT = 100, TEXT_Y = 75, POWERUP_TEXT_X = 150, POWERUP_X = 50, POWERUP_Y = 12.5;
+	
+	public static void drawGameMenu(GraphicsContext gc, int time, int powerup)
+	{
+		gc.setFill(Color.BLACK);
+		gc.fillRect(0, 0, Config.SCREEN_WIDTH, BAR_HEIGHT);
+		gc.setFont(font);
+		gc.setFill(Color.WHITE);
+		gc.fillText(Integer.toString(time), Config.SCREEN_WIDTH - POWERUP_TEXT_X, TEXT_Y);
+		double width = fl.computeStringWidth(timeText, font);
+		gc.fillText(timeText, Config.SCREEN_WIDTH - POWERUP_TEXT_X - width, TEXT_Y);
+		gc.fillText(Integer.toString(powerup), POWERUP_TEXT_X, TEXT_Y);
+		gc.drawImage(ResourceLoader.getPowerupImage(), POWERUP_X, POWERUP_Y);
+	}
+	
+	public static void fadeScreen(Node node, double initialOpacity, EventHandler<ActionEvent> onFinished)
+	{
+		FadeTransition ft = new FadeTransition(new Duration(2000), node);
+		ft.setFromValue(initialOpacity);
+		ft.setToValue(Math.abs(1 - initialOpacity)); 
+		ft.setCycleCount(1);
+		ft.playFromStart();
+		ft.setOnFinished(onFinished);
+	}
+	
 	private static void drawSprite(GraphicsContext gc, Image sprite, EntityState state, int spriteCounter, double x, double y, int facing)
 	{
 		if (state == EntityState.DYING) gc.setGlobalAlpha(1 - (double) spriteCounter / Config.DYING_FRAMES);
@@ -111,30 +136,5 @@ public class DrawingUtility
 		drawSprite(gc, ResourceLoader.getPlayerSprite(state, spriteCounter), state,
 				spriteCounter, x - field.getX(), y - field.getY(), facing);
 		gc.setGlobalAlpha(1);
-	}
-	
-	private static final double BAR_HEIGHT = 100, TEXT_Y = 75, POWERUP_TEXT_X = 150, POWERUP_X = 50, POWERUP_Y = 12.5;
-	
-	public static void drawGameMenu(GraphicsContext gc, int time, int powerup)
-	{
-		gc.setFill(Color.BLACK);
-		gc.fillRect(0, 0, Config.SCREEN_WIDTH, BAR_HEIGHT);
-		gc.setFont(font);
-		gc.setFill(Color.WHITE);
-		gc.fillText(Integer.toString(time), Config.SCREEN_WIDTH - POWERUP_TEXT_X, TEXT_Y);
-		double width = fl.computeStringWidth(timeText, font);
-		gc.fillText(timeText, Config.SCREEN_WIDTH - POWERUP_TEXT_X - width, TEXT_Y);
-		gc.fillText(Integer.toString(powerup), POWERUP_TEXT_X, TEXT_Y);
-		gc.drawImage(ResourceLoader.getPowerupImage(), POWERUP_X, POWERUP_Y);
-	}
-	
-	public static void fadeScreen(Node node, double initialOpacity, EventHandler<ActionEvent> onFinished)
-	{
-		FadeTransition ft = new FadeTransition(new Duration(2000), node);
-		ft.setFromValue(initialOpacity);
-		ft.setToValue(Math.abs(1 - initialOpacity)); 
-		ft.setCycleCount(1);
-		ft.playFromStart();
-		ft.setOnFinished(onFinished);
 	}
 }
