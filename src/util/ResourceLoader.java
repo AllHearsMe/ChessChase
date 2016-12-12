@@ -1,5 +1,6 @@
 package util;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.media.AudioClip;
 import model.EntityState;
+import model.ResourceMissingException;
 
 public class ResourceLoader
 {
@@ -33,7 +35,7 @@ public class ResourceLoader
 	
 	private AudioClip burstLinkSound, tripleAccelSound, gameOverSound, menuBGM, gameBGM;
 	
-	public static void loadResources()
+	public static void loadResources() throws ResourceMissingException
 	{
 		getInstance();
 		
@@ -45,17 +47,31 @@ public class ResourceLoader
 		fillSprites(instance.queenSprites, Config.QUEEN_PATH);
 		fillSprites(instance.kingSprites, Config.KING_PATH);
 		
-		instance.fieldBackground = new Image(ClassLoader.getSystemResource(Config.FIELD_BACKGROUND_PATH).toString());
-		instance.pauseImage = new Image(ClassLoader.getSystemResource(Config.PAUSE_IMAGE_PATH).toString());
-		instance.powerupImage = new Image(ClassLoader.getSystemResource(Config.POWERUP_PATH).toString());
-		instance.frontTitleImage = new Image(ClassLoader.getSystemResource(Config.FRONT_TITLE_PATH).toString());
-		instance.backTitleImage = new Image(ClassLoader.getSystemResource(Config.BACK_TITLE_PATH).toString());
-		
-		instance.menuBGM = new AudioClip(ClassLoader.getSystemResource(Config.MENU_BGM_PATH).toString());
-		instance.gameBGM = new AudioClip(ClassLoader.getSystemResource(Config.GAME_BGM_PATH).toString());
-		instance.burstLinkSound = new AudioClip(ClassLoader.getSystemResource(Config.BURST_LINK_SOUND_PATH).toString());
-		instance.tripleAccelSound = new AudioClip(ClassLoader.getSystemResource(Config.TRIPLE_ACCEL_SOUND_PATH).toString());
-		instance.gameOverSound = new AudioClip(ClassLoader.getSystemResource(Config.GAME_OVER_SOUND_PATH).toString());
+		try
+		{
+			instance.fieldBackground = new Image(getSystemResourcePath(Config.FIELD_BACKGROUND_PATH));
+			instance.pauseImage = new Image(getSystemResourcePath(Config.PAUSE_IMAGE_PATH));
+			instance.powerupImage = new Image(getSystemResourcePath(Config.POWERUP_PATH));
+			instance.frontTitleImage = new Image(getSystemResourcePath(Config.FRONT_TITLE_PATH));
+			instance.backTitleImage = new Image(getSystemResourcePath(Config.BACK_TITLE_PATH));
+			
+			instance.menuBGM = new AudioClip(getSystemResourcePath(Config.MENU_BGM_PATH));
+			instance.gameBGM = new AudioClip(getSystemResourcePath(Config.GAME_BGM_PATH));
+			instance.burstLinkSound = new AudioClip(getSystemResourcePath(Config.BURST_LINK_SOUND_PATH));
+			instance.tripleAccelSound = new AudioClip(getSystemResourcePath(Config.TRIPLE_ACCEL_SOUND_PATH));
+			instance.gameOverSound = new AudioClip(getSystemResourcePath(Config.GAME_OVER_SOUND_PATH));
+		}
+		catch(ResourceMissingException e)
+		{
+			throw e;
+		}
+	}
+	
+	private static String getSystemResourcePath(String path) throws ResourceMissingException
+	{
+		URL url = ClassLoader.getSystemResource(path);
+		if(url == null) throw new ResourceMissingException();
+		return url.toString();
 	}
 	
 	private static void fillSprites(List<List<Image>> list, String path)
