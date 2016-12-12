@@ -17,12 +17,12 @@ public class InputUtility
 		keysPressed = new ArrayList<>();
 	}
 
-	public static InputUtility getInstance()
+	private static InputUtility getInstance()
 	{
 		return instance;
 	}
 	
-	public static void handleKeyPress(KeyCode code)
+	public static synchronized void handleKeyPress(KeyCode code)
 	{
 		getInstance();
 		if(!instance.keysPressed.contains(code))
@@ -32,31 +32,31 @@ public class InputUtility
 		}
 	}
 	
-	public static void handleKeyRelease(KeyCode code)
+	public static synchronized void handleKeyRelease(KeyCode code)
 	{
 		getInstance();
 		instance.keysTriggered.remove(code);
 		instance.keysPressed.remove(code);
 	}
 	
-	public static boolean getKeyTriggered(KeyCode code)
+	public static synchronized boolean getKeyTriggered(KeyCode code)
 	{
 		return getInstance().keysTriggered.contains(code);
 	}
 	
-	public static boolean getKeyPressed(KeyCode code)
+	public static synchronized boolean getKeyPressed(KeyCode code)
 	{
 		return getInstance().keysPressed.contains(code);
 	}
 	
-	public static void reset()
+	public static synchronized void reset()
 	{
 		getInstance();
 		instance.keysPressed.clear();
 		instance.keysTriggered.clear();
 	}
 	
-	public static void postUpdate()
+	public static synchronized void postUpdate()
 	{
 		getInstance().keysTriggered.clear();
 	}
