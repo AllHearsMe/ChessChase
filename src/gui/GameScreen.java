@@ -52,15 +52,15 @@ public class GameScreen extends StackPane {
 	public void startNewGame() {
 		resetValues();
 		
-		field = new Field(5000, 5000);
-		player = new Player(field, 2500, 2500);
+		field = new Field(Config.FIELD_WIDTH, Config.FIELD_HEIGHT);
+		player = new Player(field, Config.FIELD_WIDTH / 2, Config.FIELD_HEIGHT / 2);
 		pauseEffect = new PauseEffect();
 		field.setPlayer(player);
 		for (int i = 0; i < 3; i++) {
 			createEnemy(field);
 		}
-		field.addEnemy(new PawnEnemy(field, 2200, 2200));
-		field.addEnemy(new PawnEnemy(field, 2800, 2800));
+		field.addEnemy(new PawnEnemy(field, player.getX() - 300, player.getX() - 300));
+		field.addEnemy(new PawnEnemy(field, player.getX() + 300, player.getX() + 300));
 
 		AnimationTimer animation = new AnimationTimer() {
 			public void handle(long now) {
