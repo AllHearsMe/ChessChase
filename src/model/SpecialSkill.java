@@ -27,6 +27,8 @@ public abstract class SpecialSkill implements IRenderable
 		}
 	}
 	
+	abstract public boolean needsUpdating();
+	
 	public boolean isActive()
 	{
 		return isActive;

@@ -36,7 +36,7 @@ public abstract class Enemy<D extends IDirection> extends Entity
 		if (move())
 		{
 			spriteDelayCounter++;
-			if (spriteDelayCounter >= spriteDelay)
+			if (spriteDelayCounter >= spriteDelay * divider)
 			{
 				spriteDelayCounter = 0;
 				spriteCounter++;

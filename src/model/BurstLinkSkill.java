@@ -22,4 +22,10 @@ public class BurstLinkSkill extends SpecialSkill
 	{
 		return isActive;
 	}
+	
+	@Override
+	public boolean needsUpdating()
+	{
+		return isActive;
+	}
 }
