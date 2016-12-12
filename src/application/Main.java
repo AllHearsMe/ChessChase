@@ -38,6 +38,7 @@ public class Main extends Application{
 			gameScene = new Scene(gameScreen, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 			menuScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(menuScene);
+			primaryStage.setResizable(false);
 			primaryStage.show();
 			
 			AudioUtility.playMenuBGM();
