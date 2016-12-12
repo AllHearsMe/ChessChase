@@ -11,7 +11,6 @@ public class PawnEnemy extends Enemy<NormalDirection>
 	{
 		super(field, x, y, Config.PAWN_SPEED, Config.PAWN_HITBOX_X, Config.PAWN_HITBOX_Y, Config.PAWN_HITBOX_H, Config.PAWN_HITBOX_W,
 				NormalDirection.values()[0], Config.PAWN_DIRECTION_CHANGE_DELAY, Config.PAWN_LIFESPAN);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override

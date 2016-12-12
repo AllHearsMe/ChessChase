@@ -46,25 +46,20 @@ public abstract class Enemy<D extends IDirection> extends Entity
 			{
 				case CREATED:
 					state = EntityState.SPAWNING;
-					spriteDelayCounter = 0;
-					spriteCounter = 0;
+					resetSprite();
 					break;
 				case SPAWNING:
-					if (spriteDelayCounter <= 0 && spriteCounter >= getTotalSprites()) state = EntityState.IDLE;
+					if (isChangingState()) state = EntityState.IDLE;
 					break;
 				case IDLE:
-					if (Math.abs((this.x + this.hitW / 2) - (field.getPlayer().x + field.getPlayer().hitW / 2))
-							<= Config.AWAKEN_RANGE_WIDTH + (this.hitW + field.getPlayer().hitW) / 2
-							&& Math.abs((this.y + this.hitH / 2) - (field.getPlayer().y + field.getPlayer().hitH / 2))
-							<= Config.AWAKEN_RANGE_HEIGHT + (this.hitH + field.getPlayer().hitH) / 2)
+					if (isPlayerInAwakenRange())
 					{
 						state = EntityState.AWAKENING;
-						spriteDelayCounter = 0;
-						spriteCounter = 0;
+						resetSprite();
 					}
 					break;
 				case AWAKENING:
-					if (spriteDelayCounter <= 0 && spriteCounter >= getTotalSprites())
+					if (isChangingState())
 					{
 						state = EntityState.RUNNING;
 						directionChangeDelayCounter = 1;
@@ -83,15 +78,13 @@ public abstract class Enemy<D extends IDirection> extends Entity
 					if (age >= lifespan)
 					{
 						state = EntityState.DYING;
-						spriteDelayCounter = 0;
-						spriteCounter = 0;
+						resetSprite();
 					}
 					break;
 				case DYING:
-					if (spriteDelayCounter <= 0 && spriteCounter >= getTotalSprites()) isDestroyed = true;
+					if (isChangingState()) isDestroyed = true;
 					break;
 			}
-			
 			if (spriteCounter >= getTotalSprites()) spriteCounter = 0;
 		}
 	}
@@ -111,6 +104,19 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	{
 		return Math.abs(this.x + dir.getDx(1) * this.speed * multiplier / divider * this.directionChangeDelay - field.getPlayer().getX())
 				+ Math.abs(this.y + dir.getDy(1) * this.speed * multiplier / divider * this.directionChangeDelay - field.getPlayer().getY());
+	}
+	
+	private boolean isPlayerInAwakenRange()
+	{
+		return Math.abs((this.x + this.hitW / 2) - (field.getPlayer().x + field.getPlayer().hitW / 2))
+				<= Config.AWAKEN_RANGE_WIDTH + (this.hitW + field.getPlayer().hitW) / 2
+				&& Math.abs((this.y + this.hitH / 2) - (field.getPlayer().y + field.getPlayer().hitH / 2))
+				<= Config.AWAKEN_RANGE_HEIGHT + (this.hitH + field.getPlayer().hitH) / 2;
+	}
+	
+	private boolean isChangingState()
+	{
+		return spriteDelayCounter <= 0 && spriteCounter >= getTotalSprites();
 	}
 	
 	// get all directions, find one that brings this closest to player

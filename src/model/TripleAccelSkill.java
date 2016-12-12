@@ -28,7 +28,7 @@ public class TripleAccelSkill extends SpecialSkill
 		}
 	}
 	
-	Queue<AfterImage> points;
+	Queue<AfterImage> afterImages;
 	private Player player;
 	private Field field;
 	
@@ -37,38 +37,37 @@ public class TripleAccelSkill extends SpecialSkill
 		super(Config.TRIPLE_ACCEL_DURATION, () -> Enemy.setDivider(3), () -> Enemy.setDivider(1));
 		this.player = player;
 		this.field = field;
-		points = new LinkedList<AfterImage>();
-		points.offer(new AfterImage(player.getDrawX(), player.getDrawY(), player.getSpriteCounter(), player.getState(), age, player.getDx() < 0 ? -1 : 1));
+		afterImages = new LinkedList<AfterImage>();
+		afterImages.offer(new AfterImage(player.getDrawX(), player.getDrawY(), player.getSpriteCounter(), player.getState(), age, player.getDx() < 0 ? -1 : 1));
 	}
 	
 	@Override
 	public void update()
 	{
 		super.update();
-//		if(age % (Config.TRIPLE_ACCEL_DURATION / Config.NORMAL_TICK_PER_SECOND) == 0)
 		if(isActive && age % (Config.NORMAL_TICK_PER_SECOND / Config.TRIPLE_ACCEL_AFTER_IMAGE_PER_SECOND) == 0)
-			points.offer(new AfterImage(player.getDrawX(), player.getDrawY(), player.getSpriteCounter(), player.getState(), age, player.getDx() < 0 ? -1 : 1));
-		while(points.peek().age - age >= Config.NORMAL_TICK_PER_SECOND)
-			points.poll();
+			afterImages.offer(new AfterImage(player.getDrawX(), player.getDrawY(), player.getSpriteCounter(), player.getState(), age, player.getDx() < 0 ? -1 : 1));
+		while(afterImages.peek().age - age >= Config.NORMAL_TICK_PER_SECOND)
+			afterImages.poll();
 		
 	}
 
 	@Override
 	public boolean isVisible()
 	{
-		return !points.isEmpty();
+		return !afterImages.isEmpty();
 	}
 	
 	@Override
 	public boolean needsUpdating()
 	{
-		return !points.isEmpty();
+		return !afterImages.isEmpty();
 	}
 	
 	@Override
 	public void draw(GraphicsContext gc)
 	{
-		for(AfterImage a : points)
+		for(AfterImage a : afterImages)
 			DrawingUtility.drawPlayerAfterImage(gc, a.x, a.y, a.state, a.spriteCount, a.facing, field, 1 - (age - a.age) / Config.NORMAL_TICK_PER_SECOND);
 	}
 	

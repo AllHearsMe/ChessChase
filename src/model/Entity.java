@@ -147,4 +147,9 @@ public abstract class Entity implements IRenderable
 	{
 		return e1.x < e2.x + e2.hitW && e1.x + e1.hitW > e2.x && e1.y < e2.y + e2.hitH && e1.y + e1.hitH > e2.y;
 	}
+	
+	protected void resetSprite()
+	{
+		spriteCounter = spriteDelayCounter = 0;
+	}
 }
