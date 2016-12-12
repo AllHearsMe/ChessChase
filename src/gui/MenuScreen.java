@@ -11,6 +11,8 @@ import util.Config;
 import util.ResourceLoader;
 
 public class MenuScreen extends StackPane{
+	private static final int BACKGROUND_OFFSET = 400;
+	
 	private Canvas canvasFront,canvasBack;
 	private GraphicsContext gcFront,gcBack;
 	private Image frontImage,backgroundImage;
@@ -32,7 +34,7 @@ public class MenuScreen extends StackPane{
 		gcBack = canvasBack.getGraphicsContext2D();
 		gcBack.drawImage(backgroundImage, 0, 0);
 		
-		StackPane.setMargin(canvasBack, new Insets(400, 0, 0, 0));
+		StackPane.setMargin(canvasBack, new Insets(BACKGROUND_OFFSET, 0, 0, 0));
 		
 		rotateBackground(gcBack);
 	}
