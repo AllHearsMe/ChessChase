@@ -85,17 +85,17 @@ public class GameScreen extends StackPane {
 									Alert alert = new Alert(AlertType.INFORMATION);
 									alert.setHeaderText("You survived for "+ time + " seconds");
 									if (time < 5){
-										alert.setContentText("Use ArrowPad or WASD to move OK?");
+										alert.setContentText("Use ArrowPad or WASD to move, OK?");
 									} else if (time < 20){
-										alert.setContentText("This game is not that hard you know?");
+										alert.setContentText("This game is not that hard, you know?");
 									} else if (time < 30){
 										alert.setContentText("Died already huh?");
 									} else if (time < 50){
 										alert.setContentText("DIE DIE DIE LOLOLOLOL");
 									}else if (time < 90){
-										alert.setContentText("You have done well for surviving this long");
+										alert.setContentText("You have done well for surviving this long.");
 									}else {
-										alert.setContentText("Go buy some lottery, maybe you will get a 1st price");
+										alert.setContentText("Go buy a lottery, maybe you will get the 1st price.");
 									}
 									
 									alert.show();
@@ -146,7 +146,8 @@ public class GameScreen extends StackPane {
 			Enemy.setMultiplier(Enemy.getMultiplier() + Config.MULTIPLIER_INCREMENT);
 	}
 
-	private void checkInputKeys() {
+	private void checkInputKeys()
+	{
 		player.setDx((InputUtility.getKeyPressed(KeyCode.LEFT)
 				|| InputUtility.getKeyPressed(KeyCode.A) ? -1 : 0)
 				+ (InputUtility.getKeyPressed(KeyCode.RIGHT)
@@ -155,18 +156,24 @@ public class GameScreen extends StackPane {
 				|| InputUtility.getKeyPressed(KeyCode.W) ? -1 : 0)
 				+ (InputUtility.getKeyPressed(KeyCode.DOWN)
 						|| InputUtility.getKeyPressed(KeyCode.S) ? 1 : 0));
-		if (InputUtility.getKeyTriggered(KeyCode.SPACE)) {
-			pauseEffect.togglePaused();
-		}
-		if (!field.isSkillActive() && powerup > 0) {
-			if (InputUtility.getKeyTriggered(KeyCode.Z)) {
-				powerup--;
-				field.setSkill(new BurstLinkSkill());
-				AudioUtility.playBurstLinkSound();
-			} else if (InputUtility.getKeyTriggered(KeyCode.X)) {
-				powerup--;
-				field.setSkill(new TripleAccelSkill(player, field));
-				AudioUtility.playTripleAccelSound();
+		if(player.getState() != EntityState.DYING)
+		{
+			if (InputUtility.getKeyTriggered(KeyCode.SPACE))
+				pauseEffect.togglePaused();
+			if (!field.isSkillActive() && powerup > 0)
+			{
+				if (InputUtility.getKeyTriggered(KeyCode.Z))
+				{
+					powerup--;
+					field.setSkill(new BurstLinkSkill());
+					AudioUtility.playBurstLinkSound();
+				}
+				else if (InputUtility.getKeyTriggered(KeyCode.X))
+				{
+					powerup--;
+					field.setSkill(new TripleAccelSkill(player, field));
+					AudioUtility.playTripleAccelSound();
+				}
 			}
 		}
 		InputUtility.postUpdate();
