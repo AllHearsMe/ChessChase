@@ -12,7 +12,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import model.BishopEnemy;
-import model.BurstLinkSkill;
+import model.ZaWarudoSkill;
 import model.Enemy;
 import model.EntityState;
 import model.Field;
@@ -130,7 +130,7 @@ public class GameScreen extends StackPane {
 				if (InputUtility.getKeyTriggered(KeyCode.Z))
 				{
 					powerup--;
-					field.setSkill(new BurstLinkSkill());
+					field.setSkill(new ZaWarudoSkill());
 					AudioUtility.playBurstLinkSound();
 				}
 				else if (InputUtility.getKeyTriggered(KeyCode.X))
@@ -201,6 +201,7 @@ public class GameScreen extends StackPane {
 		alert.show();
 		alert.setOnCloseRequest(f -> {
 			main.toggleScene();
+			AudioUtility.stopSoundEffect();
 		});
 	}
 
