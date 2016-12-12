@@ -156,10 +156,6 @@ public class GameScreen extends StackPane {
 		InputUtility.reset();
 		RenderableHolder.getRenderables().clear();
 	}
-	
-	public void requestFocusForCanvas() {
-		this.requestFocus();
-	}
 
 	public void createEnemy(Field field) {
 		long now = System.nanoTime();

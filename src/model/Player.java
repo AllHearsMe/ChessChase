@@ -46,8 +46,7 @@ public class Player extends Entity
 					if(dx == 0 && dy == 0)
 					{
 						state = EntityState.IDLE;
-						spriteDelayCounter = 0;
-						spriteCounter = 0;
+						resetSprite();
 					}
 					break;
 				case DYING:
@@ -59,8 +58,7 @@ public class Player extends Entity
 					if(dx != 0 || dy != 0)
 					{
 						state = EntityState.RUNNING;
-						spriteDelayCounter = 0;
-						spriteCounter = 0;
+						resetSprite();
 					}
 					break;
 				default:
@@ -71,8 +69,7 @@ public class Player extends Entity
 			if(field.checkLoseCondition() && state != EntityState.DYING)
 			{
 				state = EntityState.DYING;
-				spriteDelayCounter = 0;
-				spriteCounter = 0;
+				resetSprite();
 			}
 
 			if(spriteCounter >= getTotalSprites()) spriteCounter = 0;

@@ -5,8 +5,11 @@ import gui.GameScreen;
 import gui.MenuScreen;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import model.ResourceMissingException;
 import util.AudioUtility;
 import util.Config;
 import util.DrawingUtility;
@@ -24,10 +27,10 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage)
 	{
-		ResourceLoader.loadResources();
-		
 		try
 		{
+			ResourceLoader.loadResources();
+			
 			this.primaryStage = primaryStage;
 			primaryStage.setTitle("Chess Chase");
 			primaryStage.setResizable(false);
@@ -55,9 +58,14 @@ public class Main extends Application{
 			
 			
 		}
-		catch (Exception e)
+		catch (ResourceMissingException e)
 		{
 			e.printStackTrace();
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(null);
+			alert.setContentText("Some of the resources are missing.");
+			alert.showAndWait();
 		}
 	}
 	
@@ -75,7 +83,7 @@ public class Main extends Application{
 			DrawingUtility.fadeScreen(menuScreen, 1.0, e -> {
 				gameScreen = new GameScreen(this);
 				gameScene = new Scene(gameScreen, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
-				gameScreen.requestFocusForCanvas();
+				gameScreen.requestFocus();
 				this.primaryStage.setScene(gameScene);
 				gameScreen.startNewGame();
 				AudioUtility.playGameBGM();

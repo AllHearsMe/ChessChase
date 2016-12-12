@@ -8,7 +8,6 @@ public enum EntityState
 	AWAKENING("Awakening", 2),
 	RUNNING("Running", 3),
 	DYING("Dying", 4);
-//	DEAD("Dead", 5);
 	
 	private String name;
 	private int index;
