@@ -9,11 +9,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import model.ResourceMissingException;
 import util.AudioUtility;
 import util.Config;
 import util.DrawingUtility;
 import util.ResourceLoader;
+import util.ResourceMissingException;
 
 public class Main extends Application{
 	

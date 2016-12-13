@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.media.AudioClip;
 import model.EntityState;
-import model.ResourceMissingException;
 
 public class ResourceLoader
 {
