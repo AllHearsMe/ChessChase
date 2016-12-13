@@ -73,7 +73,7 @@ public class ResourceLoader
 		return url.toString();
 	}
 	
-	private static void fillSprites(List<List<Image>> list, String path)
+	private static void fillSprites(List<List<Image>> list, String path) throws ResourceMissingException
 	{
 		for (EntityState state : EntityState.values())
 		{
@@ -86,7 +86,7 @@ public class ResourceLoader
 				}
 				
 				List<Image> tempList = new ArrayList<>();
-				Image image = new Image(ClassLoader.getSystemResource(path + Config.getSpriteFileName(state)).toString());
+				Image image = new Image(getSystemResourcePath(path + Config.getSpriteFileName(state)));
 				for (int i = 0; i < Config.getFrameCount(state); i++)
 				{
 					tempList.add(new WritableImage(image.getPixelReader(), i * (int) image.getWidth() / Config.getFrameCount(state),
