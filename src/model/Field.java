@@ -131,7 +131,7 @@ public class Field implements IRenderable
 		return false;
 	}
 	
-	private double bound(double value, double size, double frame)
+	private static double bound(double value, double size, double frame)
 	{
 		return value < 0 ? 0 : value + size > frame ? frame - size : value;
 	}
