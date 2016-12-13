@@ -28,7 +28,7 @@ public class TripleAccelSkill extends SpecialSkill
 		}
 	}
 	
-	Queue<AfterImage> afterImages;
+	private Queue<AfterImage> afterImages;
 	private Player player;
 	private Field field;
 	
