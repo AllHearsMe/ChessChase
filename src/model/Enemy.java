@@ -4,14 +4,14 @@ import util.Config;
 
 public abstract class Enemy<D extends IDirection> extends Entity
 {
-	protected IDirection direction;
+	protected D direction;
 	protected int directionChangeDelay, directionChangeDelayCounter;
 	protected int age, lifespan;
 	protected static double multiplier = 1;
 	protected static double divider = 1;
 	protected static boolean isPaused = false;
 	
-	public Enemy(Field field, double x, double y, double speed, double drawX, double drawY, double hitH, double hitW, IDirection direction,
+	public Enemy(Field field, double x, double y, double speed, double drawX, double drawY, double hitH, double hitW, D direction,
 			int directionChangeDelay, int lifeSpan)
 	{
 		super(field, x, y, speed, Config.FRAME_DELAY, drawX, drawY, hitW, hitH);
@@ -120,7 +120,8 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	}
 	
 	// get all directions, find one that brings this closest to player
-	private IDirection getClosestDirection()
+	@SuppressWarnings("unchecked")
+	private D getClosestDirection()
 	{
 		double minDistance = Double.MAX_VALUE;
 		IDirection minDir = direction.getClass().getEnumConstants()[0];
@@ -133,7 +134,7 @@ public abstract class Enemy<D extends IDirection> extends Entity
 				minDistance = temp;
 			}
 		}
-		return minDir;
+		return (D) minDir;
 	}
 	
 	public IDirection getDirection()
