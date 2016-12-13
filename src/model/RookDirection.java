@@ -1,3 +1,9 @@
+/**
+ * PROG METH 2110215
+ * Project: Chess Chase
+ * @author Vivattanachai Sangsa-nga 5831065021, Attawit Chaiyaroj 5831079921
+ */
+
 package model;
 
 public enum RookDirection implements IDirection
