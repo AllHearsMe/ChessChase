@@ -137,7 +137,7 @@ public abstract class Enemy<D extends IDirection> extends Entity
 		return (D) minDir;
 	}
 	
-	public IDirection getDirection()
+	public D getDirection()
 	{
 		return direction;
 	}
