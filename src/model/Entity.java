@@ -110,16 +110,6 @@ public abstract class Entity implements IRenderable
 		return hitH;
 	}
 
-	public double getNextX()
-	{
-		return nextX;
-	}
-
-	public double getNextY()
-	{
-		return nextY;
-	}
-
 	public double getSpeed()
 	{
 		return speed;
