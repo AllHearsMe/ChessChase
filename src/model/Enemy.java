@@ -102,8 +102,8 @@ public abstract class Enemy<D extends IDirection> extends Entity
 	
 	private double calculateNewDistance(IDirection dir)
 	{
-		return Math.abs(this.x + dir.getDx(1) * this.speed * multiplier / divider * this.directionChangeDelay - field.getPlayer().getX())
-				+ Math.abs(this.y + dir.getDy(1) * this.speed * multiplier / divider * this.directionChangeDelay - field.getPlayer().getY());
+		return Math.abs((this.x + this.hitW / 2 + dir.getDx(1) * this.speed * multiplier / divider * this.directionChangeDelay) - (field.getPlayer().getX() + field.getPlayer().getHitW() / 2))
+				+ Math.abs((this.y + this.hitH / 2 + dir.getDy(1) * this.speed * multiplier / divider * this.directionChangeDelay) - (field.getPlayer().getY() + field.getPlayer().getHitH() / 2));
 	}
 	
 	private boolean isPlayerInAwakenRange()
