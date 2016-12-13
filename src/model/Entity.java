@@ -4,7 +4,6 @@ public abstract class Entity implements IRenderable
 {
 	protected double x, y;
 	protected double nextX, nextY;
-	protected int z;
 	protected double speed;
 	protected boolean isDestroyed;
 	protected Field field;
