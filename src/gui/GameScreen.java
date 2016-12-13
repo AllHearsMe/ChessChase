@@ -125,7 +125,7 @@ public class GameScreen extends StackPane {
 		{
 			if (InputUtility.getKeyTriggered(KeyCode.SPACE))
 				pauseEffect.togglePaused();
-			if (!field.isSkillActive() && powerup > 0)
+			if (!field.isSkillActive() && !pauseEffect.isPaused() && powerup > 0)
 			{
 				if (InputUtility.getKeyTriggered(KeyCode.Z))
 				{
