@@ -38,15 +38,15 @@ public class TripleAccelSkill extends SpecialSkill
 		this.player = player;
 		this.field = field;
 		afterImages = new LinkedList<AfterImage>();
-		afterImages.offer(new AfterImage(player.getDrawX(), player.getDrawY(), player.getSpriteCounter(), player.getState(), age, player.getDx() < 0 ? -1 : 1));
+		afterImages.offer(new AfterImage(player.getDrawX(), player.getDrawY(), player.getSpriteCounter(), player.getState(), age, player.getFacing()));
 	}
 	
 	@Override
 	public void update()
 	{
 		super.update();
-		if(isActive && age % (Config.NORMAL_TICK_PER_SECOND / Config.TRIPLE_ACCEL_AFTER_IMAGE_PER_SECOND) == 0)
-			afterImages.offer(new AfterImage(player.getDrawX(), player.getDrawY(), player.getSpriteCounter(), player.getState(), age, player.getDx() < 0 ? -1 : 1));
+		if(isActive && player.getState() != EntityState.DYING && age % (Config.NORMAL_TICK_PER_SECOND / Config.TRIPLE_ACCEL_AFTER_IMAGE_PER_SECOND) == 0)
+			afterImages.offer(new AfterImage(player.getDrawX(), player.getDrawY(), player.getSpriteCounter(), player.getState(), age, player.getFacing()));
 		while(afterImages.peek().age - age >= Config.NORMAL_TICK_PER_SECOND)
 			afterImages.poll();
 		
