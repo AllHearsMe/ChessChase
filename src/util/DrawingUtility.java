@@ -27,7 +27,7 @@ import model.TripleAccelSkill;
 public class DrawingUtility
 {
 	private static Font font = new Font("Impact", 65);
-	private static String timeText = "TIME : ", tripleAccelText = "Triple Accel", theWorldText = "ZA WARUDO";
+	private static String timeText = "TIME : ", tripleAccelText = "Triple Accel", zaWarudoText = "ZA WARUDO";
 	private static FontLoader fl = Toolkit.getToolkit().getFontLoader();
 	
 	private static final double BAR_HEIGHT = 100, TEXT_Y = 85, POWERUP_TEXT_X = 150, POWERUP_X = 50, POWERUP_Y = 20 , TIME_TEXT_X = 100;
@@ -50,8 +50,8 @@ public class DrawingUtility
 				double length = fl.computeStringWidth(tripleAccelText, font);
 				gc.fillText(tripleAccelText, (((Config.SCREEN_WIDTH - TIME_TEXT_X + POWERUP_X)) / 2) - (length / 2), TEXT_Y);
 			}else {
-				double length = fl.computeStringWidth(theWorldText, font);
-				gc.fillText(theWorldText, (((Config.SCREEN_WIDTH - TIME_TEXT_X + POWERUP_X)) / 2) - (length / 2), TEXT_Y);
+				double length = fl.computeStringWidth(zaWarudoText, font);
+				gc.fillText(zaWarudoText, (((Config.SCREEN_WIDTH - TIME_TEXT_X + POWERUP_X)) / 2) - (length / 2), TEXT_Y);
 			}
 		}
 	}
@@ -124,7 +124,7 @@ public class DrawingUtility
 				king.getSpriteCounter(), king.getDrawX() - field.getX(), king.getDrawY() - field.getY(), king.getDirection().getFacing());
 	}
 	
-	public static void drawBurstLinkEffect(GraphicsContext gc)
+	public static void drawZaWarudoEffect(GraphicsContext gc)
 	{
 		gc.setGlobalAlpha(0.50);
 		gc.setFill(Color.DARKSLATEBLUE);

@@ -131,7 +131,7 @@ public class GameScreen extends StackPane {
 				{
 					powerup--;
 					field.setSkill(new ZaWarudoSkill());
-					AudioUtility.playBurstLinkSound();
+					AudioUtility.playZaWarudoSound();
 				}
 				else if (InputUtility.getKeyTriggered(KeyCode.X))
 				{

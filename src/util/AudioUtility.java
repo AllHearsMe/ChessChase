@@ -61,9 +61,9 @@ public class AudioUtility
 		playSoundEffect(ResourceLoader.getGameOverSound());
 	}
 	
-	public static void playBurstLinkSound()
+	public static void playZaWarudoSound()
 	{
-		playSoundEffect(ResourceLoader.getBurstLinkSound());
+		playSoundEffect(ResourceLoader.getZaWarudoSound());
 	}
 	
 	public static void playTripleAccelSound()
