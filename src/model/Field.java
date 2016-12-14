@@ -58,8 +58,8 @@ public class Field implements IRenderable
 		if(skill != null && skill.needsUpdating()) skill.update();
 		else skill = null;
 
-		this.x = bound(player.getX() + player.getHitX() / 2 - Config.SCREEN_WIDTH / 2, Config.SCREEN_WIDTH, this.width);
-		this.y = bound(player.getY() + player.getHitY() / 2 - Config.SCREEN_HEIGHT / 2, Config.SCREEN_HEIGHT, this.height);
+		this.x = bound(player.getX() + player.getHitW() / 2 - Config.SCREEN_WIDTH / 2, Config.SCREEN_WIDTH, this.width);
+		this.y = bound(player.getY() + player.getHitH() / 2 - Config.SCREEN_HEIGHT / 2, Config.SCREEN_HEIGHT, this.height);
 		
 		for(Iterator<Enemy<?>> i = enemies.iterator(); i.hasNext();)
 		{
