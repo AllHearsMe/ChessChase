@@ -78,7 +78,7 @@ public class Main extends Application{
 	@Override
 	public void stop()
 	{
-		gameScreen.getGameThread().interrupt();
+		if(gameScreen.getGameThread() != null) gameScreen.getGameThread().interrupt();
 	}
 	
 	public static void main(String[] args)
