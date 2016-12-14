@@ -1,3 +1,9 @@
+/**
+ * PROG METH 2110215
+ * Project: Chess Chase
+ * @author Vivattanachai Sangsa-nga 5831065021, Attawit Chaiyaroj 5831079921
+ */
+
 package application;
 
 
@@ -67,6 +73,12 @@ public class Main extends Application{
 			alert.setContentText("Some of the resources are missing.");
 			alert.showAndWait();
 		}
+	}
+	
+	@Override
+	public void stop()
+	{
+		if(gameScreen.getGameThread() != null) gameScreen.getGameThread().interrupt();
 	}
 	
 	public static void main(String[] args)
