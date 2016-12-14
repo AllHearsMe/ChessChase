@@ -48,6 +48,8 @@ public class GameScreen extends StackPane {
 	private int time;
 	private int delay;
 	private int powerup;
+	
+	private Thread gameThread;
 
 	public GameScreen(Main main) {
 		this.setPrefSize(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
@@ -75,26 +77,46 @@ public class GameScreen extends StackPane {
 		//Initial enemies
 		field.addEnemy(new PawnEnemy(field, player.getX() - 300, player.getX() - 300));
 		field.addEnemy(new PawnEnemy(field, player.getX() + 300, player.getX() + 300));
-
+		
 		AnimationTimer animation = new AnimationTimer() {
-			public void handle(long now) {
-				if (Main.isGameSceneShown()) {
+		public void handle(long now) {
+			if (Main.isGameSceneShown()) {
+				synchronized (field)
+				{
+					paintComponent();
+					field.notify();
+				}
+			}
+		}
+	};
+	
+	gameThread = new Thread(() -> {
+		try
+		{
+			while(!player.isDestroyed())
+			{
+				synchronized(field)
+				{
+					field.wait();
 					if (delay % (Config.NORMAL_TICK_PER_SECOND * 3 * Enemy.getDivider()) == 0) {
 						createEnemy(field);
 					}
-					
 					update();
-					paintComponent();
-					
-					if (player.isDestroyed()) {
-						AudioUtility.playGameOverSound();
-						Platform.runLater(() -> DrawingUtility.fadeScreen(canvas, 1.0, e -> showGameOverAlert()));
-						this.stop();
-					}
 				}
 			}
-		};
-		animation.start();
+			AudioUtility.playGameOverSound();
+			Platform.runLater(() -> DrawingUtility.fadeScreen(canvas, 1.0, e -> showGameOverAlert()));
+			animation.stop();
+		}
+		catch (InterruptedException e)
+		{
+			System.out.println("Thread interrupted");
+		}
+	});
+	
+	gameThread.start();
+	animation.start();
+		
 	}
 
 	public synchronized void paintComponent() {
@@ -209,6 +231,11 @@ public class GameScreen extends StackPane {
 			main.toggleScene();
 			AudioUtility.stopSoundEffect();
 		});
+	}
+
+	public Thread getGameThread()
+	{
+		return gameThread;
 	}
 
 }
